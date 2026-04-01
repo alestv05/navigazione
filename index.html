@@ -541,16 +541,10 @@
         menuOverlayVento.addEventListener('click', closeVentoMenu);
 
         // ---------- CONTENUTI MODULI ----------
-        // Home: completamente vuota, nessun testo/formula
+        // Home: completamente vuota, nessun pannello, nessun testo, nessuna card
         function getModuleHTML(moduleId) {
             const modules = {
-                home: `
-                    <div class="reveal active">
-                        <div class="module-card" style="background: transparent; border: none; box-shadow: none; min-height: 55vh; display: flex; justify-content: center; align-items: center; padding: 1rem;">
-                            <!-- Home completamente pulita, nessun contenuto -->
-                        </div>
-                    </div>
-                `,
+                home: `<div class="reveal active" style="min-height: 0;"></div>`,
                 vento: `
                     <div class="reveal active">
                         <div class="module-card" id="vento-module-card">
