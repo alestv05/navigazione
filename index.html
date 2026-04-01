@@ -106,7 +106,7 @@
             border-radius: 2px;
         }
 
-        /* Menu principale (globale) e menu contestuale (vento) condividono gli stessi stili */
+        /* Menu principale e contestuale */
         .mobile-menu, .mobile-menu-vento {
             position: fixed;
             top: 0;
@@ -224,7 +224,7 @@
             transition: all 0.2s;
         }
 
-        /* card styling per moduli: solo contenitore grafico, senza testo interno */
+        /* Card per i moduli */
         .module-card {
             background: var(--card-bg);
             backdrop-filter: blur(8px);
@@ -235,7 +235,6 @@
             transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
             position: relative;
-            min-height: 200px;
         }
         .module-card:hover {
             transform: translateY(-3px);
@@ -260,6 +259,101 @@
             width: 100px;
             margin: 1rem 0 1.5rem 0;
         }
+
+        /* Stili per il calcolatore */
+        .calculator-form {
+            margin: 20px 0;
+        }
+        .input-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .input-field {
+            flex: 1;
+            min-width: 150px;
+        }
+        .input-field label {
+            display: block;
+            margin-bottom: 8px;
+            font-family: 'Orbitron', monospace;
+            color: var(--accent-cyan);
+            font-size: 0.9rem;
+        }
+        .input-field input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .input-field input:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 8px rgba(0,229,255,0.3);
+        }
+        button.calcola {
+            background: linear-gradient(135deg, var(--accent-cyan), #0099cc);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 40px;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            font-size: 1rem;
+            color: #02050a;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+        }
+        button.calcola:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px var(--accent-cyan);
+        }
+        .results {
+            margin-top: 30px;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+        .result-item {
+            background: rgba(0,0,0,0.4);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--accent-cyan);
+        }
+        .result-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: var(--accent-cyan);
+            margin-bottom: 8px;
+        }
+        .result-formula {
+            font-family: monospace;
+            background: rgba(0,229,255,0.1);
+            padding: 8px;
+            border-radius: 8px;
+            margin: 8px 0;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+        .result-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            margin-top: 6px;
+        }
+        .error-message {
+            background: rgba(255,0,0,0.2);
+            border-left: 4px solid #ff4444;
+            padding: 12px;
+            border-radius: 12px;
+            margin-top: 20px;
+            color: #ff8888;
+        }
         .footer-credits {
             position: relative;
             width: 100%;
@@ -271,49 +365,32 @@
             z-index: 900;
             margin-top: auto;
         }
-
         .footer-credits p {
             color: #888;
             font-size: 0.8rem;
             letter-spacing: 1px;
         }
-
         .footer-credits .developers {
             margin-top: 5px;
             font-size: 0.9rem;
             color: var(--accent-cyan);
             font-family: 'Orbitron', sans-serif;
         }
-
         .footer-credits .developers i {
             margin: 0 8px;
             color: #fff;
             font-size: 0.8rem;
         }
-
         .footer-credits .developers span {
             color: #fff;
             font-weight: 300;
         }
-
         @media (max-width: 768px) {
-            .mobile-menu, .mobile-menu-vento {
-                width: 100%;
-            }
-            .main-container {
-                padding: 120px 5% 80px;
-            }
-            .module-title {
-                font-size: 1.5rem;
-                flex-wrap: wrap;
-            }
-            .footer-credits .developers {
-                font-size: 0.7rem;
-                flex-direction: column;
-                gap: 5px;
-            }
+            .mobile-menu, .mobile-menu-vento { width: 100%; }
+            .main-container { padding: 120px 5% 80px; }
+            .module-title { font-size: 1.5rem; }
+            .input-group { flex-direction: column; gap: 12px; }
         }
-
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -323,18 +400,9 @@
             opacity: 1;
             transform: translateY(0);
         }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-dark);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent-cyan);
-            border-radius: 4px;
-        }
-
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 4px; }
         .menu-overlay, .menu-overlay-vento {
             position: fixed;
             top: 0;
@@ -347,15 +415,16 @@
             visibility: hidden;
             transition: 0.3s;
         }
-
         .menu-overlay.active, .menu-overlay-vento.active {
             opacity: 1;
             visibility: visible;
         }
-
-        /* area dettaglio problemi vento: rimossa completamente (nessun testo) */
         .problem-detail-box {
-            display: none;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 1rem;
+            margin-top: 20px;
+            border: 1px solid rgba(0,229,255,0.2);
         }
     </style>
 </head>
@@ -374,19 +443,13 @@
         </div>
     </nav>
 
-    <!-- Overlay per menu principale -->
     <div class="menu-overlay" id="menu-overlay"></div>
-    <!-- Overlay per menu contestuale vento -->
     <div class="menu-overlay-vento" id="menu-overlay-vento"></div>
 
-    <!-- Menu principale (globale) -->
+    <!-- Menu principale -->
     <div class="mobile-menu" id="mobile-menu">
-        <div class="menu-header">
-            <i class="fas fa-compass"></i> NAVIGAZIONE
-        </div>
-        <button class="close-menu" id="close-menu">
-            <i class="fas fa-times"></i>
-        </button>
+        <div class="menu-header"><i class="fas fa-compass"></i> NAVIGAZIONE</div>
+        <button class="close-menu" id="close-menu"><i class="fas fa-times"></i></button>
         <ul class="mobile-nav-links">
             <li><a href="#" data-page="vento"><i class="fas fa-wind"></i> Problema del Vento</a></li>
             <li><a href="#" data-page="lossodromia"><i class="fas fa-route"></i> Lossodromia</a></li>
@@ -397,14 +460,10 @@
         </ul>
     </div>
 
-    <!-- Menu contestuale per Problema del Vento (identico nello stile) -->
+    <!-- Menu contestuale vento -->
     <div class="mobile-menu-vento" id="mobile-menu-vento">
-        <div class="menu-header">
-            <i class="fas fa-wind"></i> PROBLEMI DEL VENTO
-        </div>
-        <button class="close-menu" id="close-menu-vento">
-            <i class="fas fa-times"></i>
-        </button>
+        <div class="menu-header"><i class="fas fa-wind"></i> PROBLEMI DEL VENTO</div>
+        <button class="close-menu" id="close-menu-vento"><i class="fas fa-times"></i></button>
         <ul class="mobile-nav-links-vento">
             <li><a href="#" data-subproblem="primo"><i class="fas fa-1"></i> Primo Problema</a></li>
             <li><a href="#" data-subproblem="secondo"><i class="fas fa-2"></i> Secondo Problema</a></li>
@@ -414,7 +473,7 @@
     </div>
 
     <main class="main-container" id="main-container">
-        <!-- contenuto dinamico -->
+        <!-- Contenuto dinamico -->
     </main>
 
     <footer class="footer-credits reveal">
@@ -430,13 +489,11 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script>
-        // ---------- GESTIONE MENU PRINCIPALE ----------
+        // ---------- GESTIONE MENU ----------
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuOverlay = document.getElementById('menu-overlay');
         const closeMenuBtn = document.getElementById('close-menu');
-
-        // Menu contestuale vento
         const mobileMenuVento = document.getElementById('mobile-menu-vento');
         const menuOverlayVento = document.getElementById('menu-overlay-vento');
         const closeMenuVentoBtn = document.getElementById('close-menu-vento');
@@ -451,7 +508,6 @@
             bars[1].style.opacity = '0';
             bars[2].style.transform = 'rotate(45deg) translate(-6px, -7px)';
         }
-
         function closeMainMenu() {
             mobileMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
@@ -460,7 +516,6 @@
             bars[1].style.opacity = '1';
             bars[2].style.transform = 'rotate(0) translate(0, 0)';
         }
-
         function openVentoMenu() {
             mobileMenuVento.classList.add('active');
             menuOverlayVento.classList.add('active');
@@ -469,7 +524,6 @@
             bars[1].style.opacity = '0';
             bars[2].style.transform = 'rotate(45deg) translate(-6px, -7px)';
         }
-
         function closeVentoMenu() {
             mobileMenuVento.classList.remove('active');
             menuOverlayVento.classList.remove('active');
@@ -489,112 +543,193 @@
                 else openMainMenu();
             }
         });
-
         closeMenuBtn.addEventListener('click', closeMainMenu);
         menuOverlay.addEventListener('click', closeMainMenu);
         closeMenuVentoBtn.addEventListener('click', closeVentoMenu);
         menuOverlayVento.addEventListener('click', closeVentoMenu);
 
-        // ---------- CONTENUTI MODULI: TUTTI PULITI, NESSUN TESTO, NESSUNA FORMULA ----------
+        // ---------- CONTENUTI MODULI (puliti) ----------
         function getModuleHTML(moduleId) {
-            // home vuota
-            if (moduleId === 'home') {
-                return `<div class="reveal active" style="min-height: 0;"></div>`;
-            }
-            // per ogni strumento: solo card con titolo e divisore (opzionale), ma nessun testo, nessuna formula, nessun pannello
-            // Per "vento" manteniamo il contenitore del dettaglio (vuoto) perché il menu contestuale è ancora presente,
-            // ma non mostrerà mai alcun contenuto (è nascosto via CSS). Non viene visualizzato alcun testo.
+            if (moduleId === 'home') return `<div class="reveal active" style="min-height: 0;"></div>`;
             if (moduleId === 'vento') {
                 return `
                     <div class="reveal active">
                         <div class="module-card" id="vento-module-card">
                             <div class="module-title"><i class="fas fa-wind"></i> Problema del Vento</div>
                             <div class="divider"></div>
-                            <!-- area dettaglio problemi (nascosta e senza contenuto) -->
-                            <div id="problemDetailContainer" class="problem-detail-box" style="display: none;"></div>
+                            <div id="problemDetailContainer" class="problem-detail-box"></div>
                         </div>
                     </div>
                 `;
             }
             if (moduleId === 'lossodromia') {
-                return `
-                    <div class="reveal active">
-                        <div class="module-card">
-                            <div class="module-title"><i class="fas fa-route"></i> Lossodromia</div>
-                            <div class="divider"></div>
-                        </div>
-                    </div>
-                `;
+                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-route"></i> Lossodromia</div><div class="divider"></div></div></div>`;
             }
             if (moduleId === 'ortodromia') {
-                return `
-                    <div class="reveal active">
-                        <div class="module-card">
-                            <div class="module-title"><i class="fas fa-earth-americas"></i> Ortodromia</div>
-                            <div class="divider"></div>
-                        </div>
-                    </div>
-                `;
+                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-earth-americas"></i> Ortodromia</div><div class="divider"></div></div></div>`;
             }
             if (moduleId === 'pnr') {
-                return `
-                    <div class="reveal active">
-                        <div class="module-card">
-                            <div class="module-title"><i class="fas fa-map-location-dot"></i> PNR</div>
-                            <div class="divider"></div>
-                        </div>
-                    </div>
-                `;
+                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-map-location-dot"></i> PNR</div><div class="divider"></div></div></div>`;
             }
             if (moduleId === 'per') {
-                return `
-                    <div class="reveal active">
-                        <div class="module-card">
-                            <div class="module-title"><i class="fas fa-clock-rotate-left"></i> PET</div>
-                            <div class="divider"></div>
-                        </div>
-                    </div>
-                `;
+                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-clock-rotate-left"></i> PET</div><div class="divider"></div></div></div>`;
             }
             if (moduleId === 'intercettamento') {
-                return `
-                    <div class="reveal active">
-                        <div class="module-card">
-                            <div class="module-title"><i class="fas fa-crosshairs"></i> Intercettamento</div>
-                            <div class="divider"></div>
-                        </div>
-                    </div>
-                `;
+                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-crosshairs"></i> Intercettamento</div><div class="divider"></div></div></div>`;
             }
             return `<div class="reveal active" style="min-height: 0;"></div>`;
         }
 
-        // I dettagli dei problemi del vento non vengono più mostrati (nessun contenuto)
-        function showProblemDetail(problemKey) {
-            // non fa nulla – nessun testo, nessuna formula
-            const detailContainer = document.getElementById('problemDetailContainer');
-            if (detailContainer) {
-                detailContainer.style.display = 'none';
-                detailContainer.innerHTML = '';
-            }
+        // ---------- PRIMO PROBLEMA: CALCOLATORE CON FORMULE ----------
+        function showPrimoProblema() {
+            const container = document.getElementById('problemDetailContainer');
+            if (!container) return;
+            container.innerHTML = `
+                <div class="calculator-form">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label>TC (Rotta Vera) <i class="fas fa-arrow-right"></i></label>
+                            <input type="number" id="tc" step="any" placeholder="es. 100" value="">
+                        </div>
+                        <div class="input-field">
+                            <label>TAS (Velocità propria) <i class="fas fa-gauge-high"></i></label>
+                            <input type="number" id="tas" step="any" placeholder="es. 120" value="">
+                        </div>
+                        <div class="input-field">
+                            <label>W (Direzione del vento) <i class="fas fa-wind"></i></label>
+                            <input type="number" id="w" step="any" placeholder="es. 80" value="">
+                        </div>
+                        <div class="input-field">
+                            <label>V (Velocità del vento) <i class="fas fa-gauge-high"></i></label>
+                            <input type="number" id="v" step="any" placeholder="es. 20" value="">
+                        </div>
+                    </div>
+                    <button class="calcola" id="calcolaPrimo">CALCOLA</button>
+                    <div id="risultatiPrimo"></div>
+                </div>
+            `;
+
+            const calcolaBtn = document.getElementById('calcolaPrimo');
+            calcolaBtn.addEventListener('click', () => {
+                const tc = parseFloat(document.getElementById('tc').value);
+                const tas = parseFloat(document.getElementById('tas').value);
+                const w = parseFloat(document.getElementById('w').value);
+                const v = parseFloat(document.getElementById('v').value);
+                if (isNaN(tc) || isNaN(tas) || isNaN(w) || isNaN(v)) {
+                    document.getElementById('risultatiPrimo').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
+                    return;
+                }
+
+                // Calcoli
+                const diff_deg = w - tc;
+                const diff_rad = diff_deg * Math.PI / 180;
+                const xc = v * Math.sin(diff_rad);
+                const lc = -v * Math.cos(diff_rad);
+                const rapporto = xc / tas;
+                if (Math.abs(rapporto) > 1) {
+                    document.getElementById('risultatiPrimo').innerHTML = `<div class="error-message">⚠️ VENTO TROPPO FORTE! Il rapporto xc/TAS supera 1.</div>`;
+                    return;
+                }
+                const wca_rad = Math.asin(rapporto);
+                const wca = wca_rad * 180 / Math.PI;
+                const etas = tas * Math.cos(wca_rad);
+                let th = tc + wca;
+                th = ((th % 360) + 360) % 360;
+                const gs = etas + lc;
+
+                // Funzione per arrotondare a 3 decimali
+                const round3 = (n) => n.toFixed(3);
+
+                // Genera HTML con formule, sostituzioni e risultati
+                const risultatiHtml = `
+                    <div class="results">
+                        <div class="result-item">
+                            <div class="result-name">XC (componente trasversale)</div>
+                            <div class="result-formula">XC = V · sin(W - TC)</div>
+                            <div class="result-formula">XC = ${v} · sin(${w} - ${tc}) = ${v} · sin(${diff_deg}°)</div>
+                            <div class="result-formula">XC = ${v} · ${Math.sin(diff_rad).toFixed(6)} = ${round3(xc)}</div>
+                            <div class="result-value">Risultato: <strong>${round3(xc)}</strong></div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-name">LC (componente longitudinale)</div>
+                            <div class="result-formula">LC = -V · cos(W - TC)</div>
+                            <div class="result-formula">LC = -${v} · cos(${w} - ${tc}) = -${v} · cos(${diff_deg}°)</div>
+                            <div class="result-formula">LC = -${v} · ${Math.cos(diff_rad).toFixed(6)} = ${round3(lc)}</div>
+                            <div class="result-value">Risultato: <strong>${round3(lc)}</strong></div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-name">WCA (angolo di correzione)</div>
+                            <div class="result-formula">WCA = arcsin(XC / TAS)</div>
+                            <div class="result-formula">WCA = arcsin(${round3(xc)} / ${tas}) = arcsin(${rapporto.toFixed(6)})</div>
+                            <div class="result-formula">WCA = ${wca_rad.toFixed(6)} rad → ${round3(wca)}°</div>
+                            <div class="result-value">Risultato: <strong>${round3(wca)}°</strong></div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-name">ETAS (velocità propria effettiva)</div>
+                            <div class="result-formula">ETAS = TAS · cos(WCA)</div>
+                            <div class="result-formula">ETAS = ${tas} · cos(${round3(wca)}°) = ${tas} · ${Math.cos(wca_rad).toFixed(6)}</div>
+                            <div class="result-formula">ETAS = ${round3(etas)}</div>
+                            <div class="result-value">Risultato: <strong>${round3(etas)}</strong></div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-name">TH (rotta vera corretta)</div>
+                            <div class="result-formula">TH = TC + WCA</div>
+                            <div class="result-formula">TH = ${tc} + ${round3(wca)} = ${round3(th)}</div>
+                            <div class="result-value">Risultato: <strong>${round3(th)}°</strong></div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-name">GS (velocità al suolo)</div>
+                            <div class="result-formula">GS = ETAS + LC</div>
+                            <div class="result-formula">GS = ${round3(etas)} + (${round3(lc)}) = ${round3(gs)}</div>
+                            <div class="result-value">Risultato: <strong>${round3(gs)}</strong></div>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('risultatiPrimo').innerHTML = risultatiHtml;
+            });
         }
 
-        // Navigazione tra moduli
+        // Per gli altri problemi (secondo, terzo, quarto) non mostriamo nulla
+        function showEmptyProblem() {
+            const container = document.getElementById('problemDetailContainer');
+            if (container) container.innerHTML = `<div style="text-align:center; padding:20px; color:#888;">Seleziona un problema dal menu</div>`;
+        }
+
+        // Gestione click sottomenu vento
+        function setupVentoSubmenu() {
+            const submenuLinks = document.querySelectorAll('.mobile-nav-links-vento a');
+            submenuLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const problem = link.getAttribute('data-subproblem');
+                    if (problem === 'primo') {
+                        showPrimoProblema();
+                    } else {
+                        showEmptyProblem();
+                    }
+                    closeVentoMenu();
+                });
+            });
+        }
+
+        // Navigazione principale
         function navigateTo(moduleId, addToHistory = true) {
             currentModule = moduleId;
             const container = document.getElementById('main-container');
             if (!container) return;
             container.innerHTML = getModuleHTML(moduleId);
             
-            // Gestione visibilità menu: in vento nascondi menu principale, mostra contestuale; altrimenti viceversa
             if (moduleId === 'vento') {
                 closeMainMenu();
                 mobileMenuVento.style.display = 'block';
                 mobileMenu.style.display = 'none';
-                // nessun dettaglio visualizzato
+                // Inizializza il container vuoto e riattacca i listener
                 setTimeout(() => {
-                    const detail = document.getElementById('problemDetailContainer');
-                    if (detail) detail.style.display = 'none';
+                    const detailDiv = document.getElementById('problemDetailContainer');
+                    if (detailDiv) {
+                        detailDiv.innerHTML = `<div style="text-align:center; padding:20px; color:#888;">Seleziona un problema dal menu</div>`;
+                    }
+                    setupVentoSubmenu();
                 }, 20);
             } else {
                 closeVentoMenu();
@@ -624,6 +759,28 @@
             }
         }
         
+        // Eventi per il menu principale
+        document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageKey = link.getAttribute('data-page');
+                if (pageKey) {
+                    navigateTo(pageKey, true);
+                    closeMainMenu();
+                }
+            });
+        });
+        
+        // Logo -> home
+        const logoHome = document.getElementById('logo-home');
+        if (logoHome) {
+            logoHome.addEventListener('click', () => {
+                navigateTo('home', true);
+                closeMainMenu();
+                closeVentoMenu();
+            });
+        }
+        
         // Popstate
         window.addEventListener('popstate', (event) => {
             let moduleId = 'home';
@@ -636,38 +793,7 @@
             navigateTo(moduleId, false);
         });
         
-        // Click menu principale
-        document.querySelectorAll('.mobile-nav-links a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const pageKey = link.getAttribute('data-page');
-                if (pageKey) {
-                    navigateTo(pageKey, true);
-                    closeMainMenu();
-                }
-            });
-        });
-        
-        // Click menu contestuale vento: non mostrare alcun dettaglio
-        document.querySelectorAll('.mobile-nav-links-vento a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                // non viene mostrato alcun testo, nessuna formula
-                closeVentoMenu();
-            });
-        });
-        
-        // Logo -> home pulita
-        const logoHome = document.getElementById('logo-home');
-        if (logoHome) {
-            logoHome.addEventListener('click', () => {
-                navigateTo('home', true);
-                closeMainMenu();
-                closeVentoMenu();
-            });
-        }
-        
-        // ---- Effetto particelle ----
+        // Particelle
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -704,13 +830,12 @@
         initParticles();
         drawParticles();
         
-        // Observer per footer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('active'));
         }, { threshold: 0.15 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         
-        // Avvio: home pulita, menu principale attivo, contestuale nascosto
+        // Avvio
         mobileMenuVento.style.display = 'none';
         mobileMenu.style.display = 'block';
         const initialParam = new URLSearchParams(window.location.search).get('nav');
