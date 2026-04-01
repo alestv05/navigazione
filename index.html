@@ -515,8 +515,7 @@
     </div>
 
     <main class="main-container" id="main-container">
-        <!-- contenuto dinamico -->
-    </main>
+        </main>
 
     <footer class="footer-credits reveal">
         <p>Sistema di Navigazione Avanzata</p>
@@ -565,22 +564,9 @@
         menuOverlay.addEventListener('click', closeMenu);
 
         // ---------- CONTENUTI MODULI (SENZA DASHBOARD OPERATIVA) ----------
-        // Abbiamo rimosso completamente il modulo "dashboard"
         function getModuleHTML(moduleId) {
             const modules = {
-                home: `
-                    <div class="reveal active">
-                        <div class="module-card">
-                            <div class="module-title">
-                                <i class="fas fa-globe"></i> 
-                                <span>Benvenuto in NavTech</span>
-                            </div>
-                            <div class="divider"></div>
-                            <p style="margin-bottom: 1rem; font-size: 1.1rem;">Sistema di navigazione professionale. Seleziona una voce dal menu principale per accedere agli strumenti di calcolo avanzati.</p>
-                            <div class="info-box"><i class="fas fa-info-circle"></i> Strumenti disponibili: Problema del Vento, Lossodromia, Ortodromia, PNR, PET, Intercettamento.</div>
-                        </div>
-                    </div>
-                `,
+                home: ``, // Completamente vuoto come richiesto
                 vento: `
                     <div class="reveal active">
                         <div class="module-card" id="vento-module-card">
@@ -592,12 +578,9 @@
                                 <div class="info-box"><span class="badge">DERIVA</span> δ = angolo tra rotta vera e traiettoria. <br> <strong>δ = arcsin( Vv * sin(α) / Vp )</strong></div>
                                 <div class="info-box"><span class="badge">VENTO AL TRAVERSO</span> Componente trasversale modifica la rotta per mantenere la rotta desiderata.</div>
                             </div>
-                            <!-- ZONA DOVE APPARE IL SECONDO MENU AD HAMBURGER (dinamico) -->
                             <div class="wind-submenu-area" id="windSubmenuArea"></div>
-                            <!-- Area per visualizzare il dettaglio del problema selezionato -->
                             <div id="problemDetailContainer" class="problem-detail-box" style="display: none;">
-                                <!-- contenuto caricato dinamicamente -->
-                            </div>
+                                </div>
                         </div>
                     </div>
                 `,
