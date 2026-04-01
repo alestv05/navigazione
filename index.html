@@ -315,36 +315,59 @@
         }
         .results {
             margin-top: 30px;
-            border-top: 1px solid var(--border);
-            padding-top: 20px;
         }
-        .result-item {
-            background: rgba(0,0,0,0.4);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 16px;
-            border-left: 4px solid var(--accent-cyan);
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        .result-card {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            padding: 18px;
+            border: 1px solid rgba(0,229,255,0.2);
+            transition: 0.2s;
+        }
+        .result-card:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 20, 30, 0.7);
         }
         .result-name {
             font-family: 'Orbitron', monospace;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--accent-cyan);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            border-left: 3px solid var(--accent-cyan);
+            padding-left: 12px;
         }
         .result-formula {
             font-family: monospace;
             background: rgba(0,229,255,0.1);
+            padding: 10px;
+            border-radius: 12px;
+            margin: 10px 0;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .result-substitution {
+            font-family: monospace;
+            background: rgba(0,0,0,0.3);
             padding: 8px;
             border-radius: 8px;
             margin: 8px 0;
-            font-size: 0.9rem;
-            overflow-x: auto;
+            font-size: 0.85rem;
+            color: #ccc;
         }
         .result-value {
             font-size: 1.2rem;
             font-weight: bold;
             color: #fff;
-            margin-top: 6px;
+            margin-top: 12px;
+            text-align: right;
+            border-top: 1px dashed rgba(0,229,255,0.3);
+            padding-top: 10px;
         }
         .error-message {
             background: rgba(255,0,0,0.2);
@@ -390,6 +413,7 @@
             .main-container { padding: 120px 5% 80px; }
             .module-title { font-size: 1.5rem; }
             .input-group { flex-direction: column; gap: 12px; }
+            .results-grid { grid-template-columns: 1fr; }
         }
         .reveal {
             opacity: 0;
@@ -589,19 +613,19 @@
                     <div class="input-group">
                         <div class="input-field">
                             <label>TC (Rotta Vera) <i class="fas fa-arrow-right"></i></label>
-                            <input type="number" id="tc" step="any" placeholder="es. 100" value="">
+                            <input type="number" id="tc" step="any" placeholder="">
                         </div>
                         <div class="input-field">
                             <label>TAS (Velocità propria) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="tas" step="any" placeholder="es. 120" value="">
+                            <input type="number" id="tas" step="any" placeholder="">
                         </div>
                         <div class="input-field">
                             <label>W (Direzione del vento) <i class="fas fa-wind"></i></label>
-                            <input type="number" id="w" step="any" placeholder="es. 80" value="">
+                            <input type="number" id="w" step="any" placeholder="">
                         </div>
                         <div class="input-field">
                             <label>V (Velocità del vento) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="v" step="any" placeholder="es. 20" value="">
+                            <input type="number" id="v" step="any" placeholder="">
                         </div>
                     </div>
                     <button class="calcola" id="calcolaPrimo">CALCOLA</button>
@@ -640,48 +664,49 @@
                 // Funzione per arrotondare a 3 decimali
                 const round3 = (n) => n.toFixed(3);
 
-                // Genera HTML con formule, sostituzioni e risultati
+                // Genera HTML con griglia di card
                 const risultatiHtml = `
                     <div class="results">
-                        <div class="result-item">
-                            <div class="result-name">XC (componente trasversale)</div>
-                            <div class="result-formula">XC = V · sin(W - TC)</div>
-                            <div class="result-formula">XC = ${v} · sin(${w} - ${tc}) = ${v} · sin(${diff_deg}°)</div>
-                            <div class="result-formula">XC = ${v} · ${Math.sin(diff_rad).toFixed(6)} = ${round3(xc)}</div>
-                            <div class="result-value">Risultato: <strong>${round3(xc)}</strong></div>
-                        </div>
-                        <div class="result-item">
-                            <div class="result-name">LC (componente longitudinale)</div>
-                            <div class="result-formula">LC = -V · cos(W - TC)</div>
-                            <div class="result-formula">LC = -${v} · cos(${w} - ${tc}) = -${v} · cos(${diff_deg}°)</div>
-                            <div class="result-formula">LC = -${v} · ${Math.cos(diff_rad).toFixed(6)} = ${round3(lc)}</div>
-                            <div class="result-value">Risultato: <strong>${round3(lc)}</strong></div>
-                        </div>
-                        <div class="result-item">
-                            <div class="result-name">WCA (angolo di correzione)</div>
-                            <div class="result-formula">WCA = arcsin(XC / TAS)</div>
-                            <div class="result-formula">WCA = arcsin(${round3(xc)} / ${tas}) = arcsin(${rapporto.toFixed(6)})</div>
-                            <div class="result-formula">WCA = ${wca_rad.toFixed(6)} rad → ${round3(wca)}°</div>
-                            <div class="result-value">Risultato: <strong>${round3(wca)}°</strong></div>
-                        </div>
-                        <div class="result-item">
-                            <div class="result-name">ETAS (velocità propria effettiva)</div>
-                            <div class="result-formula">ETAS = TAS · cos(WCA)</div>
-                            <div class="result-formula">ETAS = ${tas} · cos(${round3(wca)}°) = ${tas} · ${Math.cos(wca_rad).toFixed(6)}</div>
-                            <div class="result-formula">ETAS = ${round3(etas)}</div>
-                            <div class="result-value">Risultato: <strong>${round3(etas)}</strong></div>
-                        </div>
-                        <div class="result-item">
-                            <div class="result-name">TH (rotta vera corretta)</div>
-                            <div class="result-formula">TH = TC + WCA</div>
-                            <div class="result-formula">TH = ${tc} + ${round3(wca)} = ${round3(th)}</div>
-                            <div class="result-value">Risultato: <strong>${round3(th)}°</strong></div>
-                        </div>
-                        <div class="result-item">
-                            <div class="result-name">GS (velocità al suolo)</div>
-                            <div class="result-formula">GS = ETAS + LC</div>
-                            <div class="result-formula">GS = ${round3(etas)} + (${round3(lc)}) = ${round3(gs)}</div>
-                            <div class="result-value">Risultato: <strong>${round3(gs)}</strong></div>
+                        <div class="results-grid">
+                            <div class="result-card">
+                                <div class="result-name">XC <span style="font-size:0.9rem;">(componente trasversale)</span></div>
+                                <div class="result-formula">XC = V · sin(W - TC)</div>
+                                <div class="result-substitution">XC = ${v} · sin(${w} - ${tc}) = ${v} · sin(${diff_deg}°)</div>
+                                <div class="result-substitution">sin(${diff_deg}°) = ${Math.sin(diff_rad).toFixed(6)}</div>
+                                <div class="result-value">${round3(xc)}</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">LC <span style="font-size:0.9rem;">(componente longitudinale)</span></div>
+                                <div class="result-formula">LC = -V · cos(W - TC)</div>
+                                <div class="result-substitution">LC = -${v} · cos(${w} - ${tc}) = -${v} · cos(${diff_deg}°)</div>
+                                <div class="result-substitution">cos(${diff_deg}°) = ${Math.cos(diff_rad).toFixed(6)}</div>
+                                <div class="result-value">${round3(lc)}</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">WCA <span style="font-size:0.9rem;">(angolo di correzione)</span></div>
+                                <div class="result-formula">WCA = arcsin(XC / TAS)</div>
+                                <div class="result-substitution">WCA = arcsin(${round3(xc)} / ${tas}) = arcsin(${rapporto.toFixed(6)})</div>
+                                <div class="result-substitution">arcsin(${rapporto.toFixed(6)}) = ${wca_rad.toFixed(6)} rad</div>
+                                <div class="result-value">${round3(wca)}°</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">ETAS <span style="font-size:0.9rem;">(velocità propria effettiva)</span></div>
+                                <div class="result-formula">ETAS = TAS · cos(WCA)</div>
+                                <div class="result-substitution">ETAS = ${tas} · cos(${round3(wca)}°) = ${tas} · ${Math.cos(wca_rad).toFixed(6)}</div>
+                                <div class="result-value">${round3(etas)}</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">TH <span style="font-size:0.9rem;">(rotta vera corretta)</span></div>
+                                <div class="result-formula">TH = TC + WCA</div>
+                                <div class="result-substitution">TH = ${tc} + ${round3(wca)} = ${round3(th)}</div>
+                                <div class="result-value">${round3(th)}°</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">GS <span style="font-size:0.9rem;">(velocità al suolo)</span></div>
+                                <div class="result-formula">GS = ETAS + LC</div>
+                                <div class="result-substitution">GS = ${round3(etas)} + (${round3(lc)}) = ${round3(gs)}</div>
+                                <div class="result-value">${round3(gs)}</div>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -723,7 +748,6 @@
                 closeMainMenu();
                 mobileMenuVento.style.display = 'block';
                 mobileMenu.style.display = 'none';
-                // Inizializza il container vuoto e riattacca i listener
                 setTimeout(() => {
                     const detailDiv = document.getElementById('problemDetailContainer');
                     if (detailDiv) {
