@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Sito in costruzione</title>
+    <title>NavTech | Navigazione Professionale</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -531,7 +531,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script>
-        // ---------- GESTIONE MENU PRINCIPALE HAMBURGER ----------
+        // GESTIONE MENU PRINCIPALE HAMBURGER
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuOverlay = document.getElementById('menu-overlay');
@@ -564,20 +564,14 @@
         closeMenuBtn.addEventListener('click', closeMenu);
         menuOverlay.addEventListener('click', closeMenu);
 
-        // ---------- CONTENUTI MODULI (SENZA DASHBOARD OPERATIVA) ----------
-        // Abbiamo rimosso completamente il modulo "dashboard"
+        // CONTENUTI MODULI (HOME COMPLETAMENTE PULITA, NESSUN TESTO O FORMULA)
         function getModuleHTML(moduleId) {
             const modules = {
+                // HOME: senza alcun pannello di benvenuto, senza formule, senza scritte
                 home: `
                     <div class="reveal active">
-                        <div class="module-card">
-                            <div class="module-title">
-                                <i class="fas fa-globe"></i> 
-                                <span>Benvenuto in NavTech</span>
-                            </div>
-                            <div class="divider"></div>
-                            <p style="margin-bottom: 1rem; font-size: 1.1rem;">Sistema di navigazione professionale. Seleziona una voce dal menu principale per accedere agli strumenti di calcolo avanzati.</p>
-                            <div class="info-box"><i class="fas fa-info-circle"></i> Strumenti disponibili: Problema del Vento, Lossodromia, Ortodromia, PNR, PET, Intercettamento.</div>
+                        <div class="module-card" style="background: transparent; border: none; box-shadow: none; min-height: 55vh; display: flex; justify-content: center; align-items: center; padding: 1rem;">
+                            <!-- nessuna formula, nessun testo, nessun benvenuto, nessuna scritta -->
                         </div>
                     </div>
                 `,
@@ -592,12 +586,8 @@
                                 <div class="info-box"><span class="badge">DERIVA</span> δ = angolo tra rotta vera e traiettoria. <br> <strong>δ = arcsin( Vv * sin(α) / Vp )</strong></div>
                                 <div class="info-box"><span class="badge">VENTO AL TRAVERSO</span> Componente trasversale modifica la rotta per mantenere la rotta desiderata.</div>
                             </div>
-                            <!-- ZONA DOVE APPARE IL SECONDO MENU AD HAMBURGER (dinamico) -->
                             <div class="wind-submenu-area" id="windSubmenuArea"></div>
-                            <!-- Area per visualizzare il dettaglio del problema selezionato -->
-                            <div id="problemDetailContainer" class="problem-detail-box" style="display: none;">
-                                <!-- contenuto caricato dinamicamente -->
-                            </div>
+                            <div id="problemDetailContainer" class="problem-detail-box" style="display: none;"></div>
                         </div>
                     </div>
                 `,
@@ -663,18 +653,15 @@
             return modules[moduleId] || modules.home;
         }
 
-        // Funzione per costruire il SECONDO MENU AD HAMBURGER all'interno del Problema del Vento
+        // COSTRUISCE IL SECONDO MENU HAMBURGER (PROBLEMA DEL VENTO)
         function buildSecondHamburgerMenu() {
             const submenuArea = document.getElementById('windSubmenuArea');
             if (!submenuArea) return;
-            // Pulisco area per evitare duplicati
             submenuArea.innerHTML = '';
             
-            // Wrapper per hamburger + panel
             const wrapper = document.createElement('div');
             wrapper.className = 'second-hamburger-wrapper';
             
-            // Bottone hamburger secondario
             const hamburgerSub = document.createElement('div');
             hamburgerSub.className = 'hamburger-sub';
             hamburgerSub.id = 'hamburgerSubBtn';
@@ -684,12 +671,10 @@
                 hamburgerSub.appendChild(bar);
             }
             
-            // Panel che conterrà i 4 problemi
             const panel = document.createElement('div');
             panel.className = 'submenu-panel';
             panel.id = 'submenuPanel';
             
-            // Lista problemi: Primo, Secondo, Terzo, Quarto Problema
             const problemi = [
                 { id: 'primo', nome: 'Primo Problema', icona: 'fa-1', desc: 'Analisi del vento al traverso: calcolo della componente trasversale e correzione della rotta per mantenere la traccia desiderata. La correzione angolare si ottiene con la formula: Δθ = arctan( Vw_transversale / Vp ).' },
                 { id: 'secondo', nome: 'Secondo Problema', icona: 'fa-2', desc: 'Calcolo della deriva massima e minima in funzione della direzione del vento. La deriva massima si ha quando il vento è al traverso, con valore δ_max = arcsin(Vv / Vp).' },
@@ -704,7 +689,6 @@
                 item.innerHTML = `<i class="fas ${prob.icona}"></i> ${prob.nome}`;
                 item.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    // Mostra dettaglio nel container
                     const detailContainer = document.getElementById('problemDetailContainer');
                     if (detailContainer) {
                         detailContainer.style.display = 'block';
@@ -714,7 +698,6 @@
                             <div class="formula" style="margin-top:15px;">📘 Approfondimento: ${prob.nome === 'Primo Problema' ? 'La correzione angolare per vento al traverso si applica con tecnica del triangolo delle velocità.' : prob.nome === 'Secondo Problema' ? 'Valori tipici: con Vv/Vp = 0.3, deriva max ≈ 17.5°.' : prob.nome === 'Terzo Problema' ? 'Esempio: Vp=120kt, Vv=25kt, Vs=145kt (vento in coda) o 95kt (contrario).' : 'Pianificare il PNR considerando vento reale e previsioni.'}</div>
                         `;
                     }
-                    // Chiudi il panel dopo selezione
                     panel.classList.remove('open');
                 });
                 panel.appendChild(item);
@@ -724,7 +707,6 @@
             wrapper.appendChild(panel);
             submenuArea.appendChild(wrapper);
             
-            // Toggle apertura/chiusura panel
             const btn = document.getElementById('hamburgerSubBtn');
             const panelEl = document.getElementById('submenuPanel');
             if (btn && panelEl) {
@@ -732,7 +714,6 @@
                     e.stopPropagation();
                     panelEl.classList.toggle('open');
                 });
-                // Chiudi se clicchi fuori (document)
                 document.addEventListener('click', function closeSub(e) {
                     if (!wrapper.contains(e.target) && panelEl.classList.contains('open')) {
                         panelEl.classList.remove('open');
@@ -740,7 +721,6 @@
                 });
             }
             
-            // Mostra di default il primo problema nel dettaglio (opzionale)
             const detailContainer = document.getElementById('problemDetailContainer');
             if (detailContainer && problemi.length) {
                 detailContainer.style.display = 'block';
@@ -752,34 +732,26 @@
             }
         }
         
-        // Navigazione interna (single page)
+        // NAVIGAZIONE SINGLE PAGE
         function navigateTo(moduleId, addToHistory = true) {
             const container = document.getElementById('main-container');
             if (!container) return;
             container.innerHTML = getModuleHTML(moduleId);
             
-            // Riavvia gli effetti reveal
             const reveals = container.querySelectorAll('.reveal');
             reveals.forEach(el => el.classList.add('active'));
             
-            // Se il modulo attuale è "vento" costruisco il secondo menu hamburger con i 4 problemi
             if (moduleId === 'vento') {
-                // Attendo che il DOM sia pronto per gli elementi
                 setTimeout(() => {
                     buildSecondHamburgerMenu();
                 }, 20);
-            } else {
-                // Se cambio modulo, eventuali residui non servono (il DOM verrà ricreato)
-                // non c'è bisogno di pulire perché il contenuto viene sovrascritto.
             }
             
-            // Chiudi il menu principale dopo selezione
             closeMenu();
             
-            // Titolo dinamico
             const titles = {
-                home: 'NavTech - Benvenuto',
-                vento: 'Problema del Vento - Submenu Attivo',
+                home: 'NavTech | Navigazione',
+                vento: 'Problema del Vento - NavTech',
                 lossodromia: 'Lossodromia - NavTech',
                 ortodromia: 'Ortodromia - NavTech',
                 pnr: 'PNR - Point of No Return',
@@ -796,7 +768,7 @@
             }
         }
         
-        // Gestione popstate (tasto indietro/avanti)
+        // GESTIONE POPSTATE (indietro/avanti)
         window.addEventListener('popstate', (event) => {
             let moduleId = 'home';
             if (event.state && event.state.module) {
@@ -815,7 +787,7 @@
                 }
             }
             const titles = {
-                home: 'NavTech - Navigazione',
+                home: 'NavTech | Navigazione',
                 vento: 'Problema del Vento',
                 lossodromia: 'Lossodromia',
                 ortodromia: 'Ortodromia',
@@ -826,7 +798,7 @@
             document.title = titles[moduleId] || 'NavTech';
         });
         
-        // Gestione click sui link del menu principale
+        // CLICK LINK MENU PRINCIPALE
         document.querySelectorAll('.mobile-nav-links a').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -837,7 +809,7 @@
             });
         });
         
-        // Logo -> torna alla home (nessuna dashboard)
+        // LOGO -> HOME PULITA (nessun benvenuto)
         const logoHome = document.getElementById('logo-home');
         if (logoHome) {
             logoHome.addEventListener('click', () => {
@@ -845,7 +817,7 @@
             });
         }
         
-        // ---- Effetto particelle (CG) ----
+        // PARTICOLI EFFETTO SFONDO
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -882,13 +854,13 @@
         initParticles();
         drawParticles();
         
-        // IntersectionObserver per footer
+        // OBSERVER PER FOOTER
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('active'));
         }, { threshold: 0.15 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         
-        // Avvio: nessuna dashboard operativa, mostriamo home pulita
+        // AVVIO: HOME COMPLETAMENTE PULITA, NESSUN TESTO, NESSUNA FORMULA, NESSUN PANNELLO BENVENUTO
         const initialParam = new URLSearchParams(window.location.search).get('nav');
         if (initialParam && ['vento','lossodromia','ortodromia','pnr','per','intercettamento'].includes(initialParam)) {
             navigateTo(initialParam, false);
