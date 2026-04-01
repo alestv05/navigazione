@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NavTech — Sito in costruzione</title>
+    <title>NavTech — Sistema di Navigazione Avanzata</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -377,57 +377,75 @@
 
         .hero {
             text-align: center;
-            max-width: 760px;
+            max-width: 680px;
             width: 100%;
         }
 
-        /* Heading principale: solo la scritta richiesta */
-        .hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2rem, 7vw, 4.8rem);
-            font-weight: 900;
-            letter-spacing: 2px;
-            line-height: 1.1;
-            margin-bottom: 28px;
-            animation: fadeUp 0.8s ease both;
+        /* Eyebrow */
+        .hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(0,229,255,0.06);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 6px 18px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.62rem; letter-spacing: 2px;
+            color: rgba(0,229,255,0.8); text-transform: uppercase;
+            margin-bottom: 36px;
+            animation: fadeUp 0.7s ease both;
         }
 
-        .main-message {
+        /* Heading */
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.2rem, 6vw, 4.2rem);
+            font-weight: 900;
+            letter-spacing: 1px;
+            line-height: 1.08;
+            margin-bottom: 10px;
+            animation: fadeUp 0.7s 0.12s ease both;
+        }
+
+        .h1-main {
             display: block;
-            background: linear-gradient(145deg, #ffffff 0%, #b0e0ff 45%, var(--cyan) 100%);
+            background: linear-gradient(140deg, #ffffff 0%, #b8d4f0 55%, var(--cyan) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 18px rgba(0,229,255,0.3);
         }
 
-        /* Divider elegante */
+        .h1-version {
+            display: block;
+            font-size: 0.32em; font-weight: 400;
+            letter-spacing: 7px; text-transform: uppercase;
+            color: var(--muted);
+            -webkit-text-fill-color: var(--muted);
+            margin-top: 14px;
+        }
+
+        /* Divider */
         .hero-rule {
-            width: 80px;
-            height: 2px;
+            width: 64px; height: 1px;
             background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-            margin: 16px auto 32px;
-            animation: fadeUp 0.8s 0.15s ease both;
+            margin: 28px auto;
+            animation: fadeUp 0.7s 0.24s ease both;
         }
 
-        /* Sottotitolo opzionale minimale (non invasivo) */
-        .hero-subtle {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            color: rgba(90, 106, 128, 0.7);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 48px;
-            animation: fadeUp 0.8s 0.25s ease both;
+        /* Subtitle */
+        .hero-sub {
+            font-size: 0.95rem; line-height: 1.75;
+            color: var(--muted); max-width: 440px;
+            margin: 0 auto 40px;
+            animation: fadeUp 0.7s 0.36s ease both;
         }
 
-        /* Module grid (invariato, solo estetica) */
+        /* Module grid */
         .mod-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            margin-bottom: 40px;
-            animation: fadeUp 0.8s 0.4s ease both;
+            margin-bottom: 36px;
+            animation: fadeUp 0.7s 0.48s ease both;
         }
 
         .mod-card {
@@ -476,7 +494,7 @@
         .cta-row {
             display: flex; align-items: center;
             justify-content: center; gap: 14px;
-            animation: fadeUp 0.8s 0.55s ease both;
+            animation: fadeUp 0.7s 0.6s ease both;
         }
 
         .btn-primary {
@@ -550,7 +568,7 @@
            ANIMATIONS
         ============================================================ */
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(28px); }
+            from { opacity: 0; transform: translateY(20px); }
             to   { opacity: 1; transform: translateY(0); }
         }
 
@@ -561,7 +579,7 @@
             :root { --nav-h: 64px; --foot-h: 60px; }
             .status-pill { display: none; }
             .mod-grid { grid-template-columns: repeat(2, 1fr); }
-            .hero h1 { font-size: clamp(1.9rem, 9vw, 3.2rem); letter-spacing: 1px; }
+            .hero h1 { font-size: clamp(1.9rem, 9vw, 2.8rem); }
             .cta-row { flex-direction: column; gap: 10px; }
             .foot-pipe, .foot-sys { display: none; }
         }
@@ -684,20 +702,27 @@
         </div>
     </div>
 
-    <!-- ===== MAIN: SOLO LA SCRITTA RICHIESTA IN EVIDENZA ===== -->
+    <!-- ===== MAIN ===== -->
     <main>
         <div class="hero">
-            <!-- La scritta principale unica: Sito in costruzione by Body Frocio -->
-            <h1>
-                <span class="main-message">Sito in costruzione by Body Frocio</span>
-            </h1>
-            <div class="hero-rule"></div>
-            <!-- Piccola didascalia non invasiva (non richiesta, ma mantiene contesto senza ripetere il vecchio titolo) -->
-            <div class="hero-subtle">
-                <i class="fas fa-tools"></i> &nbsp; Piattaforma in aggiornamento
+
+            <div class="hero-eyebrow">
+                <i class="fas fa-satellite-dish"></i>
+                Sistema di Navigazione Aerea
             </div>
 
-            <!-- Quick access modules rimangono attivi -->
+            <h1>
+                <span class="h1-main">Sito in costruzione</span>
+                <span class="h1-version">NavTech &nbsp;·&nbsp; v3.5</span>
+            </h1>
+
+            <div class="hero-rule"></div>
+
+            <p class="hero-sub">
+                Il sistema integrato per il calcolo di rotte aeree, parametri di navigazione e soluzioni al volo. I moduli saranno disponibili a breve.
+            </p>
+
+            <!-- Module quick-access grid -->
             <div class="mod-grid">
                 <div class="mod-card" data-page="vento">
                     <i class="fas fa-wind"></i>
@@ -735,6 +760,7 @@
                     Info
                 </a>
             </div>
+
         </div>
     </main>
 
@@ -790,12 +816,13 @@
     menuOverlay.addEventListener('click', closeMenu);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
+    // Nav scroll effect
     window.addEventListener('scroll', () => {
         document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10);
     }, { passive: true });
 
     // ================================================================
-    //  MODULE PAGES (invariato)
+    //  MODULE PAGES
     // ================================================================
     const pageTitles = {
         vento:           'Problema del Vento',
@@ -956,6 +983,7 @@
             </div>`;
     }
 
+    // Sidebar links
     document.querySelectorAll('.mobile-nav-links a').forEach(a => {
         a.addEventListener('click', e => {
             e.preventDefault();
@@ -964,6 +992,7 @@
         });
     });
 
+    // Module cards on hero
     document.querySelectorAll('.mod-card').forEach(card => {
         card.addEventListener('click', () => openModule(card.getAttribute('data-page')));
     });
@@ -990,6 +1019,8 @@
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Connection lines
         for (let i = 0; i < pts.length; i++) {
             for (let j = i + 1; j < pts.length; j++) {
                 const dx = pts[i].x - pts[j].x;
@@ -1005,6 +1036,8 @@
                 }
             }
         }
+
+        // Dots
         pts.forEach(p => {
             p.x += p.vx; p.y += p.vy;
             if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
@@ -1014,6 +1047,7 @@
             ctx.fillStyle = `rgba(0,229,255,${p.a})`;
             ctx.fill();
         });
+
         requestAnimationFrame(draw);
     }
 
