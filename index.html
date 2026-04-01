@@ -919,7 +919,6 @@
                     return;
                 }
 
-                // Calcoli
                 const wca = th - tc;
                 const wca_rad = wca * Math.PI / 180;
                 const xc = tas * Math.sin(wca_rad);
@@ -927,10 +926,9 @@
                 const lc = gs - etas;
                 const v = Math.sqrt(xc * xc + lc * lc);
                 
-                // Calcolo direzione del vento (W)
                 let w;
                 if (Math.abs(v) < 1e-6) {
-                    w = 0; // vento nullo
+                    w = 0;
                 } else {
                     const segno = xc > 0 ? -1 : 1;
                     const asin_val = Math.asin(lc / v) * 180 / Math.PI;
@@ -950,38 +948,38 @@
                     <div class="results">
                         <div class="results-grid">
                             <div class="result-card">
-                                <div class="result-name">WCA (angolo di correzione)</div>
+                                <div class="result-name">WCA</div>
                                 <div class="detail-formula">WCA = TH - TC</div>
                                 <div class="detail-substitution">WCA = ${th} - ${tc} = ${wca}</div>
                                 <div class="detail-value">${round3(wca)}°</div>
                             </div>
                             <div class="result-card">
-                                <div class="result-name">XC (componente trasversale)</div>
+                                <div class="result-name">XC</div>
                                 <div class="detail-formula">XC = TAS · sin(WCA)</div>
                                 <div class="detail-substitution">XC = ${tas} · sin(${round3(wca)}°) = ${tas} · ${Math.sin(wca_rad).toFixed(6)}</div>
                                 <div class="detail-value">${round3(xc)}</div>
                             </div>
                             <div class="result-card">
-                                <div class="result-name">ETAS (velocità propria effettiva)</div>
+                                <div class="result-name">ETAS</div>
                                 <div class="detail-formula">ETAS = TAS · cos(WCA)</div>
                                 <div class="detail-substitution">ETAS = ${tas} · cos(${round3(wca)}°) = ${tas} · ${Math.cos(wca_rad).toFixed(6)}</div>
                                 <div class="detail-value">${round3(etas)}</div>
                             </div>
                             <div class="result-card">
-                                <div class="result-name">LC (componente longitudinale)</div>
+                                <div class="result-name">LC</div>
                                 <div class="detail-formula">LC = GS - ETAS</div>
                                 <div class="detail-substitution">LC = ${gs} - ${round3(etas)} = ${round3(lc)}</div>
                                 <div class="detail-value">${round3(lc)}</div>
                             </div>
                             <div class="result-card">
-                                <div class="result-name">V (velocità del vento)</div>
+                                <div class="result-name">V (vento)</div>
                                 <div class="detail-formula">V = √(XC² + LC²)</div>
                                 <div class="detail-substitution">V = √(${round3(xc)}² + ${round3(lc)}²) = √(${(xc*xc).toFixed(6)} + ${(lc*lc).toFixed(6)})</div>
                                 <div class="detail-value">${round3(v)}</div>
                             </div>
                             <div class="result-card">
-                                <div class="result-name">W (direzione del vento)</div>
-                                <div class="detail-formula">W = calcolo vettoriale (algoritmo standard)</div>
+                                <div class="result-name">W (direzione vento)</div>
+                                <div class="detail-formula">W = calcolo vettoriale</div>
                                 <div class="detail-substitution">W = ${round3(w)}°</div>
                                 <div class="detail-value">${round3(w)}°</div>
                             </div>
@@ -989,6 +987,114 @@
                     </div>
                 `;
                 document.getElementById('risultatiTerzo').innerHTML = risultatiHtml;
+            });
+        }
+
+        // ---------- QUARTO PROBLEMA ----------
+        function showQuartoProblema() {
+            const container = document.getElementById('problemDetailContainer');
+            if (!container) return;
+            container.innerHTML = `
+                <div class="calculator-form">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label>TC (Traccia) <i class="fas fa-map"></i></label>
+                            <input type="number" id="tc4" step="any" placeholder="">
+                        </div>
+                        <div class="input-field">
+                            <label>GS (Velocità al suolo) <i class="fas fa-gauge-high"></i></label>
+                            <input type="number" id="gs4" step="any" placeholder="">
+                        </div>
+                        <div class="input-field">
+                            <label>W (Direzione del vento) <i class="fas fa-wind"></i></label>
+                            <input type="number" id="w4" step="any" placeholder="">
+                        </div>
+                        <div class="input-field">
+                            <label>V (Velocità del vento) <i class="fas fa-gauge-high"></i></label>
+                            <input type="number" id="v4" step="any" placeholder="">
+                        </div>
+                    </div>
+                    <button class="calcola" id="calcolaQuarto">CALCOLA</button>
+                    <div id="risultatiQuarto"></div>
+                </div>
+            `;
+
+            const calcolaBtn = document.getElementById('calcolaQuarto');
+            calcolaBtn.addEventListener('click', () => {
+                const tc = parseFloat(document.getElementById('tc4').value);
+                const gs = parseFloat(document.getElementById('gs4').value);
+                const w = parseFloat(document.getElementById('w4').value);
+                const v = parseFloat(document.getElementById('v4').value);
+                if (isNaN(tc) || isNaN(gs) || isNaN(w) || isNaN(v)) {
+                    document.getElementById('risultatiQuarto').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
+                    return;
+                }
+
+                const diff_deg = w - tc;
+                const diff_rad = diff_deg * Math.PI / 180;
+                const xc = v * Math.sin(diff_rad);
+                const lc = -v * Math.cos(diff_rad);
+                const etas = gs - lc;
+                
+                if (Math.abs(etas) < 1e-6) {
+                    document.getElementById('risultatiQuarto').innerHTML = `<div class="error-message">⚠️ Errore: ETAS prossimo a zero (divisione per zero).</div>`;
+                    return;
+                }
+                
+                const wca_rad = Math.atan(xc / etas);
+                const wca = wca_rad * 180 / Math.PI;
+                let th = tc + wca;
+                th = ((th % 360) + 360) % 360;
+                const tas = etas / Math.cos(wca_rad);
+                
+                const round3 = (n) => n.toFixed(3);
+                
+                const risultatiHtml = `
+                    <div class="results">
+                        <div class="results-grid">
+                            <div class="result-card">
+                                <div class="result-name">XC</div>
+                                <div class="detail-formula">XC = V · sin(W - TC)</div>
+                                <div class="detail-substitution">XC = ${v} · sin(${w} - ${tc}) = ${v} · sin(${diff_deg}°)</div>
+                                <div class="detail-substitution">sin(${diff_deg}°) = ${Math.sin(diff_rad).toFixed(6)}</div>
+                                <div class="detail-value">${round3(xc)}</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">LC</div>
+                                <div class="detail-formula">LC = -V · cos(W - TC)</div>
+                                <div class="detail-substitution">LC = -${v} · cos(${w} - ${tc}) = -${v} · cos(${diff_deg}°)</div>
+                                <div class="detail-substitution">cos(${diff_deg}°) = ${Math.cos(diff_rad).toFixed(6)}</div>
+                                <div class="detail-value">${round3(lc)}</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">ETAS</div>
+                                <div class="detail-formula">ETAS = GS - LC</div>
+                                <div class="detail-substitution">ETAS = ${gs} - (${round3(lc)}) = ${round3(etas)}</div>
+                                <div class="detail-value">${round3(etas)}</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">WCA</div>
+                                <div class="detail-formula">WCA = arctan(XC / ETAS)</div>
+                                <div class="detail-substitution">WCA = arctan(${round3(xc)} / ${round3(etas)}) = arctan(${(xc/etas).toFixed(6)})</div>
+                                <div class="detail-substitution">arctan = ${wca_rad.toFixed(6)} rad</div>
+                                <div class="detail-value">${round3(wca)}°</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">TH</div>
+                                <div class="detail-formula">TH = TC + WCA</div>
+                                <div class="detail-substitution">TH = ${tc} + ${round3(wca)} = ${round3(th)}</div>
+                                <div class="detail-value">${round3(th)}°</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">TAS</div>
+                                <div class="detail-formula">TAS = ETAS / cos(WCA)</div>
+                                <div class="detail-substitution">TAS = ${round3(etas)} / cos(${round3(wca)}°) = ${round3(etas)} / ${Math.cos(wca_rad).toFixed(6)}</div>
+                                <div class="detail-value">${round3(tas)}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('risultatiQuarto').innerHTML = risultatiHtml;
             });
         }
 
@@ -1011,6 +1117,8 @@
                         showSecondoProblema();
                     } else if (problem === 'terzo') {
                         showTerzoProblema();
+                    } else if (problem === 'quarto') {
+                        showQuartoProblema();
                     } else {
                         showEmptyProblem();
                     }
