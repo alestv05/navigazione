@@ -209,38 +209,14 @@
 
         .main-container {
             flex: 1;
-            padding: 140px 8% 100px; /* padding-bottom per evitare sovrapposizione con footer fisso */
+            padding: 140px 8% 100px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             min-height: 100vh;
         }
 
-        .hero-header {
-            text-align: center;
-        }
-
-        .hero-header h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #fff, var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-header h1 span {
-            color: var(--accent-cyan);
-            font-size: 1rem;
-            background: none;
-            -webkit-text-fill-color: var(--accent-cyan);
-        }
-
-        .hero-header p {
-            color: #aaa;
-            font-size: 1rem;
-        }
-
+        /* Rimossa la sezione hero-header con le scritte indesiderate */
         .footer-credits {
             position: fixed;
             bottom: 0;
@@ -365,17 +341,14 @@
             <li><a href="#" data-page="lossodromia"><i class="fas fa-route"></i> Lossodromia</a></li>
             <li><a href="#" data-page="ortodromia"><i class="fas fa-earth-americas"></i> Ortodromia</a></li>
             <li><a href="#" data-page="pnr"><i class="fas fa-map-location-dot"></i> PNR</a></li>
-            <!-- Sostituito PER con PET come richiesto -->
+            <!-- Sostituito PER con PET -->
             <li><a href="#" data-page="per"><i class="fas fa-clock-rotate-left"></i> PET</a></li>
             <li><a href="#" data-page="intercettamento"><i class="fas fa-crosshairs"></i> Intercettamento</a></li>
         </ul>
     </div>
 
     <main class="main-container">
-        <div class="hero-header reveal">
-            <h1>Flight Computer <span>v3.5</span></h1>
-            <p>Sistema integrato per il calcolo delle rotte e parametri di navigazione</p>
-        </div>
+        <!-- Le scritte "Flight Computer v3.5" e "Sistema integrato..." sono state rimosse come richiesto -->
     </main>
 
     <footer class="footer-credits reveal">
@@ -425,7 +398,7 @@
         closeMenuBtn.addEventListener('click', closeMenu);
         menuOverlay.addEventListener('click', closeMenu);
 
-        // Modifica: il titolo del modulo PER diventa PET per coerenza con la voce di menu
+        // Titoli dei moduli: PER diventa PET
         const pageTitles = {
             vento: 'Problema del Vento',
             lossodromia: 'Lossodromia',
