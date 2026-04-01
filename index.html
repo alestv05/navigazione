@@ -106,7 +106,8 @@
             border-radius: 2px;
         }
 
-        .mobile-menu {
+        /* Menu principale (globale) e menu contestuale (vento) condividono gli stessi stili */
+        .mobile-menu, .mobile-menu-vento {
             position: fixed;
             top: 0;
             right: -100%;
@@ -121,7 +122,7 @@
             box-shadow: -10px 0 50px rgba(0, 229, 255, 0.2);
         }
 
-        .mobile-menu.active {
+        .mobile-menu.active, .mobile-menu-vento.active {
             right: 0;
         }
 
@@ -141,31 +142,38 @@
             margin-right: 8px;
         }
 
-        .mobile-nav-links {
+        .mobile-nav-links, .mobile-nav-links-vento {
             list-style: none;
             padding: 0 30px;
         }
 
-        .mobile-nav-links li {
+        .mobile-nav-links li, .mobile-nav-links-vento li {
             margin: 0;
             opacity: 0;
             transform: translateX(50px);
             transition: all 0.4s ease;
         }
 
-        .mobile-menu.active .mobile-nav-links li {
+        .mobile-menu.active .mobile-nav-links li,
+        .mobile-menu-vento.active .mobile-nav-links-vento li {
             opacity: 1;
             transform: translateX(0);
         }
 
-        .mobile-menu.active .mobile-nav-links li:nth-child(1) { transition-delay: 0.1s; }
-        .mobile-menu.active .mobile-nav-links li:nth-child(2) { transition-delay: 0.2s; }
-        .mobile-menu.active .mobile-nav-links li:nth-child(3) { transition-delay: 0.3s; }
-        .mobile-menu.active .mobile-nav-links li:nth-child(4) { transition-delay: 0.4s; }
-        .mobile-menu.active .mobile-nav-links li:nth-child(5) { transition-delay: 0.5s; }
-        .mobile-menu.active .mobile-nav-links li:nth-child(6) { transition-delay: 0.6s; }
+        .mobile-menu.active .mobile-nav-links li:nth-child(1),
+        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu.active .mobile-nav-links li:nth-child(2),
+        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-menu.active .mobile-nav-links li:nth-child(3),
+        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-menu.active .mobile-nav-links li:nth-child(4),
+        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(4) { transition-delay: 0.4s; }
+        .mobile-menu.active .mobile-nav-links li:nth-child(5),
+        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(5) { transition-delay: 0.5s; }
+        .mobile-menu.active .mobile-nav-links li:nth-child(6),
+        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(6) { transition-delay: 0.6s; }
 
-        .mobile-nav-links a {
+        .mobile-nav-links a, .mobile-nav-links-vento a {
             text-decoration: none;
             color: #fff;
             font-size: 1.25rem;
@@ -180,13 +188,13 @@
             letter-spacing: 1px;
         }
 
-        .mobile-nav-links a i {
+        .mobile-nav-links a i, .mobile-nav-links-vento a i {
             width: 35px;
             font-size: 1.4rem;
             color: var(--accent-cyan);
         }
 
-        .mobile-nav-links a:hover {
+        .mobile-nav-links a:hover, .mobile-nav-links-vento a:hover {
             color: var(--accent-cyan);
             padding-left: 20px;
             border-bottom-color: var(--accent-cyan);
@@ -319,7 +327,7 @@
         }
 
         @media (max-width: 768px) {
-            .mobile-menu {
+            .mobile-menu, .mobile-menu-vento {
                 width: 100%;
             }
             .main-container {
@@ -357,7 +365,7 @@
             border-radius: 4px;
         }
 
-        .menu-overlay {
+        .menu-overlay, .menu-overlay-vento {
             position: fixed;
             top: 0;
             left: 0;
@@ -370,96 +378,11 @@
             transition: 0.3s;
         }
 
-        .menu-overlay.active {
+        .menu-overlay.active, .menu-overlay-vento.active {
             opacity: 1;
             visibility: visible;
         }
 
-        /* STILI PER IL SECONDO MENU AD HAMBURGER (PROBLEMA DEL VENTO) */
-        .wind-submenu-area {
-            margin: 25px 0 20px 0;
-            border-top: 1px solid rgba(0,229,255,0.3);
-            padding-top: 20px;
-        }
-        .second-hamburger-wrapper {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        .hamburger-sub {
-            background: rgba(0, 229, 255, 0.1);
-            border: 1px solid var(--accent-cyan);
-            border-radius: 12px;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            backdrop-filter: blur(4px);
-            z-index: 30;
-        }
-        .hamburger-sub:hover {
-            background: rgba(0, 229, 255, 0.3);
-            transform: scale(1.05);
-        }
-        .bar-sub {
-            width: 26px;
-            height: 3px;
-            background-color: var(--accent-cyan);
-            margin: 4px 0;
-            border-radius: 4px;
-            transition: 0.3s;
-        }
-        .submenu-panel {
-            position: absolute;
-            top: 60px;
-            right: 0;
-            background: rgba(2, 5, 10, 0.96);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--accent-cyan);
-            border-radius: 20px;
-            width: 260px;
-            padding: 12px 0;
-            box-shadow: 0 10px 30px rgba(0,229,255,0.2);
-            transform-origin: top right;
-            transform: scaleY(0);
-            opacity: 0;
-            transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1), opacity 0.2s;
-            z-index: 40;
-            pointer-events: none;
-        }
-        .submenu-panel.open {
-            transform: scaleY(1);
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .submenu-item {
-            padding: 14px 20px;
-            font-family: 'Orbitron', monospace;
-            font-size: 1rem;
-            color: #fff;
-            cursor: pointer;
-            transition: 0.2s;
-            border-left: 3px solid transparent;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .submenu-item i {
-            width: 28px;
-            color: var(--accent-cyan);
-            font-size: 1.1rem;
-        }
-        .submenu-item:hover {
-            background: rgba(0, 229, 255, 0.15);
-            border-left-color: var(--accent-cyan);
-            padding-left: 28px;
-            color: var(--accent-cyan);
-        }
         .problem-detail-box {
             background: rgba(0, 0, 0, 0.5);
             border-radius: 20px;
@@ -495,8 +418,12 @@
         </div>
     </nav>
 
+    <!-- Overlay per menu principale -->
     <div class="menu-overlay" id="menu-overlay"></div>
+    <!-- Overlay per menu contestuale vento -->
+    <div class="menu-overlay-vento" id="menu-overlay-vento"></div>
 
+    <!-- Menu principale (globale) -->
     <div class="mobile-menu" id="mobile-menu">
         <div class="menu-header">
             <i class="fas fa-compass"></i> NAVIGAZIONE
@@ -511,6 +438,22 @@
             <li><a href="#" data-page="pnr"><i class="fas fa-map-location-dot"></i> PNR</a></li>
             <li><a href="#" data-page="per"><i class="fas fa-clock-rotate-left"></i> PET</a></li>
             <li><a href="#" data-page="intercettamento"><i class="fas fa-crosshairs"></i> Intercettamento</a></li>
+        </ul>
+    </div>
+
+    <!-- Menu contestuale per Problema del Vento (identico nello stile) -->
+    <div class="mobile-menu-vento" id="mobile-menu-vento">
+        <div class="menu-header">
+            <i class="fas fa-wind"></i> PROBLEMI DEL VENTO
+        </div>
+        <button class="close-menu" id="close-menu-vento">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul class="mobile-nav-links-vento">
+            <li><a href="#" data-subproblem="primo"><i class="fas fa-1"></i> Primo Problema</a></li>
+            <li><a href="#" data-subproblem="secondo"><i class="fas fa-2"></i> Secondo Problema</a></li>
+            <li><a href="#" data-subproblem="terzo"><i class="fas fa-3"></i> Terzo Problema</a></li>
+            <li><a href="#" data-subproblem="quarto"><i class="fas fa-4"></i> Quarto Problema</a></li>
         </ul>
     </div>
 
@@ -531,13 +474,20 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script>
-        // GESTIONE MENU PRINCIPALE HAMBURGER
+        // ---------- GESTIONE MENU PRINCIPALE ----------
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuOverlay = document.getElementById('menu-overlay');
         const closeMenuBtn = document.getElementById('close-menu');
 
-        function openMenu() {
+        // Menu contestuale vento
+        const mobileMenuVento = document.getElementById('mobile-menu-vento');
+        const menuOverlayVento = document.getElementById('menu-overlay-vento');
+        const closeMenuVentoBtn = document.getElementById('close-menu-vento');
+
+        let currentModule = 'home'; // tiene traccia del modulo attivo
+
+        function openMainMenu() {
             mobileMenu.classList.add('active');
             menuOverlay.classList.add('active');
             const bars = document.querySelectorAll('.bar');
@@ -546,7 +496,7 @@
             bars[2].style.transform = 'rotate(45deg) translate(-6px, -7px)';
         }
 
-        function closeMenu() {
+        function closeMainMenu() {
             mobileMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
             const bars = document.querySelectorAll('.bar');
@@ -555,23 +505,49 @@
             bars[2].style.transform = 'rotate(0) translate(0, 0)';
         }
 
+        function openVentoMenu() {
+            mobileMenuVento.classList.add('active');
+            menuOverlayVento.classList.add('active');
+            const bars = document.querySelectorAll('.bar');
+            bars[0].style.transform = 'rotate(-45deg) translate(-6px, 7px)';
+            bars[1].style.opacity = '0';
+            bars[2].style.transform = 'rotate(45deg) translate(-6px, -7px)';
+        }
+
+        function closeVentoMenu() {
+            mobileMenuVento.classList.remove('active');
+            menuOverlayVento.classList.remove('active');
+            const bars = document.querySelectorAll('.bar');
+            bars[0].style.transform = 'rotate(0) translate(0, 0)';
+            bars[1].style.opacity = '1';
+            bars[2].style.transform = 'rotate(0) translate(0, 0)';
+        }
+
+        // Gestione click hamburger in base al modulo attivo
         hamburger.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (mobileMenu.classList.contains('active')) closeMenu();
-            else openMenu();
+            if (currentModule === 'vento') {
+                if (mobileMenuVento.classList.contains('active')) closeVentoMenu();
+                else openVentoMenu();
+            } else {
+                if (mobileMenu.classList.contains('active')) closeMainMenu();
+                else openMainMenu();
+            }
         });
 
-        closeMenuBtn.addEventListener('click', closeMenu);
-        menuOverlay.addEventListener('click', closeMenu);
+        closeMenuBtn.addEventListener('click', closeMainMenu);
+        menuOverlay.addEventListener('click', closeMainMenu);
+        closeMenuVentoBtn.addEventListener('click', closeVentoMenu);
+        menuOverlayVento.addEventListener('click', closeVentoMenu);
 
-        // CONTENUTI MODULI (HOME COMPLETAMENTE PULITA, NESSUN TESTO O FORMULA)
+        // ---------- CONTENUTI MODULI ----------
+        // Home: completamente vuota, nessun testo/formula
         function getModuleHTML(moduleId) {
             const modules = {
-                // HOME: senza alcun pannello di benvenuto, senza formule, senza scritte
                 home: `
                     <div class="reveal active">
                         <div class="module-card" style="background: transparent; border: none; box-shadow: none; min-height: 55vh; display: flex; justify-content: center; align-items: center; padding: 1rem;">
-                            <!-- nessuna formula, nessun testo, nessun benvenuto, nessuna scritta -->
+                            <!-- Home completamente pulita, nessun contenuto -->
                         </div>
                     </div>
                 `,
@@ -586,7 +562,7 @@
                                 <div class="info-box"><span class="badge">DERIVA</span> δ = angolo tra rotta vera e traiettoria. <br> <strong>δ = arcsin( Vv * sin(α) / Vp )</strong></div>
                                 <div class="info-box"><span class="badge">VENTO AL TRAVERSO</span> Componente trasversale modifica la rotta per mantenere la rotta desiderata.</div>
                             </div>
-                            <div class="wind-submenu-area" id="windSubmenuArea"></div>
+                            <!-- Area per mostrare il dettaglio del problema selezionato dal menu contestuale -->
                             <div id="problemDetailContainer" class="problem-detail-box" style="display: none;"></div>
                         </div>
                     </div>
@@ -653,102 +629,76 @@
             return modules[moduleId] || modules.home;
         }
 
-        // COSTRUISCE IL SECONDO MENU HAMBURGER (PROBLEMA DEL VENTO)
-        function buildSecondHamburgerMenu() {
-            const submenuArea = document.getElementById('windSubmenuArea');
-            if (!submenuArea) return;
-            submenuArea.innerHTML = '';
-            
-            const wrapper = document.createElement('div');
-            wrapper.className = 'second-hamburger-wrapper';
-            
-            const hamburgerSub = document.createElement('div');
-            hamburgerSub.className = 'hamburger-sub';
-            hamburgerSub.id = 'hamburgerSubBtn';
-            for (let i = 0; i < 3; i++) {
-                const bar = document.createElement('div');
-                bar.className = 'bar-sub';
-                hamburgerSub.appendChild(bar);
+        // Dettagli dei quattro problemi del vento
+        const problemiVento = {
+            primo: {
+                nome: 'Primo Problema',
+                desc: 'Analisi del vento al traverso: calcolo della componente trasversale e correzione della rotta per mantenere la traccia desiderata. La correzione angolare si ottiene con la formula: Δθ = arctan( Vw_transversale / Vp ).',
+                formula: '📐 Correzione angolare = arctan(componente trasversale / velocità propria)'
+            },
+            secondo: {
+                nome: 'Secondo Problema',
+                desc: 'Calcolo della deriva massima e minima in funzione della direzione del vento. La deriva massima si ha quando il vento è al traverso, con valore δ_max = arcsin(Vv / Vp).',
+                formula: '🌬️ Deriva massima = arcsin(velocità del vento / velocità propria)'
+            },
+            terzo: {
+                nome: 'Terzo Problema',
+                desc: 'Effetto del vento in coda o in fronte sulla velocità al suolo. Con vento a favore: Vs = Vp + Vv; con vento contrario: Vs = Vp - Vv. Influenza significativa sul tempo di volo.',
+                formula: '➡️ Vs (vento a favore) = Vp + Vv  |  Vs (vento contrario) = Vp - Vv'
+            },
+            quarto: {
+                nome: 'Quarto Problema',
+                desc: 'Gestione del carburante con vento variabile: determinazione del punto di consumo critico e pianificazione del volo per ottimizzare l’autonomia. Formula del consumo orario corretto per vento.',
+                formula: '⛽ PNR ottimizzato considerando variazioni di vento e consumo specifico.'
             }
-            
-            const panel = document.createElement('div');
-            panel.className = 'submenu-panel';
-            panel.id = 'submenuPanel';
-            
-            const problemi = [
-                { id: 'primo', nome: 'Primo Problema', icona: 'fa-1', desc: 'Analisi del vento al traverso: calcolo della componente trasversale e correzione della rotta per mantenere la traccia desiderata. La correzione angolare si ottiene con la formula: Δθ = arctan( Vw_transversale / Vp ).' },
-                { id: 'secondo', nome: 'Secondo Problema', icona: 'fa-2', desc: 'Calcolo della deriva massima e minima in funzione della direzione del vento. La deriva massima si ha quando il vento è al traverso, con valore δ_max = arcsin(Vv / Vp).' },
-                { id: 'terzo', nome: 'Terzo Problema', icona: 'fa-3', desc: 'Effetto del vento in coda o in fronte sulla velocità al suolo. Con vento a favore: Vs = Vp + Vv; con vento contrario: Vs = Vp - Vv. Influenza significativa sul tempo di volo.' },
-                { id: 'quarto', nome: 'Quarto Problema', icona: 'fa-4', desc: 'Gestione del carburante con vento variabile: determinazione del punto di consumo critico e pianificazione del volo per ottimizzare l’autonomia. Formula del consumo orario corretto per vento.' }
-            ];
-            
-            problemi.forEach(prob => {
-                const item = document.createElement('div');
-                item.className = 'submenu-item';
-                item.setAttribute('data-problem', prob.id);
-                item.innerHTML = `<i class="fas ${prob.icona}"></i> ${prob.nome}`;
-                item.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const detailContainer = document.getElementById('problemDetailContainer');
-                    if (detailContainer) {
-                        detailContainer.style.display = 'block';
-                        detailContainer.innerHTML = `
-                            <h4><i class="fas fa-wind"></i> ${prob.nome}</h4>
-                            <p>${prob.desc}</p>
-                            <div class="formula" style="margin-top:15px;">📘 Approfondimento: ${prob.nome === 'Primo Problema' ? 'La correzione angolare per vento al traverso si applica con tecnica del triangolo delle velocità.' : prob.nome === 'Secondo Problema' ? 'Valori tipici: con Vv/Vp = 0.3, deriva max ≈ 17.5°.' : prob.nome === 'Terzo Problema' ? 'Esempio: Vp=120kt, Vv=25kt, Vs=145kt (vento in coda) o 95kt (contrario).' : 'Pianificare il PNR considerando vento reale e previsioni.'}</div>
-                        `;
-                    }
-                    panel.classList.remove('open');
-                });
-                panel.appendChild(item);
-            });
-            
-            wrapper.appendChild(hamburgerSub);
-            wrapper.appendChild(panel);
-            submenuArea.appendChild(wrapper);
-            
-            const btn = document.getElementById('hamburgerSubBtn');
-            const panelEl = document.getElementById('submenuPanel');
-            if (btn && panelEl) {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    panelEl.classList.toggle('open');
-                });
-                document.addEventListener('click', function closeSub(e) {
-                    if (!wrapper.contains(e.target) && panelEl.classList.contains('open')) {
-                        panelEl.classList.remove('open');
-                    }
-                });
-            }
-            
+        };
+
+        // Funzione per mostrare il dettaglio del problema selezionato
+        function showProblemDetail(problemKey) {
+            const prob = problemiVento[problemKey];
+            if (!prob) return;
             const detailContainer = document.getElementById('problemDetailContainer');
-            if (detailContainer && problemi.length) {
+            if (detailContainer) {
                 detailContainer.style.display = 'block';
                 detailContainer.innerHTML = `
-                    <h4><i class="fas fa-wind"></i> ${problemi[0].nome}</h4>
-                    <p>${problemi[0].desc}</p>
-                    <div class="formula" style="margin-top:15px;">📌 Seleziona uno dei quattro problemi dal menu ad hamburger per approfondire.</div>
+                    <h4><i class="fas fa-wind"></i> ${prob.nome}</h4>
+                    <p>${prob.desc}</p>
+                    <div class="formula" style="margin-top:15px;">📘 ${prob.formula}</div>
                 `;
             }
         }
-        
-        // NAVIGAZIONE SINGLE PAGE
+
+        // Navigazione tra moduli
         function navigateTo(moduleId, addToHistory = true) {
+            currentModule = moduleId;
             const container = document.getElementById('main-container');
             if (!container) return;
             container.innerHTML = getModuleHTML(moduleId);
             
+            // Gestione visibilità menu: in vento nascondi menu principale, mostra contestuale; altrimenti viceversa
+            if (moduleId === 'vento') {
+                // Nascondi menu principale e suo overlay (se aperti)
+                closeMainMenu();
+                // Mostra il menu contestuale (ma non automaticamente aperto)
+                mobileMenuVento.style.display = 'block';
+                // Assicura che il menu principale non sia visibile
+                mobileMenu.style.display = 'none';
+                // Inizializza il dettaglio con il primo problema (opzionale)
+                setTimeout(() => {
+                    showProblemDetail('primo');
+                }, 20);
+            } else {
+                // Nascondi menu contestuale e ripristina principale
+                closeVentoMenu();
+                mobileMenuVento.style.display = 'none';
+                mobileMenu.style.display = 'block';
+            }
+            
+            // Attiva gli effetti reveal
             const reveals = container.querySelectorAll('.reveal');
             reveals.forEach(el => el.classList.add('active'));
             
-            if (moduleId === 'vento') {
-                setTimeout(() => {
-                    buildSecondHamburgerMenu();
-                }, 20);
-            }
-            
-            closeMenu();
-            
+            // Titolo dinamico
             const titles = {
                 home: 'NavTech | Navigazione',
                 vento: 'Problema del Vento - NavTech',
@@ -768,7 +718,7 @@
             }
         }
         
-        // GESTIONE POPSTATE (indietro/avanti)
+        // Gestione popstate (tasto indietro/avanti)
         window.addEventListener('popstate', (event) => {
             let moduleId = 'home';
             if (event.state && event.state.module) {
@@ -777,47 +727,45 @@
                 const params = new URLSearchParams(window.location.search);
                 moduleId = params.get('nav') || 'home';
             }
-            const container = document.getElementById('main-container');
-            if (container) {
-                container.innerHTML = getModuleHTML(moduleId);
-                const reveals = container.querySelectorAll('.reveal');
-                reveals.forEach(el => el.classList.add('active'));
-                if (moduleId === 'vento') {
-                    setTimeout(() => buildSecondHamburgerMenu(), 20);
-                }
-            }
-            const titles = {
-                home: 'NavTech | Navigazione',
-                vento: 'Problema del Vento',
-                lossodromia: 'Lossodromia',
-                ortodromia: 'Ortodromia',
-                pnr: 'PNR',
-                per: 'PET',
-                intercettamento: 'Intercettamento'
-            };
-            document.title = titles[moduleId] || 'NavTech';
+            // Ricarica il modulo senza aggiungere storia
+            navigateTo(moduleId, false);
         });
         
-        // CLICK LINK MENU PRINCIPALE
+        // Gestione click sui link del menu principale
         document.querySelectorAll('.mobile-nav-links a').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const pageKey = link.getAttribute('data-page');
                 if (pageKey) {
                     navigateTo(pageKey, true);
+                    closeMainMenu(); // chiudi dopo selezione
                 }
             });
         });
         
-        // LOGO -> HOME PULITA (nessun benvenuto)
+        // Gestione click sui link del menu contestuale vento
+        document.querySelectorAll('.mobile-nav-links-vento a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const subProblem = link.getAttribute('data-subproblem');
+                if (subProblem) {
+                    showProblemDetail(subProblem);
+                    closeVentoMenu(); // chiudi il menu dopo selezione
+                }
+            });
+        });
+        
+        // Logo -> torna alla home pulita
         const logoHome = document.getElementById('logo-home');
         if (logoHome) {
             logoHome.addEventListener('click', () => {
                 navigateTo('home', true);
+                closeMainMenu();
+                closeVentoMenu();
             });
         }
         
-        // PARTICOLI EFFETTO SFONDO
+        // ---- Effetto particelle (sfondo) ----
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -854,13 +802,15 @@
         initParticles();
         drawParticles();
         
-        // OBSERVER PER FOOTER
+        // IntersectionObserver per footer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('active'));
         }, { threshold: 0.15 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         
-        // AVVIO: HOME COMPLETAMENTE PULITA, NESSUN TESTO, NESSUNA FORMULA, NESSUN PANNELLO BENVENUTO
+        // Avvio: home pulita, menu principale attivo, contestuale nascosto
+        mobileMenuVento.style.display = 'none';
+        mobileMenu.style.display = 'block';
         const initialParam = new URLSearchParams(window.location.search).get('nav');
         if (initialParam && ['vento','lossodromia','ortodromia','pnr','per','intercettamento'].includes(initialParam)) {
             navigateTo(initialParam, false);
