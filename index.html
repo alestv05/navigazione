@@ -25,6 +25,9 @@
             color: #fff;
             font-family: 'Poppins', sans-serif;
             overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .bg-watermark {
@@ -205,13 +208,15 @@
         }
 
         .main-container {
-            padding: 140px 8% 60px;
-            min-height: 100vh;
+            flex: 1;
+            padding: 140px 8% 80px;
+            display: flex;
+            flex-direction: column;
         }
 
         .hero-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: auto;
         }
 
         .hero-header h1 {
@@ -236,30 +241,35 @@
         }
 
         .footer-credits {
-            margin-top: 80px;
-            padding: 30px 20px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 20px;
             text-align: center;
             border-top: 1px solid var(--border);
-            background: rgba(2, 5, 10, 0.5);
+            background: rgba(2, 5, 10, 0.85);
             backdrop-filter: blur(10px);
+            z-index: 900;
         }
 
         .footer-credits p {
             color: #888;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             letter-spacing: 1px;
         }
 
         .footer-credits .developers {
-            margin-top: 10px;
-            font-size: 1rem;
+            margin-top: 5px;
+            font-size: 0.9rem;
             color: var(--accent-cyan);
             font-family: 'Orbitron', sans-serif;
         }
 
         .footer-credits .developers i {
-            margin: 0 10px;
+            margin: 0 8px;
             color: #fff;
+            font-size: 0.8rem;
         }
 
         .footer-credits .developers span {
@@ -272,13 +282,13 @@
                 width: 100%;
             }
             .main-container {
-                padding: 120px 5% 40px;
+                padding: 120px 5% 70px;
             }
             .footer-credits .developers {
-                font-size: 0.8rem;
+                font-size: 0.7rem;
                 display: flex;
                 flex-direction: column;
-                gap: 8px;
+                gap: 5px;
             }
             .footer-credits .developers i {
                 display: none;
@@ -364,18 +374,18 @@
             <h1>Flight Computer <span>v3.5</span></h1>
             <p>Sistema integrato per il calcolo delle rotte e parametri di navigazione</p>
         </header>
-
-        <div class="footer-credits reveal">
-            <p>Sistema di Navigazione Avanzata</p>
-            <div class="developers">
-                <span>Sviluppato da</span>
-                <i class="fas fa-code"></i>
-                <strong>Alessio Lucchini</strong>
-                <i class="fas fa-plus"></i>
-                <strong>Andrea Squizzato</strong>
-            </div>
-        </div>
     </main>
+
+    <footer class="footer-credits reveal">
+        <p>Sistema di Navigazione Avanzata</p>
+        <div class="developers">
+            <span>Sviluppato da</span>
+            <i class="fas fa-code"></i>
+            <strong>Alessio Lucchini</strong>
+            <i class="fas fa-plus"></i>
+            <strong>Andrea Squizzato</strong>
+        </div>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script>
