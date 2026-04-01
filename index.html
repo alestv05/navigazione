@@ -343,7 +343,7 @@
     </div>
 
     <main class="main-container">
-        <!-- Contenuto principale vuoto (nessuna scritta) -->
+        <!-- Contenuto principale vuoto -->
     </main>
 
     <footer class="footer-credits reveal">
@@ -391,7 +391,7 @@
         closeMenuBtn.addEventListener('click', closeMenu);
         menuOverlay.addEventListener('click', closeMenu);
 
-        // Funzione per aprire la finestra modulare con sottomenu
+        // Funzione che apre la finestra modulare con sottomenu
         function openModule(pageKey) {
             const pageTitles = {
                 vento: 'Problema del Vento',
@@ -412,14 +412,13 @@
             const pageName = pageTitles[pageKey];
             const icon = pageIcons[pageKey];
 
-            // Crea la nuova finestra
             const newWindow = window.open('about:blank', '_blank');
             if (!newWindow) {
-                alert("Impossibile aprire una nuova finestra. Controlla che il tuo browser non blocchi i popup.");
+                alert("Impossibile aprire una nuova finestra. Controlla che il browser non blocchi i popup.");
                 return;
             }
 
-            // Template HTML completo per la finestra secondaria
+            // HTML completo per la finestra secondaria
             const htmlContent = `<!DOCTYPE html>
             <html lang="it">
             <head>
@@ -701,7 +700,6 @@
                     </div>
                 </footer>
                 <script>
-                    // Gestione menu hamburger secondario
                     const subHamburger = document.getElementById('subHamburger');
                     const subMobileMenu = document.getElementById('subMobileMenu');
                     const subMenuOverlay = document.getElementById('subMenuOverlay');
@@ -735,7 +733,6 @@
                     subCloseMenu.addEventListener('click', closeSubMenu);
                     subMenuOverlay.addEventListener('click', closeSubMenu);
                     
-                    // Aggiornamento contenuto in base alla selezione
                     function updateContent(subKey) {
                         const contentDiv = document.getElementById('dynamicContent');
                         const pageIcon = "${icon}";
@@ -778,7 +775,7 @@
                         });
                     });
                     
-                    // Particelle animate
+                    // Particelle
                     const canvas = document.getElementById('particle-canvas');
                     const ctx = canvas.getContext('2d');
                     let particles = [];
@@ -817,7 +814,6 @@
                 </script>
             </body>
             </html>`;
-            
             newWindow.document.write(htmlContent);
             newWindow.document.close();
         }
