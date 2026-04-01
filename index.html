@@ -365,7 +365,8 @@
             <li><a href="#" data-page="lossodromia"><i class="fas fa-route"></i> Lossodromia</a></li>
             <li><a href="#" data-page="ortodromia"><i class="fas fa-earth-americas"></i> Ortodromia</a></li>
             <li><a href="#" data-page="pnr"><i class="fas fa-map-location-dot"></i> PNR</a></li>
-            <li><a href="#" data-page="per"><i class="fas fa-clock-rotate-left"></i> PER</a></li>
+            <!-- Sostituito PER con PET come richiesto -->
+            <li><a href="#" data-page="per"><i class="fas fa-clock-rotate-left"></i> PET</a></li>
             <li><a href="#" data-page="intercettamento"><i class="fas fa-crosshairs"></i> Intercettamento</a></li>
         </ul>
     </div>
@@ -424,12 +425,13 @@
         closeMenuBtn.addEventListener('click', closeMenu);
         menuOverlay.addEventListener('click', closeMenu);
 
+        // Modifica: il titolo del modulo PER diventa PET per coerenza con la voce di menu
         const pageTitles = {
             vento: 'Problema del Vento',
             lossodromia: 'Lossodromia',
             ortodromia: 'Ortodromia',
             pnr: 'PNR',
-            per: 'PER',
+            per: 'PET',          // Sostituito PER con PET
             intercettamento: 'Intercettamento'
         };
 
