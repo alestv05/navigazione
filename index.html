@@ -3,23 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>NavTech Professional</title>
+    <title>NavTech Pro - Flight Systems</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-dark: #02050a;
             --accent-cyan: #00e5ff;
-            --border: rgba(0, 229, 255, 0.3);
+            --border: rgba(0, 229, 255, 0.2);
             --card-bg: rgba(10, 20, 30, 0.8);
-            --transition-menu: all 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+            --trans-fast: 0.3s ease;
+            --trans-slow: 0.6s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--bg-dark);
@@ -31,7 +28,7 @@
             flex-direction: column;
         }
 
-        /* --- SFONDO E PARTICELLE --- */
+        /* --- SFONDO --- */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -44,16 +41,16 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 450px;
-            height: 450px;
+            width: 500px;
+            height: 500px;
             background: url('https://i.postimg.cc/bvd85hNh/logo.png') no-repeat center;
             background-size: contain;
-            opacity: 0.1;
+            opacity: 0.08;
             z-index: -1;
             pointer-events: none;
         }
 
-        /* --- NAVBAR --- */
+        /* --- NAVBAR & LOGO ANIMATO --- */
         nav {
             display: flex;
             justify-content: space-between;
@@ -62,7 +59,7 @@
             position: fixed;
             width: 100%;
             top: 0;
-            z-index: 1000;
+            z-index: 2000;
             background: rgba(2, 5, 10, 0.85);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
@@ -72,140 +69,150 @@
             font-family: 'Orbitron', sans-serif;
             font-size: 1.8rem;
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             cursor: pointer;
+            position: relative;
             display: flex;
             align-items: center;
             gap: 12px;
-            transition: 0.3s;
+            color: #fff;
+            transition: var(--trans-fast);
+            animation: logoGlow 3s infinite alternate;
         }
-        .logo-text span { color: var(--accent-cyan); }
-        .logo-text i { color: var(--accent-cyan); }
 
-        /* --- HAMBURGER ANIMATO --- */
+        .logo-text span { color: var(--accent-cyan); }
+
+        /* Animazione Glow Pulsante */
+        @keyframes logoGlow {
+            0% { text-shadow: 0 0 5px rgba(0, 229, 255, 0.2); }
+            100% { text-shadow: 0 0 20px rgba(0, 229, 255, 0.8), 0 0 30px rgba(0, 229, 255, 0.4); }
+        }
+
+        /* Riflesso che attraversa il logo */
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-20deg);
+            animation: shine 5s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        /* --- HAMBURGER --- */
         .hamburger {
             cursor: pointer;
-            z-index: 2000;
+            z-index: 2100;
             background: none;
             border: none;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             gap: 7px;
-            padding: 10px;
         }
 
         .bar {
-            width: 32px;
-            height: 3px;
+            width: 30px;
+            height: 2px;
             background-color: var(--accent-cyan);
-            transition: var(--transition-menu);
-            border-radius: 5px;
+            transition: var(--trans-slow);
+            border-radius: 4px;
             box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
         }
 
-        /* Stato Attivo Hamburger (X) */
-        .hamburger.active .bar:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+        /* Animazione X */
+        .hamburger.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
         .hamburger.active .bar:nth-child(2) { opacity: 0; transform: translateX(-20px); }
-        .hamburger.active .bar:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+        .hamburger.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
         /* --- MENU LATERALE --- */
         .mobile-menu {
             position: fixed;
             top: 0;
-            right: -100%; /* Inizia nascosto fuori schermo */
+            right: -100%;
             width: 400px;
             height: 100vh;
             background: rgba(2, 5, 10, 0.98);
             backdrop-filter: blur(30px);
-            border-left: 2px solid var(--accent-cyan);
+            border-left: 1.5px solid var(--accent-cyan);
             z-index: 1500;
-            transition: var(--transition-menu);
+            transition: var(--trans-slow);
             padding: 120px 50px;
             display: flex;
             flex-direction: column;
-            box-shadow: -20px 0 50px rgba(0,0,0,0.8);
         }
 
-        .mobile-menu.active {
-            right: 0; /* Scivola dentro */
-        }
+        .mobile-menu.active { right: 0; }
 
         .menu-header {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--accent-cyan);
             margin-bottom: 30px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
+            letter-spacing: 6px;
             border-bottom: 1px solid var(--border);
             padding-bottom: 10px;
+            text-transform: uppercase;
         }
 
-        .mobile-nav-links {
-            list-style: none;
-        }
+        .nav-list { list-style: none; }
 
-        .mobile-nav-links li {
-            margin-bottom: 15px;
+        .nav-list li {
+            margin-bottom: 10px;
             opacity: 0;
-            transform: translateX(50px);
+            transform: translateX(40px);
             transition: all 0.5s cubic-bezier(0.1, 0.9, 0.2, 1);
         }
 
-        /* Animazione staggered: le voci appaiono in sequenza quando il menu è attivo */
-        .mobile-menu.active .mobile-nav-links li {
+        .mobile-menu.active .nav-list li {
             opacity: 1;
             transform: translateX(0);
         }
 
-        .mobile-nav-links a {
+        .nav-list a {
             text-decoration: none;
             color: #fff;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-family: 'Orbitron', sans-serif;
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 15px 0;
+            gap: 15px;
+            padding: 18px 0;
             transition: 0.3s;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
         }
 
-        .mobile-nav-links a i {
+        .nav-list a i { color: var(--accent-cyan); width: 25px; text-align: center; }
+
+        .nav-list a:hover {
             color: var(--accent-cyan);
-            width: 25px;
-            font-size: 1.3rem;
-            text-align: center;
+            padding-left: 15px;
+            text-shadow: 0 0 10px var(--accent-cyan);
         }
 
-        .mobile-nav-links a:hover {
-            color: var(--accent-cyan);
-            padding-left: 10px;
-            text-shadow: 0 0 15px var(--accent-cyan);
-        }
-
-        /* Overlay */
-        .menu-overlay {
+        .overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.7);
             z-index: 1400;
             opacity: 0;
             visibility: hidden;
             transition: 0.5s;
         }
-        .menu-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .overlay.active { opacity: 1; visibility: visible; }
 
-        /* --- CONTENUTO PRINCIPALE --- */
+        /* --- CONTENUTO --- */
         .main-container {
             flex: 1;
-            padding: 120px 8% 50px;
+            padding: 140px 8% 60px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -214,54 +221,54 @@
         .module-card {
             background: var(--card-bg);
             backdrop-filter: blur(25px);
-            border-radius: 50px;
+            border-radius: 40px;
             border: 1px solid var(--border);
             padding: 100px 40px;
             width: 100%;
-            max-width: 1100px;
+            max-width: 1000px;
             text-align: center;
-            box-shadow: 0 0 60px rgba(0, 229, 255, 0.15);
-            animation: cardFadeIn 0.8s ease-out forwards;
+            box-shadow: 0 0 50px rgba(0, 229, 255, 0.1);
+            animation: cardIn 0.8s ease-out;
+        }
+
+        @keyframes cardIn {
+            from { opacity: 0; transform: scale(0.9) translateY(40px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .module-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 3.5rem;
             color: var(--accent-cyan);
-            letter-spacing: 10px;
+            letter-spacing: 12px;
             text-transform: uppercase;
-            margin-bottom: 20px;
-            text-shadow: 0 0 25px rgba(0, 229, 255, 0.6);
+            margin-bottom: 30px;
+            text-shadow: 0 0 30px rgba(0, 229, 255, 0.4);
         }
 
-        .divider-line {
+        .divider {
             height: 2px;
             background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
-            width: 40%;
+            width: 50%;
             margin: 0 auto;
         }
 
-        @keyframes cardFadeIn {
-            from { opacity: 0; transform: scale(0.95) translateY(30px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
         /* --- FOOTER --- */
-        .footer {
-            padding: 40px;
+        footer {
+            padding: 30px;
             text-align: center;
-            background: rgba(2, 5, 10, 0.9);
+            background: rgba(2, 5, 10, 0.95);
             border-top: 1px solid var(--border);
             font-family: 'Orbitron', sans-serif;
             font-size: 0.8rem;
             letter-spacing: 2px;
-            color: rgba(255,255,255,0.5);
+            color: rgba(255,255,255,0.4);
         }
-        .footer strong { color: var(--accent-cyan); }
+        footer strong { color: var(--accent-cyan); }
 
         @media (max-width: 768px) {
             .mobile-menu { width: 100%; }
-            .module-title { font-size: 2rem; letter-spacing: 4px; }
+            .module-title { font-size: 1.8rem; letter-spacing: 5px; }
         }
     </style>
 </head>
@@ -271,41 +278,41 @@
     <div class="bg-watermark"></div>
 
     <nav>
-        <div class="logo-text" id="home-trigger">
+        <div class="logo-text" id="logo-btn">
             <i class="fas fa-compass-drafting"></i> NAV<span>TECH</span>
         </div>
-        <button class="hamburger" id="nav-toggle">
+        <button class="hamburger" id="ham-btn">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
         </button>
     </nav>
 
-    <div class="menu-overlay" id="overlay"></div>
+    <div class="overlay" id="menu-overlay"></div>
 
     <div class="mobile-menu" id="side-nav">
-        <div class="menu-header" id="current-menu-title">NAVIGAZIONE</div>
-        <ul class="mobile-nav-links" id="menu-links-list">
+        <div class="menu-header" id="menu-label">NAVIGAZIONE</div>
+        <ul class="nav-list" id="nav-list-content">
             </ul>
     </div>
 
-    <main class="main-container" id="view-port">
+    <main class="main-container" id="main-view">
         </main>
 
-    <footer class="footer">
-        SVILUPPATO DA <strong>ALESSIO LUCCHINI</strong> & <strong>ANDREA SQUIZZATO</strong>
+    <footer>
+        DESIGNED BY <strong>ALESSIO LUCCHINI</strong> & <strong>ANDREA SQUIZZATO</strong>
     </footer>
 
     <script>
-        const viewPort = document.getElementById('view-port');
-        const menuList = document.getElementById('menu-links-list');
-        const menuTitle = document.getElementById('current-menu-title');
+        const mainView = document.getElementById('main-view');
+        const navList = document.getElementById('nav-list-content');
+        const menuLabel = document.getElementById('menu-label');
         const sideNav = document.getElementById('side-nav');
-        const overlay = document.getElementById('overlay');
-        const navToggle = document.getElementById('nav-toggle');
+        const overlay = document.getElementById('menu-overlay');
+        const hamBtn = document.getElementById('ham-btn');
 
-        // --- CONFIGURAZIONI MENU ---
-        const menuMain = [
+        // Config Menu
+        const mainItems = [
             { id: 'vento', text: 'Problema del Vento', icon: 'fa-wind' },
             { id: 'lossodromia', text: 'Lossodromia', icon: 'fa-route' },
             { id: 'ortodromia', text: 'Ortodromia', icon: 'fa-earth-americas' },
@@ -314,93 +321,78 @@
             { id: 'pet', text: 'PET', icon: 'fa-clock-rotate-left' }
         ];
 
-        const menuWind = [
+        const windItems = [
             { id: 'v1', text: '1° Problema Vento', icon: 'fa-chevron-right' },
             { id: 'v2', text: '2° Problema Vento', icon: 'fa-chevron-right' },
             { id: 'v3', text: '3° Problema Vento', icon: 'fa-chevron-right' },
             { id: 'v4', text: '4° Problema Vento', icon: 'fa-chevron-right' }
         ];
 
-        // --- GESTIONE LOGICA MENU ---
-        function buildMenu(items, label) {
-            menuTitle.innerText = label;
-            menuList.innerHTML = '';
-            
+        function populateMenu(items, label) {
+            menuLabel.innerText = label;
+            navList.innerHTML = '';
             items.forEach((item, index) => {
                 const li = document.createElement('li');
-                // Assegna il ritardo per l'animazione di entrata
-                li.style.transitionDelay = `${0.1 * (index + 1)}s`;
-                
-                const a = document.createElement('a');
-                a.href = "#";
-                a.innerHTML = `<i class="fas ${item.icon}"></i> ${item.text}`;
-                
-                a.onclick = (e) => {
+                li.style.transitionDelay = `${index * 0.1}s`;
+                li.innerHTML = `<a href="#" data-id="${item.id}"><i class="fas ${item.icon}"></i> ${item.text}</a>`;
+                li.onclick = (e) => {
                     e.preventDefault();
-                    processClick(item.id, item.text);
+                    handleAction(item.id, item.text);
                 };
-                
-                li.appendChild(a);
-                menuList.appendChild(li);
+                navList.appendChild(li);
             });
         }
 
-        function processClick(id, title) {
+        function handleAction(id, title) {
             closeMenu();
-
             setTimeout(() => {
                 if (id === 'vento') {
-                    buildMenu(menuWind, 'PROBLEMI VENTO');
-                    renderView(title);
+                    populateMenu(windItems, 'PROBLEMI VENTO');
+                    renderModule(title);
                 } else {
-                    renderView(title);
+                    renderModule(title);
                 }
             }, 400);
         }
 
-        function renderView(title) {
-            viewPort.style.opacity = '0';
+        function renderModule(title) {
+            mainView.style.opacity = '0';
             setTimeout(() => {
-                viewPort.innerHTML = `
+                mainView.innerHTML = `
                     <div class="module-card">
                         <h1 class="module-title">${title}</h1>
-                        <div class="divider-line"></div>
+                        <div class="divider"></div>
                     </div>
                 `;
-                viewPort.style.opacity = '1';
+                mainView.style.opacity = '1';
                 document.title = "NavTech | " + title;
             }, 300);
         }
 
-        function returnHome() {
-            viewPort.innerHTML = ''; // Home pulita
-            buildMenu(menuMain, 'NAVIGAZIONE');
-            document.title = "NavTech Professional";
+        function goHome() {
+            mainView.innerHTML = ''; // Svuota tutto
+            populateMenu(mainItems, 'NAVIGAZIONE');
+            document.title = "NavTech Pro";
             closeMenu();
         }
 
-        // --- CONTROLLI UI ---
         function openMenu() {
             sideNav.classList.add('active');
             overlay.classList.add('active');
-            navToggle.classList.add('active');
+            hamBtn.classList.add('active');
         }
 
         function closeMenu() {
             sideNav.classList.remove('active');
             overlay.classList.remove('active');
-            navToggle.classList.remove('active');
+            hamBtn.classList.remove('active');
         }
 
-        navToggle.addEventListener('click', () => {
-            if (sideNav.classList.contains('active')) closeMenu();
-            else openMenu();
-        });
+        hamBtn.onclick = () => sideNav.classList.contains('active') ? closeMenu() : openMenu();
+        overlay.onclick = closeMenu;
+        document.getElementById('logo-btn').onclick = goHome;
 
-        overlay.addEventListener('click', closeMenu);
-        document.getElementById('home-trigger').onclick = returnHome;
-
-        // --- SFONDO PARTICELLE ---
+        // Particelle Sfondo
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -409,13 +401,13 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             particles = [];
-            for (let i = 0; i < 80; i++) {
+            for (let i = 0; i < 70; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    sz: Math.random() * 2 + 1,
-                    dx: (Math.random() - 0.5) * 0.5,
-                    dy: (Math.random() - 0.5) * 0.5
+                    s: Math.random() * 2,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4
                 });
             }
         }
@@ -423,12 +415,11 @@
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(p => {
-                p.x += p.dx;
-                p.y += p.dy;
-                if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-                if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, p.sz, 0, Math.PI * 2);
+                ctx.arc(p.x, p.y, p.s, 0, Math.PI * 2);
                 ctx.fillStyle = "rgba(0, 229, 255, 0.4)";
                 ctx.fill();
             });
@@ -439,8 +430,8 @@
         initParticles();
         animate();
 
-        // Inizio: Carica menu principale e pulisce vista
-        returnHome();
+        // Avvio
+        goHome();
     </script>
 </body>
 </html>
