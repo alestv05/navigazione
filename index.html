@@ -13,6 +13,7 @@
             --glass: rgba(255, 255, 255, 0.05);
             --border: rgba(0, 229, 255, 0.2);
             --card-bg: rgba(10, 20, 30, 0.7);
+            --transition-smooth: all 0.5s cubic-bezier(0.7, 0, 0.3, 1);
         }
 
         * {
@@ -31,7 +32,7 @@
             flex-direction: column;
         }
 
-        /* Sfondo Animato */
+        /* SFONDO DINAMICO */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -53,7 +54,7 @@
             pointer-events: none;
         }
 
-        /* Navbar */
+        /* NAVBAR */
         nav {
             display: flex;
             justify-content: space-between;
@@ -66,6 +67,7 @@
             background: rgba(2, 5, 10, 0.8);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
+            transition: var(--transition-smooth);
         }
 
         .logo-text {
@@ -79,30 +81,48 @@
             align-items: center;
             gap: 10px;
         }
-        .logo-text:hover { text-shadow: 0 0 15px var(--accent-cyan); }
+        .logo-text:hover { 
+            text-shadow: 0 0 15px var(--accent-cyan); 
+            transform: scale(1.02);
+        }
         .logo-text span { color: var(--accent-cyan); }
         .logo-text i { color: var(--accent-cyan); }
 
-        /* Hamburger */
+        /* HAMBURGER ANIMATO */
         .hamburger {
             cursor: pointer;
             z-index: 1100;
             background: none;
             border: none;
             padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
 
         .bar {
             display: block;
-            width: 35px;
-            height: 2px;
-            margin: 8px auto;
+            width: 30px;
+            height: 3px;
             background-color: var(--accent-cyan);
-            transition: 0.4s;
-            box-shadow: 0 0 5px var(--accent-cyan);
+            transition: var(--transition-smooth);
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
         }
 
-        /* Menu Laterale */
+        /* Animazione Hamburger -> X */
+        .hamburger.active .bar:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        .hamburger.active .bar:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* MENU LATERALE */
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -110,25 +130,30 @@
             width: 400px;
             height: 100vh;
             background: rgba(2, 5, 10, 0.98);
-            backdrop-filter: blur(30px);
-            border-left: 1px solid var(--accent-cyan);
+            backdrop-filter: blur(35px);
+            border-left: 2px solid var(--accent-cyan);
             z-index: 1050;
-            transition: 0.6s cubic-bezier(0.7, 0, 0.3, 1);
+            transition: var(--transition-smooth);
             padding: 120px 40px;
             display: flex;
             flex-direction: column;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
         }
 
-        .mobile-menu.active { right: 0; }
+        .mobile-menu.active { 
+            right: 0; 
+        }
 
         .menu-header {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: var(--accent-cyan);
             margin-bottom: 40px;
             border-bottom: 1px solid var(--border);
             padding-bottom: 15px;
-            letter-spacing: 2px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            animation: fadeIn 0.8s ease forwards;
         }
 
         .mobile-nav-links {
@@ -136,10 +161,10 @@
         }
 
         .mobile-nav-links li {
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             opacity: 0;
-            transform: translateX(30px);
-            transition: 0.4s;
+            transform: translateX(40px);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .mobile-menu.active .mobile-nav-links li {
@@ -147,39 +172,39 @@
             transform: translateX(0);
         }
 
+        /* Ritardi sequenziali per le voci del menu */
+        .mobile-nav-links li:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-nav-links li:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-nav-links li:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-nav-links li:nth-child(4) { transition-delay: 0.4s; }
+        .mobile-nav-links li:nth-child(5) { transition-delay: 0.5s; }
+        .mobile-nav-links li:nth-child(6) { transition-delay: 0.6s; }
+
         .mobile-nav-links a {
             text-decoration: none;
             color: #fff;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
             gap: 20px;
-            padding: 15px 0;
+            padding: 18px 0;
             font-family: 'Orbitron', sans-serif;
-            transition: 0.3s;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s ease;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            letter-spacing: 1px;
         }
 
         .mobile-nav-links a:hover {
             color: var(--accent-cyan);
-            padding-left: 10px;
+            padding-left: 15px;
+            text-shadow: 0 0 10px var(--accent-cyan);
         }
 
         .mobile-nav-links a i {
             width: 25px;
             text-align: center;
             color: var(--accent-cyan);
-        }
-
-        .close-menu {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            background: none;
-            border: none;
-            color: var(--accent-cyan);
-            font-size: 2rem;
-            cursor: pointer;
+            font-size: 1.2rem;
         }
 
         .menu-overlay {
@@ -192,11 +217,11 @@
             z-index: 1040;
             opacity: 0;
             visibility: hidden;
-            transition: 0.4s;
+            transition: 0.4s ease;
         }
         .menu-overlay.active { opacity: 1; visibility: visible; }
 
-        /* Main Content */
+        /* CONTENUTO PRINCIPALE */
         .main-container {
             flex: 1;
             padding: 100px 8%;
@@ -207,54 +232,72 @@
 
         .module-card {
             background: var(--card-bg);
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
             border-radius: 40px;
             border: 1px solid var(--border);
-            padding: 80px 40px;
+            padding: 100px 50px;
             width: 100%;
             max-width: 1000px;
             text-align: center;
-            box-shadow: 0 0 40px rgba(0, 229, 255, 0.1);
-            animation: fadeIn 1s ease;
+            box-shadow: 0 0 50px rgba(0, 229, 255, 0.15);
+            animation: cardAppear 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .module-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--accent-cyan);
-            letter-spacing: 5px;
+            letter-spacing: 8px;
             text-transform: uppercase;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
         }
 
         .title-divider {
-            height: 3px;
+            height: 2px;
             background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
-            width: 50%;
+            width: 40%;
             margin: 0 auto;
+            animation: dividerExpand 1s ease-out;
+        }
+
+        /* KEYFRAMES ANIMAZIONI */
+        @keyframes cardAppear {
+            from { opacity: 0; transform: scale(0.9) translateY(30px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes dividerExpand {
+            from { width: 0; opacity: 0; }
+            to { width: 40%; opacity: 1; }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        /* Footer */
+        /* FOOTER */
         .footer {
-            padding: 30px;
+            padding: 40px;
             text-align: center;
             border-top: 1px solid var(--border);
             background: rgba(2, 5, 10, 0.9);
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.6);
         }
 
-        .footer strong { color: var(--accent-cyan); }
+        .footer strong { 
+            color: var(--accent-cyan); 
+            font-weight: 700;
+        }
 
         @media (max-width: 768px) {
             .mobile-menu { width: 100%; }
-            .module-title { font-size: 1.8rem; }
+            .module-title { font-size: 1.8rem; letter-spacing: 4px; }
+            .module-card { padding: 60px 20px; }
         }
     </style>
 </head>
@@ -264,20 +307,19 @@
     <div class="bg-watermark"></div>
 
     <nav>
-        <div class="logo-text" id="btn-home">
+        <div class="logo-text" id="logo-home">
             <i class="fas fa-compass-drafting"></i> NAV<span>TECH</span>
         </div>
-        <div class="hamburger" id="hamburger-btn">
+        <button class="hamburger" id="hamburger-btn">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
-        </div>
+        </button>
     </nav>
 
     <div class="menu-overlay" id="overlay"></div>
 
     <div class="mobile-menu" id="side-menu">
-        <button class="close-menu" id="btn-close"><i class="fas fa-times"></i></button>
         <div class="menu-header" id="menu-label">NAVIGAZIONE</div>
         <ul class="mobile-nav-links" id="menu-list">
             </ul>
@@ -287,7 +329,7 @@
         </main>
 
     <footer class="footer">
-        SVILUPPATO DA <strong>ALESSIO LUCCHINI</strong> & <strong>ANDREA SQUIZZATO</strong>
+        SVILUPPATO DA <strong>ALESSIO LUCCHINI</strong> <i class="fas fa-plus" style="font-size: 0.7rem; margin: 0 5px;"></i> <strong>ANDREA SQUIZZATO</strong>
     </footer>
 
     <script>
@@ -296,8 +338,9 @@
         const menuLabel = document.getElementById('menu-label');
         const sideMenu = document.getElementById('side-menu');
         const overlay = document.getElementById('overlay');
+        const hamburgerBtn = document.getElementById('hamburger-btn');
 
-        // Configurazione Voci Menu
+        // DATABASE CONFIGURAZIONE
         const mainMenu = [
             { id: 'vento', text: 'Problema del Vento', icon: 'fa-wind' },
             { id: 'lossodromia', text: 'Lossodromia', icon: 'fa-route' },
@@ -307,22 +350,24 @@
             { id: 'pet', text: 'PET', icon: 'fa-clock-rotate-left' }
         ];
 
-        const windMenu = [
-            { id: 'v1', text: '1° Problema del Vento', icon: 'fa-circle-1' },
-            { id: 'v2', text: '2° Problema del Vento', icon: 'fa-circle-2' },
-            { id: 'v3', text: '3° Problema del Vento', icon: 'fa-circle-3' },
-            { id: 'v4', text: '4° Problema del Vento', icon: 'fa-circle-4' }
+        const windSubMenu = [
+            { id: 'v1', text: '1° Problema Vento', icon: 'fa-chevron-right' },
+            { id: 'v2', text: '2° Problema Vento', icon: 'fa-chevron-right' },
+            { id: 'v3', text: '3° Problema Vento', icon: 'fa-chevron-right' },
+            { id: 'v4', text: '4° Problema Vento', icon: 'fa-chevron-right' }
         ];
 
-        // Funzione per generare il menu
+        // GESTIONE MENU DINAMICO
         function renderMenu(items, label) {
             menuLabel.innerText = label;
             menuList.innerHTML = '';
+            
             items.forEach((item, index) => {
                 const li = document.createElement('li');
-                li.style.transitionDelay = `${0.1 * index}s`;
+                // Il ritardo dell'animazione viene gestito dal CSS tramite i selettori nth-child
                 li.innerHTML = `<a href="#" data-id="${item.id}"><i class="fas ${item.icon}"></i> ${item.text}</a>`;
-                li.onclick = (e) => {
+                
+                li.querySelector('a').onclick = (e) => {
                     e.preventDefault();
                     handleNavigation(item.id, item.text);
                 };
@@ -330,59 +375,64 @@
             });
         }
 
-        // Gestione Navigazione
         function handleNavigation(id, title) {
-            closeMenu();
-            
-            // Se clicco su "Problema del Vento" dal menu principale
+            toggleMenu(false); // Chiudi menu dopo click
+
+            // Se entriamo nel Problema del Vento, cambiamo il menu futuro
             if (id === 'vento') {
-                renderMenu(windMenu, 'PROBLEMI VENTO');
-                showScreen(title);
+                setTimeout(() => {
+                    renderMenu(windSubMenu, 'PROBLEMI VENTO');
+                    showScreen(title);
+                }, 400);
             } 
-            // Se clicco su uno dei 4 problemi del vento
-            else if (id.startsWith('v')) {
-                showScreen(title);
-            }
-            // Altre sezioni
+            // Se siamo già dentro un problema del vento o altre sezioni
             else {
                 showScreen(title);
             }
         }
 
         function showScreen(title) {
-            contentArea.innerHTML = `
-                <div class="module-card">
-                    <h1 class="module-title">${title}</h1>
-                    <div class="title-divider"></div>
-                </div>
-            `;
-            document.title = "NavTech | " + title;
+            // Effetto transizione contenuto
+            contentArea.style.opacity = '0';
+            setTimeout(() => {
+                contentArea.innerHTML = `
+                    <div class="module-card">
+                        <h1 class="module-title">${title}</h1>
+                        <div class="title-divider"></div>
+                    </div>
+                `;
+                contentArea.style.opacity = '1';
+                document.title = "NavTech | " + title;
+            }, 300);
         }
 
         function goHome() {
-            contentArea.innerHTML = ''; // Pulito
+            contentArea.innerHTML = ''; // Svuota per la Home pulita
             renderMenu(mainMenu, 'NAVIGAZIONE');
             document.title = "NavTech Professional";
-            closeMenu();
+            toggleMenu(false);
         }
 
-        // UI Controls
-        function openMenu() {
-            sideMenu.classList.add('active');
-            overlay.classList.add('active');
+        // CONTROLLI UI
+        function toggleMenu(forceClose = null) {
+            const shouldOpen = forceClose !== null ? !forceClose : !sideMenu.classList.contains('active');
+            
+            if (shouldOpen) {
+                sideMenu.classList.add('active');
+                overlay.classList.add('active');
+                hamburgerBtn.classList.add('active');
+            } else {
+                sideMenu.classList.remove('active');
+                overlay.classList.remove('active');
+                hamburgerBtn.classList.remove('active');
+            }
         }
 
-        function closeMenu() {
-            sideMenu.classList.remove('active');
-            overlay.classList.remove('active');
-        }
+        hamburgerBtn.onclick = () => toggleMenu();
+        overlay.onclick = () => toggleMenu(false);
+        document.getElementById('logo-home').onclick = goHome;
 
-        document.getElementById('hamburger-btn').onclick = openMenu;
-        document.getElementById('btn-close').onclick = closeMenu;
-        overlay.onclick = closeMenu;
-        document.getElementById('btn-home').onclick = goHome;
-
-        // Particle System
+        // SISTEMA PARTICELLE (BACKGROUND ANIMATO)
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -391,41 +441,44 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             particles = [];
-            for(let i=0; i<100; i++) {
+            for(let i=0; i<80; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    size: Math.random() * 2,
-                    speedX: (Math.random() - 0.5) * 0.5,
-                    speedY: (Math.random() - 0.5) * 0.5
+                    size: Math.random() * 2 + 1,
+                    speedX: (Math.random() - 0.5) * 0.4,
+                    speedY: (Math.random() - 0.5) * 0.4,
+                    opacity: Math.random() * 0.5 + 0.2
                 });
             }
         }
 
-        function animate() {
+        function animateParticles() {
             ctx.clearRect(0,0, canvas.width, canvas.height);
             particles.forEach(p => {
                 p.x += p.speedX;
                 p.y += p.speedY;
+                
                 if(p.x > canvas.width) p.x = 0;
                 if(p.x < 0) p.x = canvas.width;
                 if(p.y > canvas.height) p.y = 0;
                 if(p.y < 0) p.y = canvas.height;
                 
-                ctx.fillStyle = 'rgba(0, 229, 255, 0.5)';
+                ctx.fillStyle = `rgba(0, 229, 255, ${p.opacity})`;
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
                 ctx.fill();
             });
-            requestAnimationFrame(animate);
+            requestAnimationFrame(animateParticles);
         }
 
         window.onresize = initParticles;
+        
+        // AVVIO
         initParticles();
-        animate();
+        animateParticles();
+        goHome(); // Inizializza con Home pulita e Menu Main
 
-        // Start
-        goHome();
     </script>
 </body>
 </html>
