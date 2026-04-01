@@ -10,10 +10,9 @@
         :root {
             --bg-dark: #02050a;
             --accent-cyan: #00e5ff;
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(0, 229, 255, 0.2);
-            --card-bg: rgba(10, 20, 30, 0.7);
-            --transition-smooth: all 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+            --border: rgba(0, 229, 255, 0.3);
+            --card-bg: rgba(10, 20, 30, 0.8);
+            --transition-menu: all 0.6s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
         * {
@@ -32,7 +31,7 @@
             flex-direction: column;
         }
 
-        /* SFONDO DINAMICO */
+        /* --- SFONDO E PARTICELLE --- */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -45,8 +44,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 500px;
-            height: 500px;
+            width: 450px;
+            height: 450px;
             background: url('https://i.postimg.cc/bvd85hNh/logo.png') no-repeat center;
             background-size: contain;
             opacity: 0.1;
@@ -54,7 +53,7 @@
             pointer-events: none;
         }
 
-        /* NAVBAR */
+        /* --- NAVBAR --- */
         nav {
             display: flex;
             justify-content: space-between;
@@ -64,10 +63,9 @@
             width: 100%;
             top: 0;
             z-index: 1000;
-            background: rgba(2, 5, 10, 0.8);
+            background: rgba(2, 5, 10, 0.85);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
-            transition: var(--transition-smooth);
         }
 
         .logo-text {
@@ -76,84 +74,71 @@
             font-weight: 700;
             letter-spacing: 3px;
             cursor: pointer;
-            transition: 0.3s;
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-        .logo-text:hover { 
-            text-shadow: 0 0 15px var(--accent-cyan); 
-            transform: scale(1.02);
+            gap: 12px;
+            transition: 0.3s;
         }
         .logo-text span { color: var(--accent-cyan); }
         .logo-text i { color: var(--accent-cyan); }
 
-        /* HAMBURGER ANIMATO */
+        /* --- HAMBURGER ANIMATO --- */
         .hamburger {
             cursor: pointer;
-            z-index: 1100;
+            z-index: 2000;
             background: none;
             border: none;
-            padding: 10px;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 7px;
+            padding: 10px;
         }
 
         .bar {
-            display: block;
-            width: 30px;
+            width: 32px;
             height: 3px;
             background-color: var(--accent-cyan);
-            transition: var(--transition-smooth);
-            border-radius: 2px;
-            box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+            transition: var(--transition-menu);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
         }
 
-        /* Animazione Hamburger -> X */
-        .hamburger.active .bar:nth-child(1) {
-            transform: translateY(9px) rotate(45deg);
-        }
-        .hamburger.active .bar:nth-child(2) {
-            opacity: 0;
-            transform: translateX(-20px);
-        }
-        .hamburger.active .bar:nth-child(3) {
-            transform: translateY(-9px) rotate(-45deg);
-        }
+        /* Stato Attivo Hamburger (X) */
+        .hamburger.active .bar:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+        .hamburger.active .bar:nth-child(2) { opacity: 0; transform: translateX(-20px); }
+        .hamburger.active .bar:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
 
-        /* MENU LATERALE */
+        /* --- MENU LATERALE --- */
         .mobile-menu {
             position: fixed;
             top: 0;
-            right: -100%;
+            right: -100%; /* Inizia nascosto fuori schermo */
             width: 400px;
             height: 100vh;
             background: rgba(2, 5, 10, 0.98);
-            backdrop-filter: blur(35px);
+            backdrop-filter: blur(30px);
             border-left: 2px solid var(--accent-cyan);
-            z-index: 1050;
-            transition: var(--transition-smooth);
-            padding: 120px 40px;
+            z-index: 1500;
+            transition: var(--transition-menu);
+            padding: 120px 50px;
             display: flex;
             flex-direction: column;
-            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+            box-shadow: -20px 0 50px rgba(0,0,0,0.8);
         }
 
-        .mobile-menu.active { 
-            right: 0; 
+        .mobile-menu.active {
+            right: 0; /* Scivola dentro */
         }
 
         .menu-header {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: var(--accent-cyan);
-            margin-bottom: 40px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 15px;
-            letter-spacing: 4px;
+            margin-bottom: 30px;
+            letter-spacing: 5px;
             text-transform: uppercase;
-            animation: fadeIn 0.8s ease forwards;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
         }
 
         .mobile-nav-links {
@@ -161,52 +146,45 @@
         }
 
         .mobile-nav-links li {
-            margin-bottom: 5px;
+            margin-bottom: 15px;
             opacity: 0;
-            transform: translateX(40px);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateX(50px);
+            transition: all 0.5s cubic-bezier(0.1, 0.9, 0.2, 1);
         }
 
+        /* Animazione staggered: le voci appaiono in sequenza quando il menu è attivo */
         .mobile-menu.active .mobile-nav-links li {
             opacity: 1;
             transform: translateX(0);
         }
 
-        /* Ritardi sequenziali per le voci del menu */
-        .mobile-nav-links li:nth-child(1) { transition-delay: 0.1s; }
-        .mobile-nav-links li:nth-child(2) { transition-delay: 0.2s; }
-        .mobile-nav-links li:nth-child(3) { transition-delay: 0.3s; }
-        .mobile-nav-links li:nth-child(4) { transition-delay: 0.4s; }
-        .mobile-nav-links li:nth-child(5) { transition-delay: 0.5s; }
-        .mobile-nav-links li:nth-child(6) { transition-delay: 0.6s; }
-
         .mobile-nav-links a {
             text-decoration: none;
             color: #fff;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
+            font-family: 'Orbitron', sans-serif;
             display: flex;
             align-items: center;
             gap: 20px;
-            padding: 18px 0;
-            font-family: 'Orbitron', sans-serif;
-            transition: 0.3s ease;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-            letter-spacing: 1px;
+            padding: 15px 0;
+            transition: 0.3s;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .mobile-nav-links a i {
+            color: var(--accent-cyan);
+            width: 25px;
+            font-size: 1.3rem;
+            text-align: center;
         }
 
         .mobile-nav-links a:hover {
             color: var(--accent-cyan);
-            padding-left: 15px;
-            text-shadow: 0 0 10px var(--accent-cyan);
+            padding-left: 10px;
+            text-shadow: 0 0 15px var(--accent-cyan);
         }
 
-        .mobile-nav-links a i {
-            width: 25px;
-            text-align: center;
-            color: var(--accent-cyan);
-            font-size: 1.2rem;
-        }
-
+        /* Overlay */
         .menu-overlay {
             position: fixed;
             top: 0;
@@ -214,17 +192,20 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.7);
-            z-index: 1040;
+            z-index: 1400;
             opacity: 0;
             visibility: hidden;
-            transition: 0.4s ease;
+            transition: 0.5s;
         }
-        .menu-overlay.active { opacity: 1; visibility: visible; }
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
 
-        /* CONTENUTO PRINCIPALE */
+        /* --- CONTENUTO PRINCIPALE --- */
         .main-container {
             flex: 1;
-            padding: 100px 8%;
+            padding: 120px 8% 50px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -232,72 +213,55 @@
 
         .module-card {
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 40px;
+            backdrop-filter: blur(25px);
+            border-radius: 50px;
             border: 1px solid var(--border);
-            padding: 100px 50px;
+            padding: 100px 40px;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px;
             text-align: center;
-            box-shadow: 0 0 50px rgba(0, 229, 255, 0.15);
-            animation: cardAppear 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 0 60px rgba(0, 229, 255, 0.15);
+            animation: cardFadeIn 0.8s ease-out forwards;
         }
 
         .module-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 3.5rem;
             color: var(--accent-cyan);
-            letter-spacing: 8px;
+            letter-spacing: 10px;
             text-transform: uppercase;
-            margin-bottom: 30px;
-            text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+            margin-bottom: 20px;
+            text-shadow: 0 0 25px rgba(0, 229, 255, 0.6);
         }
 
-        .title-divider {
+        .divider-line {
             height: 2px;
             background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
             width: 40%;
             margin: 0 auto;
-            animation: dividerExpand 1s ease-out;
         }
 
-        /* KEYFRAMES ANIMAZIONI */
-        @keyframes cardAppear {
-            from { opacity: 0; transform: scale(0.9) translateY(30px); }
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: scale(0.95) translateY(30px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        @keyframes dividerExpand {
-            from { width: 0; opacity: 0; }
-            to { width: 40%; opacity: 1; }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* FOOTER */
+        /* --- FOOTER --- */
         .footer {
             padding: 40px;
             text-align: center;
-            border-top: 1px solid var(--border);
             background: rgba(2, 5, 10, 0.9);
+            border-top: 1px solid var(--border);
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             letter-spacing: 2px;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255,255,255,0.5);
         }
-
-        .footer strong { 
-            color: var(--accent-cyan); 
-            font-weight: 700;
-        }
+        .footer strong { color: var(--accent-cyan); }
 
         @media (max-width: 768px) {
             .mobile-menu { width: 100%; }
-            .module-title { font-size: 1.8rem; letter-spacing: 4px; }
-            .module-card { padding: 60px 20px; }
+            .module-title { font-size: 2rem; letter-spacing: 4px; }
         }
     </style>
 </head>
@@ -307,10 +271,10 @@
     <div class="bg-watermark"></div>
 
     <nav>
-        <div class="logo-text" id="logo-home">
+        <div class="logo-text" id="home-trigger">
             <i class="fas fa-compass-drafting"></i> NAV<span>TECH</span>
         </div>
-        <button class="hamburger" id="hamburger-btn">
+        <button class="hamburger" id="nav-toggle">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
@@ -319,29 +283,29 @@
 
     <div class="menu-overlay" id="overlay"></div>
 
-    <div class="mobile-menu" id="side-menu">
-        <div class="menu-header" id="menu-label">NAVIGAZIONE</div>
-        <ul class="mobile-nav-links" id="menu-list">
+    <div class="mobile-menu" id="side-nav">
+        <div class="menu-header" id="current-menu-title">NAVIGAZIONE</div>
+        <ul class="mobile-nav-links" id="menu-links-list">
             </ul>
     </div>
 
-    <main class="main-container" id="content-area">
+    <main class="main-container" id="view-port">
         </main>
 
     <footer class="footer">
-        SVILUPPATO DA <strong>ALESSIO LUCCHINI</strong> <i class="fas fa-plus" style="font-size: 0.7rem; margin: 0 5px;"></i> <strong>ANDREA SQUIZZATO</strong>
+        SVILUPPATO DA <strong>ALESSIO LUCCHINI</strong> & <strong>ANDREA SQUIZZATO</strong>
     </footer>
 
     <script>
-        const contentArea = document.getElementById('content-area');
-        const menuList = document.getElementById('menu-list');
-        const menuLabel = document.getElementById('menu-label');
-        const sideMenu = document.getElementById('side-menu');
+        const viewPort = document.getElementById('view-port');
+        const menuList = document.getElementById('menu-links-list');
+        const menuTitle = document.getElementById('current-menu-title');
+        const sideNav = document.getElementById('side-nav');
         const overlay = document.getElementById('overlay');
-        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const navToggle = document.getElementById('nav-toggle');
 
-        // DATABASE CONFIGURAZIONE
-        const mainMenu = [
+        // --- CONFIGURAZIONI MENU ---
+        const menuMain = [
             { id: 'vento', text: 'Problema del Vento', icon: 'fa-wind' },
             { id: 'lossodromia', text: 'Lossodromia', icon: 'fa-route' },
             { id: 'ortodromia', text: 'Ortodromia', icon: 'fa-earth-americas' },
@@ -350,89 +314,93 @@
             { id: 'pet', text: 'PET', icon: 'fa-clock-rotate-left' }
         ];
 
-        const windSubMenu = [
+        const menuWind = [
             { id: 'v1', text: '1° Problema Vento', icon: 'fa-chevron-right' },
             { id: 'v2', text: '2° Problema Vento', icon: 'fa-chevron-right' },
             { id: 'v3', text: '3° Problema Vento', icon: 'fa-chevron-right' },
             { id: 'v4', text: '4° Problema Vento', icon: 'fa-chevron-right' }
         ];
 
-        // GESTIONE MENU DINAMICO
-        function renderMenu(items, label) {
-            menuLabel.innerText = label;
+        // --- GESTIONE LOGICA MENU ---
+        function buildMenu(items, label) {
+            menuTitle.innerText = label;
             menuList.innerHTML = '';
             
             items.forEach((item, index) => {
                 const li = document.createElement('li');
-                // Il ritardo dell'animazione viene gestito dal CSS tramite i selettori nth-child
-                li.innerHTML = `<a href="#" data-id="${item.id}"><i class="fas ${item.icon}"></i> ${item.text}</a>`;
+                // Assegna il ritardo per l'animazione di entrata
+                li.style.transitionDelay = `${0.1 * (index + 1)}s`;
                 
-                li.querySelector('a').onclick = (e) => {
+                const a = document.createElement('a');
+                a.href = "#";
+                a.innerHTML = `<i class="fas ${item.icon}"></i> ${item.text}`;
+                
+                a.onclick = (e) => {
                     e.preventDefault();
-                    handleNavigation(item.id, item.text);
+                    processClick(item.id, item.text);
                 };
+                
+                li.appendChild(a);
                 menuList.appendChild(li);
             });
         }
 
-        function handleNavigation(id, title) {
-            toggleMenu(false); // Chiudi menu dopo click
+        function processClick(id, title) {
+            closeMenu();
 
-            // Se entriamo nel Problema del Vento, cambiamo il menu futuro
-            if (id === 'vento') {
-                setTimeout(() => {
-                    renderMenu(windSubMenu, 'PROBLEMI VENTO');
-                    showScreen(title);
-                }, 400);
-            } 
-            // Se siamo già dentro un problema del vento o altre sezioni
-            else {
-                showScreen(title);
-            }
+            setTimeout(() => {
+                if (id === 'vento') {
+                    buildMenu(menuWind, 'PROBLEMI VENTO');
+                    renderView(title);
+                } else {
+                    renderView(title);
+                }
+            }, 400);
         }
 
-        function showScreen(title) {
-            // Effetto transizione contenuto
-            contentArea.style.opacity = '0';
+        function renderView(title) {
+            viewPort.style.opacity = '0';
             setTimeout(() => {
-                contentArea.innerHTML = `
+                viewPort.innerHTML = `
                     <div class="module-card">
                         <h1 class="module-title">${title}</h1>
-                        <div class="title-divider"></div>
+                        <div class="divider-line"></div>
                     </div>
                 `;
-                contentArea.style.opacity = '1';
+                viewPort.style.opacity = '1';
                 document.title = "NavTech | " + title;
             }, 300);
         }
 
-        function goHome() {
-            contentArea.innerHTML = ''; // Svuota per la Home pulita
-            renderMenu(mainMenu, 'NAVIGAZIONE');
+        function returnHome() {
+            viewPort.innerHTML = ''; // Home pulita
+            buildMenu(menuMain, 'NAVIGAZIONE');
             document.title = "NavTech Professional";
-            toggleMenu(false);
+            closeMenu();
         }
 
-        // CONTROLLI UI
-        function toggleMenu(forceClose = null) {
-            const shouldOpen = forceClose !== null ? !forceClose : !sideMenu.classList.contains('active');
-            
-            if (shouldOpen) {
-                sideMenu.classList.add('active');
-                overlay.classList.add('active');
-                hamburgerBtn.classList.add('active');
-            } else {
-                sideMenu.classList.remove('active');
-                overlay.classList.remove('active');
-                hamburgerBtn.classList.remove('active');
-            }
+        // --- CONTROLLI UI ---
+        function openMenu() {
+            sideNav.classList.add('active');
+            overlay.classList.add('active');
+            navToggle.classList.add('active');
         }
 
-        hamburgerBtn.onclick = () => toggleMenu();
-        overlay.onclick = () => toggleMenu(false);
-        document.getElementById('logo-home').onclick = goHome;
+        function closeMenu() {
+            sideNav.classList.remove('active');
+            overlay.classList.remove('active');
+            navToggle.classList.remove('active');
+        }
 
-        // SISTEMA PARTICELLE (BACKGROUND ANIMATO)
+        navToggle.addEventListener('click', () => {
+            if (sideNav.classList.contains('active')) closeMenu();
+            else openMenu();
+        });
+
+        overlay.addEventListener('click', closeMenu);
+        document.getElementById('home-trigger').onclick = returnHome;
+
+        // --- SFONDO PARTICELLE ---
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -441,44 +409,38 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             particles = [];
-            for(let i=0; i<80; i++) {
+            for (let i = 0; i < 80; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    size: Math.random() * 2 + 1,
-                    speedX: (Math.random() - 0.5) * 0.4,
-                    speedY: (Math.random() - 0.5) * 0.4,
-                    opacity: Math.random() * 0.5 + 0.2
+                    sz: Math.random() * 2 + 1,
+                    dx: (Math.random() - 0.5) * 0.5,
+                    dy: (Math.random() - 0.5) * 0.5
                 });
             }
         }
 
-        function animateParticles() {
-            ctx.clearRect(0,0, canvas.width, canvas.height);
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(p => {
-                p.x += p.speedX;
-                p.y += p.speedY;
-                
-                if(p.x > canvas.width) p.x = 0;
-                if(p.x < 0) p.x = canvas.width;
-                if(p.y > canvas.height) p.y = 0;
-                if(p.y < 0) p.y = canvas.height;
-                
-                ctx.fillStyle = `rgba(0, 229, 255, ${p.opacity})`;
+                p.x += p.dx;
+                p.y += p.dy;
+                if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+                ctx.arc(p.x, p.y, p.sz, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(0, 229, 255, 0.4)";
                 ctx.fill();
             });
-            requestAnimationFrame(animateParticles);
+            requestAnimationFrame(animate);
         }
 
         window.onresize = initParticles;
-        
-        // AVVIO
         initParticles();
-        animateParticles();
-        goHome(); // Inizializza con Home pulita e Menu Main
+        animate();
 
+        // Inizio: Carica menu principale e pulisce vista
+        returnHome();
     </script>
 </body>
 </html>
