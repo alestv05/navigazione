@@ -235,67 +235,6 @@
             font-size: 1rem;
         }
 
-        .nav-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-        }
-
-        .nav-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 45px 30px;
-            text-align: center;
-            backdrop-filter: blur(20px);
-            position: relative;
-            overflow: hidden;
-            transition: 0.4s ease;
-            cursor: pointer;
-        }
-
-        .nav-card:hover {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 10px 40px rgba(0, 229, 255, 0.2);
-            transform: translateY(-8px);
-        }
-
-        .card-icon {
-            font-size: 3.5rem;
-            margin-bottom: 25px;
-            background: linear-gradient(135deg, #fff, var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-card h3 {
-            font-family: 'Orbitron', sans-serif;
-            margin-bottom: 20px;
-            font-size: 1.3rem;
-        }
-
-        .nav-card p {
-            font-size: 0.9rem;
-            color: #aaa;
-            line-height: 1.6;
-            margin-bottom: 0;
-        }
-
-        .card-glow {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 0%, rgba(0, 229, 255, 0.15), transparent 70%);
-            opacity: 0;
-            transition: 0.5s;
-        }
-
-        .nav-card:hover .card-glow {
-            opacity: 1;
-        }
-
         .footer-credits {
             margin-top: 80px;
             padding: 30px 20px;
@@ -334,9 +273,6 @@
             }
             .main-container {
                 padding: 120px 5% 40px;
-            }
-            .nav-grid {
-                grid-template-columns: 1fr;
             }
             .footer-credits .developers {
                 font-size: 0.8rem;
@@ -428,50 +364,6 @@
             <h1>Flight Computer <span>v3.5</span></h1>
             <p>Sistema integrato per il calcolo delle rotte e parametri di navigazione</p>
         </header>
-
-        <div class="nav-grid">
-            <div class="nav-card reveal" data-tilt data-card="vento">
-                <div class="card-glow"></div>
-                <i class="fas fa-wind card-icon"></i>
-                <h3>Problema del Vento</h3>
-                <p>Calcolo della deriva, correzione prua e determinazione della Ground Speed.</p>
-            </div>
-
-            <div class="nav-card reveal" data-tilt data-card="lossodromia">
-                <div class="card-glow"></div>
-                <i class="fas fa-route card-icon"></i>
-                <h3>Lossodromia</h3>
-                <p>Navigazione a prua costante (linea lossodromica) tra due punti geografici.</p>
-            </div>
-
-            <div class="nav-card reveal" data-tilt data-card="ortodromia">
-                <div class="card-glow"></div>
-                <i class="fas fa-earth-americas card-icon"></i>
-                <h3>Ortodromia</h3>
-                <p>Calcolo della distanza minima lungo il cerchio massimo della sfera terrestre.</p>
-            </div>
-
-            <div class="nav-card reveal" data-tilt data-card="pnr">
-                <div class="card-glow"></div>
-                <i class="fas fa-map-location-dot card-icon"></i>
-                <h3>PNR</h3>
-                <p>Point of No Return: calcolo del limite estremo per il rientro in sicurezza.</p>
-            </div>
-
-            <div class="nav-card reveal" data-tilt data-card="per">
-                <div class="card-glow"></div>
-                <i class="fas fa-clock-rotate-left card-icon"></i>
-                <h3>PER</h3>
-                <p>Point of Equal Time: determinazione del punto critico tra due aeroporti.</p>
-            </div>
-
-            <div class="nav-card reveal" data-tilt data-card="intercettamento">
-                <div class="card-glow"></div>
-                <i class="fas fa-crosshairs card-icon"></i>
-                <h3>Intercettamento</h3>
-                <p>Calcolo delle rotte di intercettazione per target a prua mobile o costante.</p>
-            </div>
-        </div>
 
         <div class="footer-credits reveal">
             <p>Sistema di Navigazione Avanzata</p>
@@ -573,11 +465,6 @@
                 openModule(pageKey);
                 closeMenu();
             });
-        });
-
-        document.querySelectorAll('.nav-card').forEach(card => {
-            const cardType = card.getAttribute('data-card');
-            card.addEventListener('click', () => openModule(cardType));
         });
 
         const canvas = document.getElementById('particle-canvas');
