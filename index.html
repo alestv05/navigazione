@@ -224,7 +224,7 @@
             transition: all 0.2s;
         }
 
-        /* card styling per moduli */
+        /* card styling per moduli: solo contenitore grafico, senza testo interno */
         .module-card {
             background: var(--card-bg);
             backdrop-filter: blur(8px);
@@ -235,6 +235,7 @@
             transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
             position: relative;
+            min-height: 200px;
         }
         .module-card:hover {
             transform: translateY(-3px);
@@ -258,37 +259,6 @@
             background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
             width: 100px;
             margin: 1rem 0 1.5rem 0;
-        }
-        .formula {
-            background: rgba(0, 229, 255, 0.1);
-            padding: 0.8rem;
-            border-radius: 12px;
-            font-family: monospace;
-            font-size: 1.1rem;
-            margin: 1rem 0;
-            border-left: 3px solid var(--accent-cyan);
-        }
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        .info-box {
-            background: rgba(0,0,0,0.4);
-            border-radius: 20px;
-            padding: 1.2rem;
-            border: 1px solid rgba(0,229,255,0.3);
-        }
-        .badge {
-            background: var(--accent-cyan);
-            color: #02050a;
-            padding: 0.2rem 0.8rem;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 0.8rem;
         }
         .footer-credits {
             position: relative;
@@ -383,23 +353,9 @@
             visibility: visible;
         }
 
+        /* area dettaglio problemi vento: rimossa completamente (nessun testo) */
         .problem-detail-box {
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 20px;
-            padding: 1.6rem;
-            margin-top: 20px;
-            border: 1px solid rgba(0,229,255,0.2);
-            transition: all 0.2s;
-        }
-        .problem-detail-box h4 {
-            color: var(--accent-cyan);
-            font-family: 'Orbitron', monospace;
-            font-size: 1.3rem;
-            margin-bottom: 12px;
-        }
-        .problem-detail-box p {
-            line-height: 1.5;
-            color: #ddd;
+            display: none;
         }
     </style>
 </head>
@@ -485,7 +441,7 @@
         const menuOverlayVento = document.getElementById('menu-overlay-vento');
         const closeMenuVentoBtn = document.getElementById('close-menu-vento');
 
-        let currentModule = 'home'; // tiene traccia del modulo attivo
+        let currentModule = 'home';
 
         function openMainMenu() {
             mobileMenu.classList.add('active');
@@ -523,7 +479,6 @@
             bars[2].style.transform = 'rotate(0) translate(0, 0)';
         }
 
-        // Gestione click hamburger in base al modulo attivo
         hamburger.addEventListener('click', (e) => {
             e.stopPropagation();
             if (currentModule === 'vento') {
@@ -540,125 +495,87 @@
         closeMenuVentoBtn.addEventListener('click', closeVentoMenu);
         menuOverlayVento.addEventListener('click', closeVentoMenu);
 
-        // ---------- CONTENUTI MODULI ----------
-        // Home: completamente vuota, nessun pannello, nessun testo, nessuna card
+        // ---------- CONTENUTI MODULI: TUTTI PULITI, NESSUN TESTO, NESSUNA FORMULA ----------
         function getModuleHTML(moduleId) {
-            const modules = {
-                home: `<div class="reveal active" style="min-height: 0;"></div>`,
-                vento: `
+            // home vuota
+            if (moduleId === 'home') {
+                return `<div class="reveal active" style="min-height: 0;"></div>`;
+            }
+            // per ogni strumento: solo card con titolo e divisore (opzionale), ma nessun testo, nessuna formula, nessun pannello
+            // Per "vento" manteniamo il contenitore del dettaglio (vuoto) perché il menu contestuale è ancora presente,
+            // ma non mostrerà mai alcun contenuto (è nascosto via CSS). Non viene visualizzato alcun testo.
+            if (moduleId === 'vento') {
+                return `
                     <div class="reveal active">
                         <div class="module-card" id="vento-module-card">
                             <div class="module-title"><i class="fas fa-wind"></i> Problema del Vento</div>
                             <div class="divider"></div>
-                            <p>Il vento influenza la traiettoria e la velocità al suolo. Attraverso il triangolo delle velocità si determina la deriva e la rotta vera.</p>
-                            <div class="formula">📐 Formula base: <strong>Vp</strong> (velocità propria) + <strong>Vv</strong> (vento) = <strong>Vs</strong> (velocità al suolo)</div>
-                            <div class="grid-2">
-                                <div class="info-box"><span class="badge">DERIVA</span> δ = angolo tra rotta vera e traiettoria. <br> <strong>δ = arcsin( Vv * sin(α) / Vp )</strong></div>
-                                <div class="info-box"><span class="badge">VENTO AL TRAVERSO</span> Componente trasversale modifica la rotta per mantenere la rotta desiderata.</div>
-                            </div>
-                            <!-- Area per mostrare il dettaglio del problema selezionato dal menu contestuale -->
+                            <!-- area dettaglio problemi (nascosta e senza contenuto) -->
                             <div id="problemDetailContainer" class="problem-detail-box" style="display: none;"></div>
                         </div>
                     </div>
-                `,
-                lossodromia: `
+                `;
+            }
+            if (moduleId === 'lossodromia') {
+                return `
                     <div class="reveal active">
                         <div class="module-card">
-                            <div class="module-title"><i class="fas fa-route"></i> Lossodromia (Rotta costante)</div>
+                            <div class="module-title"><i class="fas fa-route"></i> Lossodromia</div>
                             <div class="divider"></div>
-                            <p>La lossodromia è la linea che taglia i meridiani con angolo costante. Sulla carta di Mercatore è rappresentata da una linea retta.</p>
-                            <div class="formula">🧭 Distanza lossodromica: <strong>D = Δφ * sec(θ)</strong> dove θ è la rotta costante.</div>
-                            <div class="info-box"><i class="fas fa-calculator"></i> Formula delle latitudini crescenti per calcoli esatti in navigazione.</div>
                         </div>
                     </div>
-                `,
-                ortodromia: `
+                `;
+            }
+            if (moduleId === 'ortodromia') {
+                return `
                     <div class="reveal active">
                         <div class="module-card">
-                            <div class="module-title"><i class="fas fa-earth-americas"></i> Ortodromia (Cerchio Massimo)</div>
+                            <div class="module-title"><i class="fas fa-earth-americas"></i> Ortodromia</div>
                             <div class="divider"></div>
-                            <p>Percorso minimo tra due punti sulla sfera terrestre. Angoli di rotta variano continuamente.</p>
-                            <div class="formula">🌍 Formula del coseno sferico: <strong>cos(d) = sinφ1·sinφ2 + cosφ1·cosφ2·cosΔλ</strong></div>
-                            <div class="info-box">Navigazione a lungo raggio: si utilizzano waypoint intermedi per seguire l'ortodromia.</div>
                         </div>
                     </div>
-                `,
-                pnr: `
+                `;
+            }
+            if (moduleId === 'pnr') {
+                return `
                     <div class="reveal active">
                         <div class="module-card">
-                            <div class="module-title"><i class="fas fa-map-location-dot"></i> PNR - Point of No Return</div>
+                            <div class="module-title"><i class="fas fa-map-location-dot"></i> PNR</div>
                             <div class="divider"></div>
-                            <p>Massima distanza raggiungibile da un aeroporto senza possibilità di rientro con il carburante residuo.</p>
-                            <div class="formula">⛽ <strong>PNR = (E · Vg_out · Vg_back) / (Vg_out + Vg_back)</strong> dove E = endurance (ore), Vg_out = velocità al suolo andata, Vg_back = ritorno.</div>
-                            <div class="info-box">Fondamentale per pianificazione voli su tratte remote.</div>
                         </div>
                     </div>
-                `,
-                per: `
+                `;
+            }
+            if (moduleId === 'per') {
+                return `
                     <div class="reveal active">
                         <div class="module-card">
-                            <div class="module-title"><i class="fas fa-clock-rotate-left"></i> PET - Punto di Eguaglianza Temporale</div>
+                            <div class="module-title"><i class="fas fa-clock-rotate-left"></i> PET</div>
                             <div class="divider"></div>
-                            <p>Punto lungo la rotta in cui il tempo per raggiungere la destinazione è uguale al tempo per tornare alla partenza.</p>
-                            <div class="formula">⏱️ <strong>PET (distanza) = (D · Vg_back) / (Vg_out + Vg_back)</strong> dove D è distanza totale, Vg_out velocità andata, Vg_back ritorno.</div>
-                            <div class="info-box">Utilizzato per valutare scenari di deviazione o fuel management.</div>
                         </div>
                     </div>
-                `,
-                intercettamento: `
+                `;
+            }
+            if (moduleId === 'intercettamento') {
+                return `
                     <div class="reveal active">
                         <div class="module-card">
-                            <div class="module-title"><i class="fas fa-crosshairs"></i> Intercettamento Radiale / Convergenza</div>
+                            <div class="module-title"><i class="fas fa-crosshairs"></i> Intercettamento</div>
                             <div class="divider"></div>
-                            <p>Calcolo della rotta per intercettare un determinato radiale VOR o un punto nello spazio aereo.</p>
-                            <div class="formula">✈️ Angolo di intercettazione: <strong>α = arctan( (distanza laterale) / (distanza longitudinale) )</strong></div>
-                            <div class="grid-2">
-                                <div class="info-box">Tecnica: stabilire un angolo di 30°-45° per intercettare un radiale desiderato.</div>
-                                <div class="info-box">Velocità e vento influenzano il rateo di avvicinamento.</div>
-                            </div>
                         </div>
                     </div>
-                `
-            };
-            return modules[moduleId] || modules.home;
+                `;
+            }
+            return `<div class="reveal active" style="min-height: 0;"></div>`;
         }
 
-        // Dettagli dei quattro problemi del vento
-        const problemiVento = {
-            primo: {
-                nome: 'Primo Problema',
-                desc: 'Analisi del vento al traverso: calcolo della componente trasversale e correzione della rotta per mantenere la traccia desiderata. La correzione angolare si ottiene con la formula: Δθ = arctan( Vw_transversale / Vp ).',
-                formula: '📐 Correzione angolare = arctan(componente trasversale / velocità propria)'
-            },
-            secondo: {
-                nome: 'Secondo Problema',
-                desc: 'Calcolo della deriva massima e minima in funzione della direzione del vento. La deriva massima si ha quando il vento è al traverso, con valore δ_max = arcsin(Vv / Vp).',
-                formula: '🌬️ Deriva massima = arcsin(velocità del vento / velocità propria)'
-            },
-            terzo: {
-                nome: 'Terzo Problema',
-                desc: 'Effetto del vento in coda o in fronte sulla velocità al suolo. Con vento a favore: Vs = Vp + Vv; con vento contrario: Vs = Vp - Vv. Influenza significativa sul tempo di volo.',
-                formula: '➡️ Vs (vento a favore) = Vp + Vv  |  Vs (vento contrario) = Vp - Vv'
-            },
-            quarto: {
-                nome: 'Quarto Problema',
-                desc: 'Gestione del carburante con vento variabile: determinazione del punto di consumo critico e pianificazione del volo per ottimizzare l’autonomia. Formula del consumo orario corretto per vento.',
-                formula: '⛽ PNR ottimizzato considerando variazioni di vento e consumo specifico.'
-            }
-        };
-
-        // Funzione per mostrare il dettaglio del problema selezionato
+        // I dettagli dei problemi del vento non vengono più mostrati (nessun contenuto)
         function showProblemDetail(problemKey) {
-            const prob = problemiVento[problemKey];
-            if (!prob) return;
+            // non fa nulla – nessun testo, nessuna formula
             const detailContainer = document.getElementById('problemDetailContainer');
             if (detailContainer) {
-                detailContainer.style.display = 'block';
-                detailContainer.innerHTML = `
-                    <h4><i class="fas fa-wind"></i> ${prob.nome}</h4>
-                    <p>${prob.desc}</p>
-                    <div class="formula" style="margin-top:15px;">📘 ${prob.formula}</div>
-                `;
+                detailContainer.style.display = 'none';
+                detailContainer.innerHTML = '';
             }
         }
 
@@ -671,34 +588,29 @@
             
             // Gestione visibilità menu: in vento nascondi menu principale, mostra contestuale; altrimenti viceversa
             if (moduleId === 'vento') {
-                // Nascondi menu principale e suo overlay (se aperti)
                 closeMainMenu();
-                // Mostra il menu contestuale (ma non automaticamente aperto)
                 mobileMenuVento.style.display = 'block';
-                // Assicura che il menu principale non sia visibile
                 mobileMenu.style.display = 'none';
-                // Inizializza il dettaglio con il primo problema (opzionale)
+                // nessun dettaglio visualizzato
                 setTimeout(() => {
-                    showProblemDetail('primo');
+                    const detail = document.getElementById('problemDetailContainer');
+                    if (detail) detail.style.display = 'none';
                 }, 20);
             } else {
-                // Nascondi menu contestuale e ripristina principale
                 closeVentoMenu();
                 mobileMenuVento.style.display = 'none';
                 mobileMenu.style.display = 'block';
             }
             
-            // Attiva gli effetti reveal
             const reveals = container.querySelectorAll('.reveal');
             reveals.forEach(el => el.classList.add('active'));
             
-            // Titolo dinamico
             const titles = {
                 home: 'NavTech | Navigazione',
                 vento: 'Problema del Vento - NavTech',
                 lossodromia: 'Lossodromia - NavTech',
                 ortodromia: 'Ortodromia - NavTech',
-                pnr: 'PNR - Point of No Return',
+                pnr: 'PNR - NavTech',
                 per: 'PET - NavTech',
                 intercettamento: 'Intercettamento - NavTech'
             };
@@ -712,7 +624,7 @@
             }
         }
         
-        // Gestione popstate (tasto indietro/avanti)
+        // Popstate
         window.addEventListener('popstate', (event) => {
             let moduleId = 'home';
             if (event.state && event.state.module) {
@@ -721,35 +633,31 @@
                 const params = new URLSearchParams(window.location.search);
                 moduleId = params.get('nav') || 'home';
             }
-            // Ricarica il modulo senza aggiungere storia
             navigateTo(moduleId, false);
         });
         
-        // Gestione click sui link del menu principale
+        // Click menu principale
         document.querySelectorAll('.mobile-nav-links a').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const pageKey = link.getAttribute('data-page');
                 if (pageKey) {
                     navigateTo(pageKey, true);
-                    closeMainMenu(); // chiudi dopo selezione
+                    closeMainMenu();
                 }
             });
         });
         
-        // Gestione click sui link del menu contestuale vento
+        // Click menu contestuale vento: non mostrare alcun dettaglio
         document.querySelectorAll('.mobile-nav-links-vento a').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                const subProblem = link.getAttribute('data-subproblem');
-                if (subProblem) {
-                    showProblemDetail(subProblem);
-                    closeVentoMenu(); // chiudi il menu dopo selezione
-                }
+                // non viene mostrato alcun testo, nessuna formula
+                closeVentoMenu();
             });
         });
         
-        // Logo -> torna alla home pulita
+        // Logo -> home pulita
         const logoHome = document.getElementById('logo-home');
         if (logoHome) {
             logoHome.addEventListener('click', () => {
@@ -759,7 +667,7 @@
             });
         }
         
-        // ---- Effetto particelle (sfondo) ----
+        // ---- Effetto particelle ----
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -796,7 +704,7 @@
         initParticles();
         drawParticles();
         
-        // IntersectionObserver per footer
+        // Observer per footer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('active'));
         }, { threshold: 0.15 });
