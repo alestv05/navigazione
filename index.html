@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Nav Dashboard Pro - Navigazione Avanzata</title>
+    <title>Sito in costruzione</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -226,6 +226,7 @@
             margin-bottom: 2rem;
             transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            position: relative;
         }
         .module-card:hover {
             transform: translateY(-3px);
@@ -374,31 +375,108 @@
             visibility: visible;
         }
 
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+        /* STILI PER IL SECONDO MENU AD HAMBURGER (PROBLEMA DEL VENTO) */
+        .wind-submenu-area {
+            margin: 25px 0 20px 0;
+            border-top: 1px solid rgba(0,229,255,0.3);
+            padding-top: 20px;
         }
-        .dashboard-tile {
-            background: rgba(10, 20, 35, 0.7);
-            backdrop-filter: blur(4px);
-            border-radius: 32px;
-            padding: 1.8rem;
-            text-align: center;
-            border: 1px solid rgba(0,229,255,0.2);
-            transition: 0.2s;
+        .second-hamburger-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .hamburger-sub {
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 12px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            transition: all 0.2s;
+            backdrop-filter: blur(4px);
+            z-index: 30;
         }
-        .dashboard-tile:hover {
-            border-color: var(--accent-cyan);
-            transform: scale(1.02);
-            background: rgba(0, 229, 255, 0.05);
+        .hamburger-sub:hover {
+            background: rgba(0, 229, 255, 0.3);
+            transform: scale(1.05);
         }
-        .dashboard-tile i {
-            font-size: 2.8rem;
+        .bar-sub {
+            width: 26px;
+            height: 3px;
+            background-color: var(--accent-cyan);
+            margin: 4px 0;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+        .submenu-panel {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: rgba(2, 5, 10, 0.96);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 20px;
+            width: 260px;
+            padding: 12px 0;
+            box-shadow: 0 10px 30px rgba(0,229,255,0.2);
+            transform-origin: top right;
+            transform: scaleY(0);
+            opacity: 0;
+            transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1), opacity 0.2s;
+            z-index: 40;
+            pointer-events: none;
+        }
+        .submenu-panel.open {
+            transform: scaleY(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .submenu-item {
+            padding: 14px 20px;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.2s;
+            border-left: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .submenu-item i {
+            width: 28px;
             color: var(--accent-cyan);
-            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        .submenu-item:hover {
+            background: rgba(0, 229, 255, 0.15);
+            border-left-color: var(--accent-cyan);
+            padding-left: 28px;
+            color: var(--accent-cyan);
+        }
+        .problem-detail-box {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            padding: 1.6rem;
+            margin-top: 20px;
+            border: 1px solid rgba(0,229,255,0.2);
+            transition: all 0.2s;
+        }
+        .problem-detail-box h4 {
+            color: var(--accent-cyan);
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+        .problem-detail-box p {
+            line-height: 1.5;
+            color: #ddd;
         }
     </style>
 </head>
@@ -437,7 +515,7 @@
     </div>
 
     <main class="main-container" id="main-container">
-        <!-- Il contenuto verrà generato dinamicamente via JS -->
+        <!-- contenuto dinamico -->
     </main>
 
     <footer class="footer-credits reveal">
@@ -453,7 +531,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script>
-        // ---------- GESTIONE MENU HAMBURGER ----------
+        // ---------- GESTIONE MENU PRINCIPALE HAMBURGER ----------
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuOverlay = document.getElementById('menu-overlay');
@@ -486,33 +564,26 @@
         closeMenuBtn.addEventListener('click', closeMenu);
         menuOverlay.addEventListener('click', closeMenu);
 
-        // ---------- CONTENUTI DEI MODULI (SINGLE PAGE, SENZA NUOVE SCHEDE) ----------
-        // Ogni modulo restituisce HTML completo da iniettare nel main-container
+        // ---------- CONTENUTI MODULI (SENZA DASHBOARD OPERATIVA) ----------
+        // Abbiamo rimosso completamente il modulo "dashboard"
         function getModuleHTML(moduleId) {
             const modules = {
-                dashboard: `
+                home: `
                     <div class="reveal active">
                         <div class="module-card">
                             <div class="module-title">
-                                <i class="fas fa-chart-line"></i> 
-                                <span>Dashboard Operativa</span>
+                                <i class="fas fa-globe"></i> 
+                                <span>Benvenuto in NavTech</span>
                             </div>
                             <div class="divider"></div>
-                            <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">Benvenuto nel sistema di navigazione professionale. Seleziona uno strumento dal menu per accedere ai calcoli e alle tecniche avanzate di navigazione aerea.</p>
-                            <div class="dashboard-grid" id="quick-access-grid">
-                                <div class="dashboard-tile" data-quick="vento"><i class="fas fa-wind"></i><h3>Problema del Vento</h3><small>Triangolo del vento, deriva</small></div>
-                                <div class="dashboard-tile" data-quick="lossodromia"><i class="fas fa-route"></i><h3>Lossodromia</h3><small>Rotta costante</small></div>
-                                <div class="dashboard-tile" data-quick="ortodromia"><i class="fas fa-earth-americas"></i><h3>Ortodromia</h3><small>Cerchio massimo</small></div>
-                                <div class="dashboard-tile" data-quick="pnr"><i class="fas fa-map-location-dot"></i><h3>PNR</h3><small>Punto di non ritorno</small></div>
-                                <div class="dashboard-tile" data-quick="per"><i class="fas fa-clock-rotate-left"></i><h3>PET</h3><small>Punto di eguaglianza temporale</small></div>
-                                <div class="dashboard-tile" data-quick="intercettamento"><i class="fas fa-crosshairs"></i><h3>Intercettamento</h3><small>Radiali e convergenza</small></div>
-                            </div>
+                            <p style="margin-bottom: 1rem; font-size: 1.1rem;">Sistema di navigazione professionale. Seleziona una voce dal menu principale per accedere agli strumenti di calcolo avanzati.</p>
+                            <div class="info-box"><i class="fas fa-info-circle"></i> Strumenti disponibili: Problema del Vento, Lossodromia, Ortodromia, PNR, PET, Intercettamento.</div>
                         </div>
                     </div>
                 `,
                 vento: `
                     <div class="reveal active">
-                        <div class="module-card">
+                        <div class="module-card" id="vento-module-card">
                             <div class="module-title"><i class="fas fa-wind"></i> Problema del Vento</div>
                             <div class="divider"></div>
                             <p>Il vento influenza la traiettoria e la velocità al suolo. Attraverso il triangolo delle velocità si determina la deriva e la rotta vera.</p>
@@ -521,7 +592,12 @@
                                 <div class="info-box"><span class="badge">DERIVA</span> δ = angolo tra rotta vera e traiettoria. <br> <strong>δ = arcsin( Vv * sin(α) / Vp )</strong></div>
                                 <div class="info-box"><span class="badge">VENTO AL TRAVERSO</span> Componente trasversale modifica la rotta per mantenere la rotta desiderata.</div>
                             </div>
-                            <p style="margin-top: 1rem;">Utilizza il calcolo vettoriale per correggere heading e ottenere la rotta effettiva.</p>
+                            <!-- ZONA DOVE APPARE IL SECONDO MENU AD HAMBURGER (dinamico) -->
+                            <div class="wind-submenu-area" id="windSubmenuArea"></div>
+                            <!-- Area per visualizzare il dettaglio del problema selezionato -->
+                            <div id="problemDetailContainer" class="problem-detail-box" style="display: none;">
+                                <!-- contenuto caricato dinamicamente -->
+                            </div>
                         </div>
                     </div>
                 `,
@@ -584,46 +660,134 @@
                     </div>
                 `
             };
-            return modules[moduleId] || modules.dashboard;
+            return modules[moduleId] || modules.home;
         }
 
-        // Navigazione interna senza aprire nuove schede
-        function navigateTo(moduleId, addToHistory = true) {
-            // Aggiorna il contenuto principale
-            const container = document.getElementById('main-container');
-            if (container) {
-                container.innerHTML = getModuleHTML(moduleId);
-                // Riavvia gli effetti reveal per eventuali nuovi elementi (gestione classe active)
-                const reveals = container.querySelectorAll('.reveal');
-                reveals.forEach(el => el.classList.add('active'));
-                
-                // Se è dashboard, attacca eventi ai tile rapidi
-                if (moduleId === 'dashboard') {
-                    const tiles = document.querySelectorAll('#quick-access-grid .dashboard-tile');
-                    tiles.forEach(tile => {
-                        tile.addEventListener('click', (e) => {
-                            const page = tile.getAttribute('data-quick');
-                            if (page) navigateTo(page, true);
-                        });
-                    });
-                }
+        // Funzione per costruire il SECONDO MENU AD HAMBURGER all'interno del Problema del Vento
+        function buildSecondHamburgerMenu() {
+            const submenuArea = document.getElementById('windSubmenuArea');
+            if (!submenuArea) return;
+            // Pulisco area per evitare duplicati
+            submenuArea.innerHTML = '';
+            
+            // Wrapper per hamburger + panel
+            const wrapper = document.createElement('div');
+            wrapper.className = 'second-hamburger-wrapper';
+            
+            // Bottone hamburger secondario
+            const hamburgerSub = document.createElement('div');
+            hamburgerSub.className = 'hamburger-sub';
+            hamburgerSub.id = 'hamburgerSubBtn';
+            for (let i = 0; i < 3; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'bar-sub';
+                hamburgerSub.appendChild(bar);
             }
-            // Chiudi menu hamburger dopo la selezione (nuova pagina interna)
+            
+            // Panel che conterrà i 4 problemi
+            const panel = document.createElement('div');
+            panel.className = 'submenu-panel';
+            panel.id = 'submenuPanel';
+            
+            // Lista problemi: Primo, Secondo, Terzo, Quarto Problema
+            const problemi = [
+                { id: 'primo', nome: 'Primo Problema', icona: 'fa-1', desc: 'Analisi del vento al traverso: calcolo della componente trasversale e correzione della rotta per mantenere la traccia desiderata. La correzione angolare si ottiene con la formula: Δθ = arctan( Vw_transversale / Vp ).' },
+                { id: 'secondo', nome: 'Secondo Problema', icona: 'fa-2', desc: 'Calcolo della deriva massima e minima in funzione della direzione del vento. La deriva massima si ha quando il vento è al traverso, con valore δ_max = arcsin(Vv / Vp).' },
+                { id: 'terzo', nome: 'Terzo Problema', icona: 'fa-3', desc: 'Effetto del vento in coda o in fronte sulla velocità al suolo. Con vento a favore: Vs = Vp + Vv; con vento contrario: Vs = Vp - Vv. Influenza significativa sul tempo di volo.' },
+                { id: 'quarto', nome: 'Quarto Problema', icona: 'fa-4', desc: 'Gestione del carburante con vento variabile: determinazione del punto di consumo critico e pianificazione del volo per ottimizzare l’autonomia. Formula del consumo orario corretto per vento.' }
+            ];
+            
+            problemi.forEach(prob => {
+                const item = document.createElement('div');
+                item.className = 'submenu-item';
+                item.setAttribute('data-problem', prob.id);
+                item.innerHTML = `<i class="fas ${prob.icona}"></i> ${prob.nome}`;
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // Mostra dettaglio nel container
+                    const detailContainer = document.getElementById('problemDetailContainer');
+                    if (detailContainer) {
+                        detailContainer.style.display = 'block';
+                        detailContainer.innerHTML = `
+                            <h4><i class="fas fa-wind"></i> ${prob.nome}</h4>
+                            <p>${prob.desc}</p>
+                            <div class="formula" style="margin-top:15px;">📘 Approfondimento: ${prob.nome === 'Primo Problema' ? 'La correzione angolare per vento al traverso si applica con tecnica del triangolo delle velocità.' : prob.nome === 'Secondo Problema' ? 'Valori tipici: con Vv/Vp = 0.3, deriva max ≈ 17.5°.' : prob.nome === 'Terzo Problema' ? 'Esempio: Vp=120kt, Vv=25kt, Vs=145kt (vento in coda) o 95kt (contrario).' : 'Pianificare il PNR considerando vento reale e previsioni.'}</div>
+                        `;
+                    }
+                    // Chiudi il panel dopo selezione
+                    panel.classList.remove('open');
+                });
+                panel.appendChild(item);
+            });
+            
+            wrapper.appendChild(hamburgerSub);
+            wrapper.appendChild(panel);
+            submenuArea.appendChild(wrapper);
+            
+            // Toggle apertura/chiusura panel
+            const btn = document.getElementById('hamburgerSubBtn');
+            const panelEl = document.getElementById('submenuPanel');
+            if (btn && panelEl) {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    panelEl.classList.toggle('open');
+                });
+                // Chiudi se clicchi fuori (document)
+                document.addEventListener('click', function closeSub(e) {
+                    if (!wrapper.contains(e.target) && panelEl.classList.contains('open')) {
+                        panelEl.classList.remove('open');
+                    }
+                });
+            }
+            
+            // Mostra di default il primo problema nel dettaglio (opzionale)
+            const detailContainer = document.getElementById('problemDetailContainer');
+            if (detailContainer && problemi.length) {
+                detailContainer.style.display = 'block';
+                detailContainer.innerHTML = `
+                    <h4><i class="fas fa-wind"></i> ${problemi[0].nome}</h4>
+                    <p>${problemi[0].desc}</p>
+                    <div class="formula" style="margin-top:15px;">📌 Seleziona uno dei quattro problemi dal menu ad hamburger per approfondire.</div>
+                `;
+            }
+        }
+        
+        // Navigazione interna (single page)
+        function navigateTo(moduleId, addToHistory = true) {
+            const container = document.getElementById('main-container');
+            if (!container) return;
+            container.innerHTML = getModuleHTML(moduleId);
+            
+            // Riavvia gli effetti reveal
+            const reveals = container.querySelectorAll('.reveal');
+            reveals.forEach(el => el.classList.add('active'));
+            
+            // Se il modulo attuale è "vento" costruisco il secondo menu hamburger con i 4 problemi
+            if (moduleId === 'vento') {
+                // Attendo che il DOM sia pronto per gli elementi
+                setTimeout(() => {
+                    buildSecondHamburgerMenu();
+                }, 20);
+            } else {
+                // Se cambio modulo, eventuali residui non servono (il DOM verrà ricreato)
+                // non c'è bisogno di pulire perché il contenuto viene sovrascritto.
+            }
+            
+            // Chiudi il menu principale dopo selezione
             closeMenu();
             
-            // Aggiorna titolo pagina per effetto "nuova pagina nel sito"
+            // Titolo dinamico
             const titles = {
-                dashboard: 'Dashboard NavTech',
-                vento: 'Problema del Vento - NavTech',
+                home: 'NavTech - Benvenuto',
+                vento: 'Problema del Vento - Submenu Attivo',
                 lossodromia: 'Lossodromia - NavTech',
                 ortodromia: 'Ortodromia - NavTech',
                 pnr: 'PNR - Point of No Return',
-                per: 'PET - Punto di Eguaglianza Temporale',
+                per: 'PET - NavTech',
                 intercettamento: 'Intercettamento - NavTech'
             };
-            document.title = titles[moduleId] || 'Nav Dashboard Pro';
+            document.title = titles[moduleId] || 'NavTech Pro';
             
-            // Gestione history API per navigare avanti/indietro (comportamento simile a pagine separate)
             if (addToHistory) {
                 const state = { module: moduleId };
                 const url = new URL(window.location);
@@ -631,45 +795,38 @@
                 window.history.pushState(state, '', url);
             }
         }
-
-        // Gestione popstate (tasto indietro/avanti del browser)
+        
+        // Gestione popstate (tasto indietro/avanti)
         window.addEventListener('popstate', (event) => {
-            let moduleId = 'dashboard';
+            let moduleId = 'home';
             if (event.state && event.state.module) {
                 moduleId = event.state.module;
             } else {
                 const params = new URLSearchParams(window.location.search);
-                moduleId = params.get('nav') || 'dashboard';
+                moduleId = params.get('nav') || 'home';
             }
-            // Carica senza aggiungere nuovamente history
             const container = document.getElementById('main-container');
             if (container) {
                 container.innerHTML = getModuleHTML(moduleId);
                 const reveals = container.querySelectorAll('.reveal');
                 reveals.forEach(el => el.classList.add('active'));
-                if (moduleId === 'dashboard') {
-                    const tiles = document.querySelectorAll('#quick-access-grid .dashboard-tile');
-                    tiles.forEach(tile => {
-                        tile.addEventListener('click', (e) => {
-                            const page = tile.getAttribute('data-quick');
-                            if (page) navigateTo(page, true);
-                        });
-                    });
+                if (moduleId === 'vento') {
+                    setTimeout(() => buildSecondHamburgerMenu(), 20);
                 }
             }
             const titles = {
-                dashboard: 'Dashboard NavTech',
-                vento: 'Problema del Vento - NavTech',
-                lossodromia: 'Lossodromia - NavTech',
-                ortodromia: 'Ortodromia - NavTech',
-                pnr: 'PNR - NavTech',
-                per: 'PET - NavTech',
-                intercettamento: 'Intercettamento - NavTech'
+                home: 'NavTech - Navigazione',
+                vento: 'Problema del Vento',
+                lossodromia: 'Lossodromia',
+                ortodromia: 'Ortodromia',
+                pnr: 'PNR',
+                per: 'PET',
+                intercettamento: 'Intercettamento'
             };
             document.title = titles[moduleId] || 'NavTech';
         });
-
-        // Gestione click sui link dell'hamburger: qui risolviamo il problema principale
+        
+        // Gestione click sui link del menu principale
         document.querySelectorAll('.mobile-nav-links a').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -677,23 +834,21 @@
                 if (pageKey) {
                     navigateTo(pageKey, true);
                 }
-                // chiudi eventuale menu già gestito dentro navigateTo
             });
         });
-
-        // Logo cliccabile -> torna alla dashboard (home)
+        
+        // Logo -> torna alla home (nessuna dashboard)
         const logoHome = document.getElementById('logo-home');
         if (logoHome) {
             logoHome.addEventListener('click', () => {
-                navigateTo('dashboard', true);
+                navigateTo('home', true);
             });
         }
-
+        
         // ---- Effetto particelle (CG) ----
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-
         function initParticles() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -709,7 +864,6 @@
                 });
             }
         }
-
         function drawParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(p => {
@@ -724,39 +878,25 @@
             });
             requestAnimationFrame(drawParticles);
         }
-
-        window.addEventListener('resize', () => {
-            initParticles();
-        });
+        window.addEventListener('resize', () => { initParticles(); });
         initParticles();
         drawParticles();
-
-        // IntersectionObserver per rivelazioni footer (effetto fade)
+        
+        // IntersectionObserver per footer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('active'));
         }, { threshold: 0.15 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         
-        // Vanilla tilt opzionale
-        if (typeof VanillaTilt !== 'undefined') {
-            VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
-                max: 12, speed: 400, glare: true, "max-glare": 0.2, scale: 1.02
-            });
-        }
-
-        // CARICA DASHBOARD INIZIALE (nessuna nuova scheda, contenuto nel main)
-        // Controllo se c'è parametro URL all'avvio
+        // Avvio: nessuna dashboard operativa, mostriamo home pulita
         const initialParam = new URLSearchParams(window.location.search).get('nav');
         if (initialParam && ['vento','lossodromia','ortodromia','pnr','per','intercettamento'].includes(initialParam)) {
             navigateTo(initialParam, false);
-            // Sostituisci history state per coerenza
             const state = { module: initialParam };
-            const url = new URL(window.location);
-            url.searchParams.set('nav', initialParam);
-            window.history.replaceState(state, '', url);
+            window.history.replaceState(state, '', window.location.href);
         } else {
-            navigateTo('dashboard', false);
-            window.history.replaceState({ module: 'dashboard' }, '', window.location.pathname);
+            navigateTo('home', false);
+            window.history.replaceState({ module: 'home' }, '', window.location.pathname);
         }
     </script>
 </body>
