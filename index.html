@@ -3,1062 +3,530 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NavTech — Sistema di Navigazione Avanzata</title>
+    <title>Nav Dashboard Pro - Navigazione Avanzata</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* ============================================================
-           VARIABLES & RESET
-        ============================================================ */
         :root {
-            --bg:        #030811;
-            --bg2:       #060d1a;
-            --cyan:      #00e5ff;
-            --cyan-dim:  rgba(0, 229, 255, 0.07);
-            --cyan-glow: rgba(0, 229, 255, 0.35);
-            --white:     #f0f4ff;
-            --muted:     #5a6a80;
-            --border:    rgba(0, 229, 255, 0.15);
-            --glass:     rgba(6, 13, 26, 0.80);
-            --nav-h:     72px;
-            --foot-h:    68px;
-            --radius:    12px;
-            --t:         0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --bg-dark: #02050a;
+            --accent-cyan: #00e5ff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
         }
 
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        html, body { height: 100%; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-            background-color: var(--bg);
-            color: var(--white);
-            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
             overflow-x: hidden;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-        }
-
-        ::selection { background: var(--cyan-glow); color: #fff; }
-
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 3px; }
-
-        /* ============================================================
-           BACKGROUND LAYERS
-        ============================================================ */
-        #particle-canvas {
-            position: fixed; top: 0; left: 0;
-            z-index: 0; pointer-events: none;
-        }
-
-        .bg-grid {
-            position: fixed; inset: 0; z-index: 0; pointer-events: none;
-            background-image:
-                linear-gradient(rgba(0,229,255,0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,229,255,0.025) 1px, transparent 1px);
-            background-size: 64px 64px;
-            mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 20%, transparent 100%);
-            -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 20%, transparent 100%);
-        }
-
-        .bg-glow-a {
-            position: fixed; top: 15%; left: -8%; z-index: 0; pointer-events: none;
-            width: 560px; height: 560px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(0,229,255,0.055) 0%, transparent 70%);
-            animation: floatOrb 9s ease-in-out infinite;
-        }
-
-        .bg-glow-b {
-            position: fixed; bottom: 5%; right: -8%; z-index: 0; pointer-events: none;
-            width: 640px; height: 640px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(0,80,255,0.045) 0%, transparent 70%);
-            animation: floatOrb 12s ease-in-out infinite reverse;
         }
 
         .bg-watermark {
-            position: fixed; top: 50%; left: 50%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
-            width: 440px; height: 440px;
+            width: 450px;
+            height: 450px;
             background: url('https://i.postimg.cc/bvd85hNh/logo.png') no-repeat center;
             background-size: contain;
-            opacity: 0.055; z-index: 0; pointer-events: none;
+            opacity: 0.35;
+            z-index: -1;
+            pointer-events: none;
         }
 
-        @keyframes floatOrb {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50%       { transform: translateY(-50px) scale(1.08); }
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -2;
         }
 
-        /* ============================================================
-           NAVBAR
-        ============================================================ */
         nav {
-            position: fixed; top: 0; left: 0; width: 100%;
-            height: var(--nav-h);
-            display: flex; align-items: center;
+            display: flex;
             justify-content: space-between;
-            padding: 0 6%;
+            align-items: center;
+            padding: 20px 8%;
+            position: fixed;
+            width: 100%;
+            top: 0;
             z-index: 1000;
-            background: rgba(3, 8, 17, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(2, 5, 10, 0.85);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border);
-            transition: background var(--t), box-shadow var(--t);
         }
 
-        nav.scrolled {
-            background: rgba(3, 8, 17, 0.98);
-            box-shadow: 0 4px 50px rgba(0,0,0,0.5);
-        }
-
-        /* Logo */
-        .logo {
-            display: flex; align-items: center; gap: 13px;
-            text-decoration: none;
-        }
-
-        .logo-icon {
-            width: 40px; height: 40px;
-            background: var(--cyan-dim);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            color: var(--cyan); font-size: 1rem;
-            transition: var(--t);
-            flex-shrink: 0;
-        }
-
-        .logo:hover .logo-icon {
-            border-color: var(--cyan);
-            box-shadow: 0 0 18px var(--cyan-glow);
-            background: rgba(0,229,255,0.12);
-        }
-
-        .logo-texts { display: flex; flex-direction: column; line-height: 1; }
-
-        .logo-name {
+        .logo-text {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem; font-weight: 700;
-            letter-spacing: 3px; color: var(--white);
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 2px;
         }
 
-        .logo-name span { color: var(--cyan); }
-
-        .logo-sub {
-            font-size: 0.58rem; letter-spacing: 2px;
-            color: var(--muted); text-transform: uppercase;
-            margin-top: 4px;
+        .logo-text span {
+            color: var(--accent-cyan);
         }
 
-        /* Status badge */
-        .status-pill {
-            display: flex; align-items: center; gap: 8px;
-            padding: 6px 16px;
-            border: 1px solid rgba(255,107,107,0.25);
-            border-radius: 100px;
-            background: rgba(255,107,107,0.06);
-            font-family: 'Space Mono', monospace;
-            font-size: 0.62rem; color: #7a8a9a;
-            letter-spacing: 1.5px; text-transform: uppercase;
+        .logo-text i {
+            margin-right: 8px;
+            color: var(--accent-cyan);
         }
 
-        .status-dot {
-            width: 7px; height: 7px; border-radius: 50%;
-            background: #ff6b6b;
-            box-shadow: 0 0 8px #ff6b6b;
-            animation: blink 2s ease-in-out infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50%       { opacity: 0.25; }
-        }
-
-        /* Hamburger */
         .hamburger {
-            width: 42px; height: 42px;
-            background: var(--cyan-dim);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            gap: 5px; cursor: pointer;
-            transition: var(--t); z-index: 1100;
-        }
-
-        .hamburger:hover {
-            border-color: rgba(0,229,255,0.5);
-            box-shadow: 0 0 15px rgba(0,229,255,0.2);
+            display: block;
+            cursor: pointer;
+            z-index: 1100;
+            background: transparent;
+            border: none;
+            padding: 10px;
         }
 
         .bar {
-            display: block; width: 17px; height: 2px;
-            background: var(--cyan); border-radius: 2px;
+            display: block;
+            width: 30px;
+            height: 3px;
+            margin: 6px auto;
+            background-color: var(--accent-cyan);
             transition: all 0.3s ease;
+            border-radius: 2px;
         }
 
-        /* ============================================================
-           OVERLAY + SIDEBAR MENU
-        ============================================================ */
-        .menu-overlay {
-            position: fixed; inset: 0;
-            background: rgba(0,0,0,0.65);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            z-index: 1040; opacity: 0;
-            visibility: hidden; transition: 0.35s;
+        .nav-links {
+            display: none !important;
         }
-        .menu-overlay.active { opacity: 1; visibility: visible; }
 
         .mobile-menu {
-            position: fixed; top: 0; right: -100%;
-            width: min(420px, 100vw); height: 100dvh;
-            background: var(--bg2);
-            border-left: 1px solid var(--border);
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 380px;
+            height: 100vh;
+            background: rgba(2, 5, 10, 0.98);
+            backdrop-filter: blur(25px);
+            border-left: 2px solid var(--accent-cyan);
             z-index: 1050;
-            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex; flex-direction: column;
-            box-shadow: -30px 0 80px rgba(0,0,0,0.7);
-            overflow: hidden;
+            transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            padding-top: 100px;
+            box-shadow: -10px 0 50px rgba(0, 229, 255, 0.2);
         }
 
-        .mobile-menu.active { right: 0; }
-
-        /* Top cyan line */
-        .mobile-menu::after {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--cyan) 40%, transparent);
-            opacity: 0.5;
+        .mobile-menu.active {
+            right: 0;
         }
 
         .menu-header {
-            display: flex; align-items: center;
-            justify-content: space-between;
-            padding: 22px 26px;
-            border-bottom: 1px solid var(--border);
-            flex-shrink: 0;
-        }
-
-        .menu-header-left {
-            display: flex; align-items: center; gap: 10px;
-        }
-
-        .menu-header-icon {
-            width: 32px; height: 32px; border-radius: 8px;
-            background: var(--cyan-dim); border: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: center;
-            color: var(--cyan); font-size: 0.8rem;
-        }
-
-        .menu-title {
+            position: absolute;
+            top: 25px;
+            left: 30px;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.7rem; letter-spacing: 3px;
-            color: var(--white); text-transform: uppercase;
+            font-size: 1.2rem;
+            color: var(--accent-cyan);
+            letter-spacing: 2px;
+            border-bottom: 1px solid var(--accent-cyan);
+            padding-bottom: 8px;
         }
 
-        .close-menu {
-            width: 34px; height: 34px;
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 8px;
-            color: var(--muted); font-size: 0.9rem;
-            cursor: pointer; transition: var(--t);
-            display: flex; align-items: center; justify-content: center;
+        .menu-header i {
+            margin-right: 8px;
         }
 
-        .close-menu:hover {
-            color: var(--white);
-            border-color: rgba(255,255,255,0.25);
-            transform: rotate(90deg);
-        }
-
-        /* Nav list */
         .mobile-nav-links {
             list-style: none;
-            padding: 16px 16px;
-            flex: 1; overflow-y: auto;
-            display: flex; flex-direction: column; gap: 5px;
+            padding: 0 30px;
         }
 
         .mobile-nav-links li {
-            opacity: 0; transform: translateX(24px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            margin: 0;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.4s ease;
         }
 
-        .mobile-menu.active .mobile-nav-links li { opacity: 1; transform: translateX(0); }
-        .mobile-menu.active .mobile-nav-links li:nth-child(1) { transition-delay: 0.07s; }
-        .mobile-menu.active .mobile-nav-links li:nth-child(2) { transition-delay: 0.13s; }
-        .mobile-menu.active .mobile-nav-links li:nth-child(3) { transition-delay: 0.19s; }
-        .mobile-menu.active .mobile-nav-links li:nth-child(4) { transition-delay: 0.25s; }
-        .mobile-menu.active .mobile-nav-links li:nth-child(5) { transition-delay: 0.31s; }
-        .mobile-menu.active .mobile-nav-links li:nth-child(6) { transition-delay: 0.37s; }
+        .mobile-menu.active .mobile-nav-links li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mobile-menu.active .mobile-nav-links li:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu.active .mobile-nav-links li:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-menu.active .mobile-nav-links li:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-menu.active .mobile-nav-links li:nth-child(4) { transition-delay: 0.4s; }
+        .mobile-menu.active .mobile-nav-links li:nth-child(5) { transition-delay: 0.5s; }
+        .mobile-menu.active .mobile-nav-links li:nth-child(6) { transition-delay: 0.6s; }
 
         .mobile-nav-links a {
             text-decoration: none;
-            display: flex; align-items: center; gap: 14px;
-            padding: 13px 14px;
-            border-radius: 10px;
-            border: 1px solid transparent;
-            transition: var(--t);
-            position: relative; overflow: hidden;
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: 500;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .mobile-nav-links a i {
+            width: 35px;
+            font-size: 1.4rem;
+            color: var(--accent-cyan);
         }
 
         .mobile-nav-links a:hover {
-            background: rgba(0,229,255,0.05);
-            border-color: var(--border);
+            color: var(--accent-cyan);
+            padding-left: 20px;
+            border-bottom-color: var(--accent-cyan);
         }
 
-        .nav-icon-wrap {
-            width: 42px; height: 42px; border-radius: 10px;
-            background: rgba(0,229,255,0.06);
-            border: 1px solid rgba(0,229,255,0.12);
-            display: flex; align-items: center; justify-content: center;
-            color: var(--cyan); font-size: 0.95rem;
-            flex-shrink: 0; transition: var(--t);
+        .close-menu {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: transparent;
+            border: none;
+            color: var(--accent-cyan);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        .mobile-nav-links a:hover .nav-icon-wrap {
-            background: rgba(0,229,255,0.12);
-            border-color: rgba(0,229,255,0.35);
-            box-shadow: 0 0 14px rgba(0,229,255,0.2);
+        .close-menu:hover {
+            transform: rotate(90deg);
+            color: #fff;
         }
 
-        .nav-link-texts { display: flex; flex-direction: column; flex: 1; }
-
-        .nav-link-label {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem; font-weight: 600;
-            color: var(--white); letter-spacing: 1px;
-        }
-
-        .nav-link-sub {
-            font-size: 0.65rem; color: var(--muted);
-            margin-top: 2px;
-        }
-
-        .nav-arrow {
-            color: var(--muted); font-size: 0.7rem;
-            transition: var(--t);
-        }
-
-        .mobile-nav-links a:hover .nav-arrow {
-            color: var(--cyan); transform: translateX(3px);
-        }
-
-        /* Menu footer */
-        .menu-footer {
-            padding: 18px 26px;
-            border-top: 1px solid var(--border);
-            flex-shrink: 0;
-        }
-
-        .menu-footer-text {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.58rem; color: var(--muted);
-            letter-spacing: 0.8px; line-height: 1.8;
-        }
-
-        .menu-footer-text em { color: var(--cyan); font-style: normal; }
-
-        /* ============================================================
-           MAIN
-        ============================================================ */
-        main {
+        .main-container {
             flex: 1;
-            display: flex; align-items: center; justify-content: center;
-            padding: var(--nav-h) 6% var(--foot-h);
-            position: relative; z-index: 1;
+            padding: 140px 8% 100px; /* padding-bottom per evitare sovrapposizione con footer fisso */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
         }
 
-        .hero {
+        .hero-header {
             text-align: center;
-            max-width: 680px;
-            width: 100%;
         }
 
-        /* Eyebrow */
-        .hero-eyebrow {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(0,229,255,0.06);
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            padding: 6px 18px;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.62rem; letter-spacing: 2px;
-            color: rgba(0,229,255,0.8); text-transform: uppercase;
-            margin-bottom: 36px;
-            animation: fadeUp 0.7s ease both;
-        }
-
-        /* Heading */
-        .hero h1 {
+        .hero-header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.2rem, 6vw, 4.2rem);
-            font-weight: 900;
-            letter-spacing: 1px;
-            line-height: 1.08;
+            font-size: clamp(2rem, 5vw, 3.5rem);
             margin-bottom: 10px;
-            animation: fadeUp 0.7s 0.12s ease both;
-        }
-
-        .h1-main {
-            display: block;
-            background: linear-gradient(140deg, #ffffff 0%, #b8d4f0 55%, var(--cyan) 100%);
+            background: linear-gradient(135deg, #fff, var(--accent-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
-        .h1-version {
-            display: block;
-            font-size: 0.32em; font-weight: 400;
-            letter-spacing: 7px; text-transform: uppercase;
-            color: var(--muted);
-            -webkit-text-fill-color: var(--muted);
-            margin-top: 14px;
+        .hero-header h1 span {
+            color: var(--accent-cyan);
+            font-size: 1rem;
+            background: none;
+            -webkit-text-fill-color: var(--accent-cyan);
         }
 
-        /* Divider */
-        .hero-rule {
-            width: 64px; height: 1px;
-            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-            margin: 28px auto;
-            animation: fadeUp 0.7s 0.24s ease both;
+        .hero-header p {
+            color: #aaa;
+            font-size: 1rem;
         }
 
-        /* Subtitle */
-        .hero-sub {
-            font-size: 0.95rem; line-height: 1.75;
-            color: var(--muted); max-width: 440px;
-            margin: 0 auto 40px;
-            animation: fadeUp 0.7s 0.36s ease both;
-        }
-
-        /* Module grid */
-        .mod-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 36px;
-            animation: fadeUp 0.7s 0.48s ease both;
-        }
-
-        .mod-card {
-            padding: 18px 12px;
-            background: rgba(0,229,255,0.04);
-            border: 1px solid rgba(0,229,255,0.1);
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: var(--t);
-            position: relative; overflow: hidden;
-        }
-
-        .mod-card::before {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-            opacity: 0; transition: var(--t);
-        }
-
-        .mod-card:hover {
-            border-color: rgba(0,229,255,0.35);
-            background: rgba(0,229,255,0.08);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 35px rgba(0,229,255,0.1);
-        }
-
-        .mod-card:hover::before { opacity: 1; }
-
-        .mod-card i {
-            font-size: 1.25rem; color: var(--cyan);
-            display: block; margin-bottom: 9px;
-            transition: var(--t);
-        }
-
-        .mod-card:hover i { text-shadow: 0 0 16px var(--cyan); }
-
-        .mod-card span {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.56rem; letter-spacing: 1.5px;
-            color: rgba(255,255,255,0.7); text-transform: uppercase;
-            display: block;
-        }
-
-        /* Buttons */
-        .cta-row {
-            display: flex; align-items: center;
-            justify-content: center; gap: 14px;
-            animation: fadeUp 0.7s 0.6s ease both;
-        }
-
-        .btn-primary {
-            display: inline-flex; align-items: center; gap: 9px;
-            background: var(--cyan); color: var(--bg);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.68rem; font-weight: 700;
-            letter-spacing: 2px; text-transform: uppercase;
-            padding: 14px 28px; border-radius: 9px;
-            border: none; cursor: pointer;
-            transition: var(--t); text-decoration: none;
-            box-shadow: 0 0 28px rgba(0,229,255,0.25);
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 0 50px rgba(0,229,255,0.55);
-            transform: translateY(-2px);
-        }
-
-        .btn-ghost {
-            display: inline-flex; align-items: center; gap: 9px;
-            background: transparent; color: var(--muted);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase;
-            padding: 13px 22px; border-radius: 9px;
-            border: 1px solid rgba(255,255,255,0.1);
-            cursor: pointer; transition: var(--t); text-decoration: none;
-        }
-
-        .btn-ghost:hover {
-            border-color: rgba(255,255,255,0.3);
-            color: var(--white);
-        }
-
-        /* ============================================================
-           FOOTER
-        ============================================================ */
-        footer {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            height: var(--foot-h);
-            display: flex; align-items: center;
-            justify-content: space-between;
-            padding: 0 6%;
+        .footer-credits {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 20px;
+            text-align: center;
             border-top: 1px solid var(--border);
-            background: rgba(3, 8, 17, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(2, 5, 10, 0.85);
+            backdrop-filter: blur(10px);
             z-index: 900;
         }
 
-        .foot-left {
-            display: flex; align-items: center; gap: 12px;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem; color: var(--muted);
+        .footer-credits p {
+            color: #888;
+            font-size: 0.8rem;
             letter-spacing: 1px;
         }
 
-        .foot-pipe { opacity: 0.25; }
-
-        .foot-right {
-            display: flex; align-items: center; gap: 7px;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem; color: var(--muted);
-            letter-spacing: 0.5px;
+        .footer-credits .developers {
+            margin-top: 5px;
+            font-size: 0.9rem;
+            color: var(--accent-cyan);
+            font-family: 'Orbitron', sans-serif;
         }
 
-        .foot-name { color: var(--cyan); }
-        .foot-right i { font-size: 0.5rem; opacity: 0.5; }
-
-        /* ============================================================
-           ANIMATIONS
-        ============================================================ */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
+        .footer-credits .developers i {
+            margin: 0 8px;
+            color: #fff;
+            font-size: 0.8rem;
         }
 
-        /* ============================================================
-           RESPONSIVE
-        ============================================================ */
-        @media (max-width: 600px) {
-            :root { --nav-h: 64px; --foot-h: 60px; }
-            .status-pill { display: none; }
-            .mod-grid { grid-template-columns: repeat(2, 1fr); }
-            .hero h1 { font-size: clamp(1.9rem, 9vw, 2.8rem); }
-            .cta-row { flex-direction: column; gap: 10px; }
-            .foot-pipe, .foot-sys { display: none; }
+        .footer-credits .developers span {
+            color: #fff;
+            font-weight: 300;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu {
+                width: 100%;
+            }
+            .main-container {
+                padding: 120px 5% 80px;
+            }
+            .footer-credits .developers {
+                font-size: 0.7rem;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+            .footer-credits .developers i {
+                display: none;
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 1.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-cyan);
+            border-radius: 4px;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1040;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
     </style>
 </head>
 <body>
-
-    <!-- BG -->
     <canvas id="particle-canvas"></canvas>
-    <div class="bg-grid"></div>
-    <div class="bg-glow-a"></div>
-    <div class="bg-glow-b"></div>
     <div class="bg-watermark"></div>
 
-    <!-- ===== NAVBAR ===== -->
     <nav id="navbar">
-        <a class="logo" href="#">
-            <div class="logo-icon"><i class="fas fa-compass-drafting"></i></div>
-            <div class="logo-texts">
-                <div class="logo-name">NAV<span>TECH</span></div>
-                <div class="logo-sub">Flight Navigation System</div>
-            </div>
-        </a>
-
-        <div class="status-pill">
-            <span class="status-dot"></span>
-            In Sviluppo
+        <div class="logo-text">
+            <i class="fas fa-compass-drafting"></i> NAV<span>TECH</span>
         </div>
-
-        <button class="hamburger" id="hamburger" aria-label="Apri menu">
+        <div class="hamburger" id="hamburger">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
-        </button>
+        </div>
     </nav>
 
-    <!-- ===== OVERLAY ===== -->
     <div class="menu-overlay" id="menu-overlay"></div>
 
-    <!-- ===== SIDEBAR ===== -->
-    <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Menu di navigazione">
+    <div class="mobile-menu" id="mobile-menu">
         <div class="menu-header">
-            <div class="menu-header-left">
-                <div class="menu-header-icon"><i class="fas fa-compass"></i></div>
-                <span class="menu-title">Moduli</span>
-            </div>
-            <button class="close-menu" id="close-menu" aria-label="Chiudi menu">
-                <i class="fas fa-times"></i>
-            </button>
+            <i class="fas fa-compass"></i> NAVIGAZIONE
         </div>
-
+        <button class="close-menu" id="close-menu">
+            <i class="fas fa-times"></i>
+        </button>
         <ul class="mobile-nav-links">
-            <li>
-                <a href="#" data-page="vento">
-                    <div class="nav-icon-wrap"><i class="fas fa-wind"></i></div>
-                    <div class="nav-link-texts">
-                        <span class="nav-link-label">Problema del Vento</span>
-                        <span class="nav-link-sub">Calcolo correzione deriva</span>
-                    </div>
-                    <i class="fas fa-chevron-right nav-arrow"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#" data-page="lossodromia">
-                    <div class="nav-icon-wrap"><i class="fas fa-route"></i></div>
-                    <div class="nav-link-texts">
-                        <span class="nav-link-label">Lossodromia</span>
-                        <span class="nav-link-sub">Rotta a angolo costante</span>
-                    </div>
-                    <i class="fas fa-chevron-right nav-arrow"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#" data-page="ortodromia">
-                    <div class="nav-icon-wrap"><i class="fas fa-earth-americas"></i></div>
-                    <div class="nav-link-texts">
-                        <span class="nav-link-label">Ortodromia</span>
-                        <span class="nav-link-sub">Percorso più breve sulla sfera</span>
-                    </div>
-                    <i class="fas fa-chevron-right nav-arrow"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#" data-page="pnr">
-                    <div class="nav-icon-wrap"><i class="fas fa-map-location-dot"></i></div>
-                    <div class="nav-link-texts">
-                        <span class="nav-link-label">PNR</span>
-                        <span class="nav-link-sub">Punto di non ritorno</span>
-                    </div>
-                    <i class="fas fa-chevron-right nav-arrow"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#" data-page="per">
-                    <div class="nav-icon-wrap"><i class="fas fa-clock-rotate-left"></i></div>
-                    <div class="nav-link-texts">
-                        <span class="nav-link-label">PET</span>
-                        <span class="nav-link-sub">Punto di equal time</span>
-                    </div>
-                    <i class="fas fa-chevron-right nav-arrow"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#" data-page="intercettamento">
-                    <div class="nav-icon-wrap"><i class="fas fa-crosshairs"></i></div>
-                    <div class="nav-link-texts">
-                        <span class="nav-link-label">Intercettamento</span>
-                        <span class="nav-link-sub">Calcolo rotta d'intercetta</span>
-                    </div>
-                    <i class="fas fa-chevron-right nav-arrow"></i>
-                </a>
-            </li>
+            <li><a href="#" data-page="vento"><i class="fas fa-wind"></i> Problema del Vento</a></li>
+            <li><a href="#" data-page="lossodromia"><i class="fas fa-route"></i> Lossodromia</a></li>
+            <li><a href="#" data-page="ortodromia"><i class="fas fa-earth-americas"></i> Ortodromia</a></li>
+            <li><a href="#" data-page="pnr"><i class="fas fa-map-location-dot"></i> PNR</a></li>
+            <li><a href="#" data-page="per"><i class="fas fa-clock-rotate-left"></i> PER</a></li>
+            <li><a href="#" data-page="intercettamento"><i class="fas fa-crosshairs"></i> Intercettamento</a></li>
         </ul>
-
-        <div class="menu-footer">
-            <div class="menu-footer-text">
-                <em>NavTech</em> v3.5 &nbsp;·&nbsp; Sistema in fase di sviluppo<br>
-                Sviluppato da <em>Alessio Lucchini</em> &amp; <em>Andrea Squizzato</em>
-            </div>
-        </div>
     </div>
 
-    <!-- ===== MAIN ===== -->
-    <main>
-        <div class="hero">
-
-            <div class="hero-eyebrow">
-                <i class="fas fa-satellite-dish"></i>
-                Sistema di Navigazione Aerea
-            </div>
-
-            <h1>
-                <span class="h1-main">Sito in costruzione</span>
-                <span class="h1-version">NavTech &nbsp;·&nbsp; v3.5</span>
-            </h1>
-
-            <div class="hero-rule"></div>
-
-            <p class="hero-sub">
-                Il sistema integrato per il calcolo di rotte aeree, parametri di navigazione e soluzioni al volo. I moduli saranno disponibili a breve.
-            </p>
-
-            <!-- Module quick-access grid -->
-            <div class="mod-grid">
-                <div class="mod-card" data-page="vento">
-                    <i class="fas fa-wind"></i>
-                    <span>Vento</span>
-                </div>
-                <div class="mod-card" data-page="lossodromia">
-                    <i class="fas fa-route"></i>
-                    <span>Lossodromia</span>
-                </div>
-                <div class="mod-card" data-page="ortodromia">
-                    <i class="fas fa-earth-americas"></i>
-                    <span>Ortodromia</span>
-                </div>
-                <div class="mod-card" data-page="pnr">
-                    <i class="fas fa-map-location-dot"></i>
-                    <span>PNR</span>
-                </div>
-                <div class="mod-card" data-page="per">
-                    <i class="fas fa-clock-rotate-left"></i>
-                    <span>PET</span>
-                </div>
-                <div class="mod-card" data-page="intercettamento">
-                    <i class="fas fa-crosshairs"></i>
-                    <span>Intercetto</span>
-                </div>
-            </div>
-
-            <div class="cta-row">
-                <button class="btn-primary" id="open-menu-btn">
-                    <i class="fas fa-compass"></i>
-                    Esplora Moduli
-                </button>
-                <a class="btn-ghost" href="#">
-                    <i class="fas fa-circle-info"></i>
-                    Info
-                </a>
-            </div>
-
+    <main class="main-container">
+        <div class="hero-header reveal">
+            <h1>Flight Computer <span>v3.5</span></h1>
+            <p>Sistema integrato per il calcolo delle rotte e parametri di navigazione</p>
         </div>
     </main>
 
-    <!-- ===== FOOTER ===== -->
-    <footer>
-        <div class="foot-left">
-            <span>© 2025 NavTech</span>
-            <span class="foot-pipe">|</span>
-            <span class="foot-sys">Navigazione Avanzata</span>
-        </div>
-        <div class="foot-right">
+    <footer class="footer-credits reveal">
+        <p>Sistema di Navigazione Avanzata</p>
+        <div class="developers">
+            <span>Sviluppato da</span>
             <i class="fas fa-code"></i>
-            <span class="foot-name">Alessio Lucchini</span>
+            <strong>Alessio Lucchini</strong>
             <i class="fas fa-plus"></i>
-            <span class="foot-name">Andrea Squizzato</span>
+            <strong>Andrea Squizzato</strong>
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script>
-    // ================================================================
-    //  MENU
-    // ================================================================
-    const hamburger    = document.getElementById('hamburger');
-    const mobileMenu   = document.getElementById('mobile-menu');
-    const menuOverlay  = document.getElementById('menu-overlay');
-    const closeMenuBtn = document.getElementById('close-menu');
-    const openMenuBtn  = document.getElementById('open-menu-btn');
-    const bars         = document.querySelectorAll('.bar');
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuOverlay = document.getElementById('menu-overlay');
+        const closeMenuBtn = document.getElementById('close-menu');
 
-    function openMenu() {
-        mobileMenu.classList.add('active');
-        menuOverlay.classList.add('active');
-        bars[0].style.transform = 'rotate(-45deg) translate(-5px, 7px)';
-        bars[1].style.opacity   = '0';
-        bars[2].style.transform = 'rotate(45deg) translate(-5px, -7px)';
-    }
+        function openMenu() {
+            mobileMenu.classList.add('active');
+            menuOverlay.classList.add('active');
+            hamburger.classList.add('active');
+            const bars = document.querySelectorAll('.bar');
+            bars[0].style.transform = 'rotate(-45deg) translate(-6px, 7px)';
+            bars[1].style.opacity = '0';
+            bars[2].style.transform = 'rotate(45deg) translate(-6px, -7px)';
+        }
 
-    function closeMenu() {
-        mobileMenu.classList.remove('active');
-        menuOverlay.classList.remove('active');
-        bars[0].style.transform = '';
-        bars[1].style.opacity   = '';
-        bars[2].style.transform = '';
-    }
+        function closeMenu() {
+            mobileMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            hamburger.classList.remove('active');
+            const bars = document.querySelectorAll('.bar');
+            bars[0].style.transform = 'rotate(0) translate(0, 0)';
+            bars[1].style.opacity = '1';
+            bars[2].style.transform = 'rotate(0) translate(0, 0)';
+        }
 
-    hamburger.addEventListener('click', e => {
-        e.stopPropagation();
-        mobileMenu.classList.contains('active') ? closeMenu() : openMenu();
-    });
-
-    openMenuBtn && openMenuBtn.addEventListener('click', openMenu);
-    closeMenuBtn.addEventListener('click', closeMenu);
-    menuOverlay.addEventListener('click', closeMenu);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
-
-    // Nav scroll effect
-    window.addEventListener('scroll', () => {
-        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10);
-    }, { passive: true });
-
-    // ================================================================
-    //  MODULE PAGES
-    // ================================================================
-    const pageTitles = {
-        vento:           'Problema del Vento',
-        lossodromia:     'Lossodromia',
-        ortodromia:      'Ortodromia',
-        pnr:             'PNR',
-        per:             'PET',
-        intercettamento: 'Intercettamento'
-    };
-    const pageIcons = {
-        vento:           'wind',
-        lossodromia:     'route',
-        ortodromia:      'earth-americas',
-        pnr:             'map-location-dot',
-        per:             'clock-rotate-left',
-        intercettamento: 'crosshairs'
-    };
-    const pageSubs = {
-        vento:           'Calcolo correzione deriva',
-        lossodromia:     'Rotta a angolo costante',
-        ortodromia:      'Percorso più breve sulla sfera',
-        pnr:             'Punto di non ritorno',
-        per:             'Punto di equal time',
-        intercettamento: "Calcolo rotta d'intercetta"
-    };
-
-    function openModule(key) {
-        const name = pageTitles[key];
-        const icon = pageIcons[key];
-        const sub  = pageSubs[key];
-        const w    = window.open('about:blank', '_blank');
-        if (!w) return;
-
-        w.document.head.innerHTML = `
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width,initial-scale=1">
-            <title>${name} — NavTech</title>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-            <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
-            <style>
-                *{margin:0;padding:0;box-sizing:border-box;}
-                body{
-                    background:#030811;color:#f0f4ff;
-                    font-family:'Inter',sans-serif;
-                    min-height:100dvh;
-                    display:flex;flex-direction:column;
-                    align-items:center;justify-content:center;
-                    text-align:center;padding:40px 24px;
-                    background-image:
-                        linear-gradient(rgba(0,229,255,0.025) 1px,transparent 1px),
-                        linear-gradient(90deg,rgba(0,229,255,0.025) 1px,transparent 1px);
-                    background-size:56px 56px;
-                }
-                .orb{
-                    position:fixed;top:50%;left:50%;
-                    transform:translate(-50%,-50%);
-                    width:700px;height:700px;border-radius:50%;
-                    background:radial-gradient(circle,rgba(0,229,255,0.05) 0%,transparent 65%);
-                    pointer-events:none;
-                }
-                .card{
-                    background:rgba(6,13,26,0.85);
-                    border:1px solid rgba(0,229,255,0.15);
-                    border-radius:20px;padding:56px 48px;
-                    max-width:460px;width:100%;
-                    position:relative;
-                    backdrop-filter:blur(24px);
-                    box-shadow:0 40px 100px rgba(0,0,0,0.6);
-                }
-                .card::before{
-                    content:'';position:absolute;top:0;left:12%;right:12%;height:1px;
-                    background:linear-gradient(90deg,transparent,#00e5ff,transparent);
-                }
-                .icon-box{
-                    width:76px;height:76px;border-radius:18px;
-                    background:rgba(0,229,255,0.07);
-                    border:1px solid rgba(0,229,255,0.2);
-                    display:flex;align-items:center;justify-content:center;
-                    font-size:1.9rem;color:#00e5ff;
-                    margin:0 auto 26px;
-                    animation:glow 3s ease-in-out infinite;
-                }
-                @keyframes glow{
-                    0%,100%{box-shadow:0 0 18px rgba(0,229,255,0.15);}
-                    50%{box-shadow:0 0 38px rgba(0,229,255,0.45);}
-                }
-                .pill{
-                    display:inline-flex;align-items:center;gap:7px;
-                    border:1px solid rgba(255,107,107,0.25);
-                    border-radius:100px;padding:5px 14px;
-                    background:rgba(255,107,107,0.06);
-                    font-family:'Space Mono',monospace;
-                    font-size:0.58rem;color:#7a8898;
-                    letter-spacing:1.5px;text-transform:uppercase;
-                    margin-bottom:22px;
-                }
-                .pill-dot{
-                    width:6px;height:6px;border-radius:50%;
-                    background:#ff6b6b;box-shadow:0 0 7px #ff6b6b;
-                    animation:blink 2s ease-in-out infinite;
-                }
-                @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
-                h1{
-                    font-family:'Orbitron',sans-serif;
-                    font-size:clamp(1.5rem,5vw,2rem);font-weight:900;
-                    letter-spacing:2px;margin-bottom:8px;
-                    background:linear-gradient(135deg,#fff,#00e5ff);
-                    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-                    background-clip:text;
-                }
-                .sub{font-size:0.82rem;color:#5a6a80;margin-bottom:30px;}
-                .rule{
-                    width:56px;height:1px;
-                    background:linear-gradient(90deg,transparent,#00e5ff,transparent);
-                    margin:0 auto 30px;
-                }
-                .body-text{
-                    font-size:0.9rem;color:#8898aa;
-                    line-height:1.7;margin-bottom:36px;
-                }
-                .credit{
-                    font-family:'Space Mono',monospace;
-                    font-size:0.58rem;color:rgba(0,229,255,0.55);
-                    letter-spacing:1px;margin-bottom:30px;
-                }
-                .btn{
-                    background:#00e5ff;color:#030811;
-                    font-family:'Orbitron',sans-serif;
-                    font-size:0.68rem;font-weight:700;
-                    letter-spacing:2px;text-transform:uppercase;
-                    padding:14px 30px;border-radius:9px;
-                    border:none;cursor:pointer;
-                    transition:all .3s;
-                    box-shadow:0 0 28px rgba(0,229,255,0.25);
-                }
-                .btn:hover{
-                    box-shadow:0 0 50px rgba(0,229,255,0.55);
-                    transform:translateY(-2px);
-                }
-            </style>`;
-
-        w.document.body.innerHTML = `
-            <div class="orb"></div>
-            <div class="card">
-                <div class="icon-box"><i class="fas fa-${icon}"></i></div>
-                <div class="pill"><span class="pill-dot"></span>In sviluppo</div>
-                <h1>${name}</h1>
-                <p class="sub">${sub}</p>
-                <div class="rule"></div>
-                <p class="body-text">
-                    Questo modulo è attualmente in fase di sviluppo.<br>
-                    Torna a breve per utilizzarlo.
-                </p>
-                <p class="credit">NavTech · Alessio Lucchini &amp; Andrea Squizzato</p>
-                <button class="btn" onclick="window.close()">
-                    <i class="fas fa-arrow-left" style="margin-right:8px;"></i>Torna Indietro
-                </button>
-            </div>`;
-    }
-
-    // Sidebar links
-    document.querySelectorAll('.mobile-nav-links a').forEach(a => {
-        a.addEventListener('click', e => {
-            e.preventDefault();
-            openModule(a.getAttribute('data-page'));
-            closeMenu();
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (mobileMenu.classList.contains('active')) closeMenu();
+            else openMenu();
         });
-    });
 
-    // Module cards on hero
-    document.querySelectorAll('.mod-card').forEach(card => {
-        card.addEventListener('click', () => openModule(card.getAttribute('data-page')));
-    });
+        closeMenuBtn.addEventListener('click', closeMenu);
+        menuOverlay.addEventListener('click', closeMenu);
 
-    // ================================================================
-    //  PARTICLES + CONNECTIONS
-    // ================================================================
-    const canvas = document.getElementById('particle-canvas');
-    const ctx    = canvas.getContext('2d');
-    let pts = [];
+        const pageTitles = {
+            vento: 'Problema del Vento',
+            lossodromia: 'Lossodromia',
+            ortodromia: 'Ortodromia',
+            pnr: 'PNR',
+            per: 'PER',
+            intercettamento: 'Intercettamento'
+        };
 
-    function initPts() {
-        canvas.width  = window.innerWidth;
-        canvas.height = window.innerHeight;
-        pts = Array.from({ length: 70 }, () => ({
-            x:  Math.random() * canvas.width,
-            y:  Math.random() * canvas.height,
-            vx: (Math.random() - 0.5) * 0.35,
-            vy: (Math.random() - 0.5) * 0.35,
-            r:  Math.random() * 1.4 + 0.3,
-            a:  Math.random() * 0.3 + 0.05
-        }));
-    }
+        const pageIcons = {
+            vento: 'wind',
+            lossodromia: 'route',
+            ortodromia: 'earth-americas',
+            pnr: 'map-location-dot',
+            per: 'clock-rotate-left',
+            intercettamento: 'crosshairs'
+        };
 
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Connection lines
-        for (let i = 0; i < pts.length; i++) {
-            for (let j = i + 1; j < pts.length; j++) {
-                const dx = pts[i].x - pts[j].x;
-                const dy = pts[i].y - pts[j].y;
-                const d  = Math.hypot(dx, dy);
-                if (d < 110) {
-                    ctx.beginPath();
-                    ctx.moveTo(pts[i].x, pts[i].y);
-                    ctx.lineTo(pts[j].x, pts[j].y);
-                    ctx.strokeStyle = `rgba(0,229,255,${0.035*(1-d/110)})`;
-                    ctx.lineWidth = 0.6;
-                    ctx.stroke();
-                }
+        function openModule(pageKey) {
+            const pageName = pageTitles[pageKey];
+            const icon = pageIcons[pageKey];
+            const newWindow = window.open('about:blank', '_blank');
+            if (newWindow) {
+                newWindow.document.title = pageName + ' - NavTech';
+                newWindow.document.body.style.backgroundColor = '#02050a';
+                newWindow.document.body.style.color = '#fff';
+                newWindow.document.body.style.fontFamily = 'Poppins, sans-serif';
+                newWindow.document.body.style.margin = '0';
+                newWindow.document.body.innerHTML = `
+                    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; background: linear-gradient(135deg, #02050a 0%, #0a1420 100%);">
+                        <i class="fas fa-${icon}" style="font-size: 5rem; color: #00e5ff; margin-bottom: 30px; filter: drop-shadow(0 0 20px rgba(0,229,255,0.5));"></i>
+                        <h1 style="font-family: Orbitron; color: #00e5ff; font-size: 2.5rem; margin-bottom: 20px;">${pageName}</h1>
+                        <div style="width: 100px; height: 2px; background: linear-gradient(90deg, transparent, #00e5ff, transparent); margin-bottom: 30px;"></div>
+                        <p style="font-size: 1.1rem; color: #aaa;">Modulo in fase di sviluppo</p>
+                        <p style="margin-top: 40px; font-size: 0.8rem; color: #00e5ff;">Sviluppato da Alessio Lucchini & Andrea Squizzato</p>
+                        <button onclick="window.close()" style="margin-top: 40px; background: transparent; border: 1px solid #00e5ff; color: #00e5ff; padding: 12px 30px; border-radius: 4px; cursor: pointer; font-family: Poppins; transition: 0.3s;">Chiudi</button>
+                    </div>
+                `;
+                const linkFA = newWindow.document.createElement('link');
+                linkFA.rel = 'stylesheet';
+                linkFA.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+                newWindow.document.head.appendChild(linkFA);
             }
         }
 
-        // Dots
-        pts.forEach(p => {
-            p.x += p.vx; p.y += p.vy;
-            if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
-            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(0,229,255,${p.a})`;
-            ctx.fill();
+        document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageKey = link.getAttribute('data-page');
+                openModule(pageKey);
+                closeMenu();
+            });
         });
 
-        requestAnimationFrame(draw);
-    }
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
 
-    let rt;
-    window.addEventListener('resize', () => {
-        clearTimeout(rt);
-        rt = setTimeout(initPts, 200);
-    }, { passive: true });
+        function initParticles() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < 100; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.6,
+                    vy: (Math.random() - 0.5) * 0.6,
+                    size: Math.random() * 2 + 0.5,
+                    alpha: Math.random() * 0.5 + 0.2
+                });
+            }
+        }
 
-    initPts();
-    draw();
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 229, 255, ${p.alpha})`;
+                ctx.fill();
+            });
+            requestAnimationFrame(drawParticles);
+        }
+
+        window.addEventListener('resize', initParticles);
+        initParticles();
+        drawParticles();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('active'));
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        if (typeof VanillaTilt !== 'undefined') {
+            VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+                max: 12, speed: 400, glare: true, "max-glare": 0.2, scale: 1.02
+            });
+        }
     </script>
 </body>
 </html>
