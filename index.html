@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Nav Dashboard Pro - Navigazione Avanzata</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -12,6 +12,7 @@
             --accent-cyan: #00e5ff;
             --glass: rgba(255, 255, 255, 0.05);
             --border: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(10, 20, 30, 0.6);
         }
 
         * {
@@ -70,6 +71,11 @@
             font-size: 1.6rem;
             font-weight: 700;
             letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .logo-text:hover {
+            text-shadow: 0 0 8px var(--accent-cyan);
         }
 
         .logo-text span {
@@ -172,7 +178,6 @@
             border-bottom: 1px solid rgba(0, 229, 255, 0.2);
             font-family: 'Orbitron', sans-serif;
             letter-spacing: 1px;
-            cursor: pointer;
         }
 
         .mobile-nav-links a i {
@@ -207,16 +212,77 @@
         .main-container {
             flex: 1;
             padding: 140px 8% 100px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
             min-height: 100vh;
+            transition: all 0.2s;
         }
 
+        /* card styling per moduli */
+        .module-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        .module-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 229, 255, 0.1);
+            border-color: var(--accent-cyan);
+        }
+        .module-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: var(--accent-cyan);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .module-title i {
+            font-size: 2rem;
+        }
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            width: 100px;
+            margin: 1rem 0 1.5rem 0;
+        }
+        .formula {
+            background: rgba(0, 229, 255, 0.1);
+            padding: 0.8rem;
+            border-radius: 12px;
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+            border-left: 3px solid var(--accent-cyan);
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .info-box {
+            background: rgba(0,0,0,0.4);
+            border-radius: 20px;
+            padding: 1.2rem;
+            border: 1px solid rgba(0,229,255,0.3);
+        }
+        .badge {
+            background: var(--accent-cyan);
+            color: #02050a;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+        }
         .footer-credits {
-            position: fixed;
-            bottom: 0;
-            left: 0;
+            position: relative;
             width: 100%;
             padding: 20px 20px;
             text-align: center;
@@ -224,6 +290,7 @@
             background: rgba(2, 5, 10, 0.85);
             backdrop-filter: blur(10px);
             z-index: 900;
+            margin-top: auto;
         }
 
         .footer-credits p {
@@ -257,14 +324,14 @@
             .main-container {
                 padding: 120px 5% 80px;
             }
+            .module-title {
+                font-size: 1.5rem;
+                flex-wrap: wrap;
+            }
             .footer-credits .developers {
                 font-size: 0.7rem;
-                display: flex;
                 flex-direction: column;
                 gap: 5px;
-            }
-            .footer-credits .developers i {
-                display: none;
             }
         }
 
@@ -306,6 +373,33 @@
             opacity: 1;
             visibility: visible;
         }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .dashboard-tile {
+            background: rgba(10, 20, 35, 0.7);
+            backdrop-filter: blur(4px);
+            border-radius: 32px;
+            padding: 1.8rem;
+            text-align: center;
+            border: 1px solid rgba(0,229,255,0.2);
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .dashboard-tile:hover {
+            border-color: var(--accent-cyan);
+            transform: scale(1.02);
+            background: rgba(0, 229, 255, 0.05);
+        }
+        .dashboard-tile i {
+            font-size: 2.8rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -313,7 +407,7 @@
     <div class="bg-watermark"></div>
 
     <nav id="navbar">
-        <div class="logo-text">
+        <div class="logo-text" id="logo-home">
             <i class="fas fa-compass-drafting"></i> NAV<span>TECH</span>
         </div>
         <div class="hamburger" id="hamburger">
@@ -337,13 +431,13 @@
             <li><a href="#" data-page="lossodromia"><i class="fas fa-route"></i> Lossodromia</a></li>
             <li><a href="#" data-page="ortodromia"><i class="fas fa-earth-americas"></i> Ortodromia</a></li>
             <li><a href="#" data-page="pnr"><i class="fas fa-map-location-dot"></i> PNR</a></li>
-            <li><a href="#" data-page="pet"><i class="fas fa-clock-rotate-left"></i> PET</a></li>
+            <li><a href="#" data-page="per"><i class="fas fa-clock-rotate-left"></i> PET</a></li>
             <li><a href="#" data-page="intercettamento"><i class="fas fa-crosshairs"></i> Intercettamento</a></li>
         </ul>
     </div>
 
-    <main class="main-container">
-        <!-- Contenuto principale vuoto -->
+    <main class="main-container" id="main-container">
+        <!-- Il contenuto verrà generato dinamicamente via JS -->
     </main>
 
     <footer class="footer-credits reveal">
@@ -359,7 +453,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script>
-        // Gestione menu principale
+        // ---------- GESTIONE MENU HAMBURGER ----------
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuOverlay = document.getElementById('menu-overlay');
@@ -388,452 +482,218 @@
             if (mobileMenu.classList.contains('active')) closeMenu();
             else openMenu();
         });
+
         closeMenuBtn.addEventListener('click', closeMenu);
         menuOverlay.addEventListener('click', closeMenu);
 
-        // Funzione che apre la finestra modulare con sottomenu
-        function openModule(pageKey) {
-            const pageTitles = {
-                vento: 'Problema del Vento',
-                lossodromia: 'Lossodromia',
-                ortodromia: 'Ortodromia',
-                pnr: 'PNR',
-                pet: 'PET',
-                intercettamento: 'Intercettamento'
+        // ---------- CONTENUTI DEI MODULI (SINGLE PAGE, SENZA NUOVE SCHEDE) ----------
+        // Ogni modulo restituisce HTML completo da iniettare nel main-container
+        function getModuleHTML(moduleId) {
+            const modules = {
+                dashboard: `
+                    <div class="reveal active">
+                        <div class="module-card">
+                            <div class="module-title">
+                                <i class="fas fa-chart-line"></i> 
+                                <span>Dashboard Operativa</span>
+                            </div>
+                            <div class="divider"></div>
+                            <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">Benvenuto nel sistema di navigazione professionale. Seleziona uno strumento dal menu per accedere ai calcoli e alle tecniche avanzate di navigazione aerea.</p>
+                            <div class="dashboard-grid" id="quick-access-grid">
+                                <div class="dashboard-tile" data-quick="vento"><i class="fas fa-wind"></i><h3>Problema del Vento</h3><small>Triangolo del vento, deriva</small></div>
+                                <div class="dashboard-tile" data-quick="lossodromia"><i class="fas fa-route"></i><h3>Lossodromia</h3><small>Rotta costante</small></div>
+                                <div class="dashboard-tile" data-quick="ortodromia"><i class="fas fa-earth-americas"></i><h3>Ortodromia</h3><small>Cerchio massimo</small></div>
+                                <div class="dashboard-tile" data-quick="pnr"><i class="fas fa-map-location-dot"></i><h3>PNR</h3><small>Punto di non ritorno</small></div>
+                                <div class="dashboard-tile" data-quick="per"><i class="fas fa-clock-rotate-left"></i><h3>PET</h3><small>Punto di eguaglianza temporale</small></div>
+                                <div class="dashboard-tile" data-quick="intercettamento"><i class="fas fa-crosshairs"></i><h3>Intercettamento</h3><small>Radiali e convergenza</small></div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                vento: `
+                    <div class="reveal active">
+                        <div class="module-card">
+                            <div class="module-title"><i class="fas fa-wind"></i> Problema del Vento</div>
+                            <div class="divider"></div>
+                            <p>Il vento influenza la traiettoria e la velocità al suolo. Attraverso il triangolo delle velocità si determina la deriva e la rotta vera.</p>
+                            <div class="formula">📐 Formula base: <strong>Vp</strong> (velocità propria) + <strong>Vv</strong> (vento) = <strong>Vs</strong> (velocità al suolo)</div>
+                            <div class="grid-2">
+                                <div class="info-box"><span class="badge">DERIVA</span> δ = angolo tra rotta vera e traiettoria. <br> <strong>δ = arcsin( Vv * sin(α) / Vp )</strong></div>
+                                <div class="info-box"><span class="badge">VENTO AL TRAVERSO</span> Componente trasversale modifica la rotta per mantenere la rotta desiderata.</div>
+                            </div>
+                            <p style="margin-top: 1rem;">Utilizza il calcolo vettoriale per correggere heading e ottenere la rotta effettiva.</p>
+                        </div>
+                    </div>
+                `,
+                lossodromia: `
+                    <div class="reveal active">
+                        <div class="module-card">
+                            <div class="module-title"><i class="fas fa-route"></i> Lossodromia (Rotta costante)</div>
+                            <div class="divider"></div>
+                            <p>La lossodromia è la linea che taglia i meridiani con angolo costante. Sulla carta di Mercatore è rappresentata da una linea retta.</p>
+                            <div class="formula">🧭 Distanza lossodromica: <strong>D = Δφ * sec(θ)</strong> dove θ è la rotta costante.</div>
+                            <div class="info-box"><i class="fas fa-calculator"></i> Formula delle latitudini crescenti per calcoli esatti in navigazione.</div>
+                        </div>
+                    </div>
+                `,
+                ortodromia: `
+                    <div class="reveal active">
+                        <div class="module-card">
+                            <div class="module-title"><i class="fas fa-earth-americas"></i> Ortodromia (Cerchio Massimo)</div>
+                            <div class="divider"></div>
+                            <p>Percorso minimo tra due punti sulla sfera terrestre. Angoli di rotta variano continuamente.</p>
+                            <div class="formula">🌍 Formula del coseno sferico: <strong>cos(d) = sinφ1·sinφ2 + cosφ1·cosφ2·cosΔλ</strong></div>
+                            <div class="info-box">Navigazione a lungo raggio: si utilizzano waypoint intermedi per seguire l'ortodromia.</div>
+                        </div>
+                    </div>
+                `,
+                pnr: `
+                    <div class="reveal active">
+                        <div class="module-card">
+                            <div class="module-title"><i class="fas fa-map-location-dot"></i> PNR - Point of No Return</div>
+                            <div class="divider"></div>
+                            <p>Massima distanza raggiungibile da un aeroporto senza possibilità di rientro con il carburante residuo.</p>
+                            <div class="formula">⛽ <strong>PNR = (E · Vg_out · Vg_back) / (Vg_out + Vg_back)</strong> dove E = endurance (ore), Vg_out = velocità al suolo andata, Vg_back = ritorno.</div>
+                            <div class="info-box">Fondamentale per pianificazione voli su tratte remote.</div>
+                        </div>
+                    </div>
+                `,
+                per: `
+                    <div class="reveal active">
+                        <div class="module-card">
+                            <div class="module-title"><i class="fas fa-clock-rotate-left"></i> PET - Punto di Eguaglianza Temporale</div>
+                            <div class="divider"></div>
+                            <p>Punto lungo la rotta in cui il tempo per raggiungere la destinazione è uguale al tempo per tornare alla partenza.</p>
+                            <div class="formula">⏱️ <strong>PET (distanza) = (D · Vg_back) / (Vg_out + Vg_back)</strong> dove D è distanza totale, Vg_out velocità andata, Vg_back ritorno.</div>
+                            <div class="info-box">Utilizzato per valutare scenari di deviazione o fuel management.</div>
+                        </div>
+                    </div>
+                `,
+                intercettamento: `
+                    <div class="reveal active">
+                        <div class="module-card">
+                            <div class="module-title"><i class="fas fa-crosshairs"></i> Intercettamento Radiale / Convergenza</div>
+                            <div class="divider"></div>
+                            <p>Calcolo della rotta per intercettare un determinato radiale VOR o un punto nello spazio aereo.</p>
+                            <div class="formula">✈️ Angolo di intercettazione: <strong>α = arctan( (distanza laterale) / (distanza longitudinale) )</strong></div>
+                            <div class="grid-2">
+                                <div class="info-box">Tecnica: stabilire un angolo di 30°-45° per intercettare un radiale desiderato.</div>
+                                <div class="info-box">Velocità e vento influenzano il rateo di avvicinamento.</div>
+                            </div>
+                        </div>
+                    </div>
+                `
             };
-            const pageIcons = {
-                vento: 'wind',
-                lossodromia: 'route',
-                ortodromia: 'earth-americas',
-                pnr: 'map-location-dot',
-                pet: 'clock-rotate-left',
-                intercettamento: 'crosshairs'
-            };
-            const pageName = pageTitles[pageKey];
-            const icon = pageIcons[pageKey];
-
-            const newWindow = window.open('about:blank', '_blank');
-            if (!newWindow) {
-                alert("Impossibile aprire una nuova finestra. Controlla che il browser non blocchi i popup.");
-                return;
-            }
-
-            // HTML completo per la finestra secondaria
-            const htmlContent = `<!DOCTYPE html>
-            <html lang="it">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>${pageName} - Dettaglio</title>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-                <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-                <style>
-                    :root {
-                        --bg-dark: #02050a;
-                        --accent-cyan: #00e5ff;
-                        --border: rgba(255, 255, 255, 0.1);
-                    }
-                    * { margin: 0; padding: 0; box-sizing: border-box; }
-                    body {
-                        background-color: var(--bg-dark);
-                        color: #fff;
-                        font-family: 'Poppins', sans-serif;
-                        overflow-x: hidden;
-                        min-height: 100vh;
-                        display: flex;
-                        flex-direction: column;
-                    }
-                    .bg-watermark {
-                        position: fixed;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                        width: 450px;
-                        height: 450px;
-                        background: url('https://i.postimg.cc/bvd85hNh/logo.png') no-repeat center;
-                        background-size: contain;
-                        opacity: 0.35;
-                        z-index: -1;
-                        pointer-events: none;
-                    }
-                    #particle-canvas {
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        z-index: -2;
-                    }
-                    nav {
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        padding: 20px 8%;
-                        position: fixed;
-                        width: 100%;
-                        top: 0;
-                        z-index: 1000;
-                        background: rgba(2, 5, 10, 0.85);
-                        backdrop-filter: blur(15px);
-                        border-bottom: 1px solid var(--border);
-                    }
-                    .logo-text {
-                        font-family: 'Orbitron', sans-serif;
-                        font-size: 1.6rem;
-                        font-weight: 700;
-                        letter-spacing: 2px;
-                    }
-                    .logo-text span { color: var(--accent-cyan); }
-                    .logo-text i { margin-right: 8px; color: var(--accent-cyan); }
-                    .hamburger {
-                        display: block;
-                        cursor: pointer;
-                        background: transparent;
-                        border: none;
-                        padding: 10px;
-                        z-index: 1100;
-                    }
-                    .bar {
-                        display: block;
-                        width: 30px;
-                        height: 3px;
-                        margin: 6px auto;
-                        background-color: var(--accent-cyan);
-                        transition: all 0.3s ease;
-                        border-radius: 2px;
-                    }
-                    .mobile-menu {
-                        position: fixed;
-                        top: 0;
-                        right: -100%;
-                        width: 380px;
-                        height: 100vh;
-                        background: rgba(2, 5, 10, 0.98);
-                        backdrop-filter: blur(25px);
-                        border-left: 2px solid var(--accent-cyan);
-                        z-index: 1050;
-                        transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-                        padding-top: 100px;
-                        box-shadow: -10px 0 50px rgba(0, 229, 255, 0.2);
-                    }
-                    .mobile-menu.active { right: 0; }
-                    .menu-header {
-                        position: absolute;
-                        top: 25px;
-                        left: 30px;
-                        font-family: 'Orbitron', sans-serif;
-                        font-size: 1.2rem;
-                        color: var(--accent-cyan);
-                        letter-spacing: 2px;
-                        border-bottom: 1px solid var(--accent-cyan);
-                        padding-bottom: 8px;
-                    }
-                    .menu-header i { margin-right: 8px; }
-                    .mobile-nav-links { list-style: none; padding: 0 30px; }
-                    .mobile-nav-links li {
-                        margin: 0;
-                        opacity: 0;
-                        transform: translateX(50px);
-                        transition: all 0.4s ease;
-                    }
-                    .mobile-menu.active .mobile-nav-links li {
-                        opacity: 1;
-                        transform: translateX(0);
-                    }
-                    .mobile-menu.active .mobile-nav-links li:nth-child(1) { transition-delay: 0.1s; }
-                    .mobile-menu.active .mobile-nav-links li:nth-child(2) { transition-delay: 0.2s; }
-                    .mobile-menu.active .mobile-nav-links li:nth-child(3) { transition-delay: 0.3s; }
-                    .mobile-menu.active .mobile-nav-links li:nth-child(4) { transition-delay: 0.4s; }
-                    .mobile-nav-links a {
-                        text-decoration: none;
-                        color: #fff;
-                        font-size: 1.25rem;
-                        font-weight: 500;
-                        transition: 0.3s;
-                        display: flex;
-                        align-items: center;
-                        gap: 18px;
-                        padding: 18px 0;
-                        border-bottom: 1px solid rgba(0, 229, 255, 0.2);
-                        font-family: 'Orbitron', sans-serif;
-                        letter-spacing: 1px;
-                        cursor: pointer;
-                    }
-                    .mobile-nav-links a i {
-                        width: 35px;
-                        font-size: 1.4rem;
-                        color: var(--accent-cyan);
-                    }
-                    .mobile-nav-links a:hover {
-                        color: var(--accent-cyan);
-                        padding-left: 20px;
-                        border-bottom-color: var(--accent-cyan);
-                    }
-                    .close-menu {
-                        position: absolute;
-                        top: 25px;
-                        right: 25px;
-                        background: transparent;
-                        border: none;
-                        color: var(--accent-cyan);
-                        font-size: 1.8rem;
-                        cursor: pointer;
-                        transition: 0.3s;
-                    }
-                    .close-menu:hover { transform: rotate(90deg); color: #fff; }
-                    .main-container {
-                        flex: 1;
-                        padding: 140px 8% 100px;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: center;
-                        min-height: 100vh;
-                    }
-                    .content-card {
-                        background: rgba(0, 0, 0, 0.6);
-                        backdrop-filter: blur(10px);
-                        border-radius: 16px;
-                        padding: 40px;
-                        border: 1px solid var(--accent-cyan);
-                        box-shadow: 0 0 30px rgba(0, 229, 255, 0.2);
-                        max-width: 900px;
-                        margin: 0 auto;
-                        width: 100%;
-                        text-align: center;
-                    }
-                    .content-card h2 {
-                        font-family: 'Orbitron', sans-serif;
-                        font-size: 2rem;
-                        margin-bottom: 20px;
-                        color: var(--accent-cyan);
-                    }
-                    .content-card p {
-                        color: #ccc;
-                        font-size: 1.1rem;
-                        line-height: 1.6;
-                    }
-                    .footer-credits {
-                        position: fixed;
-                        bottom: 0;
-                        left: 0;
-                        width: 100%;
-                        padding: 20px 20px;
-                        text-align: center;
-                        border-top: 1px solid var(--border);
-                        background: rgba(2, 5, 10, 0.85);
-                        backdrop-filter: blur(10px);
-                        z-index: 900;
-                    }
-                    .footer-credits p { color: #888; font-size: 0.8rem; letter-spacing: 1px; }
-                    .footer-credits .developers {
-                        margin-top: 5px;
-                        font-size: 0.9rem;
-                        color: var(--accent-cyan);
-                        font-family: 'Orbitron', sans-serif;
-                    }
-                    .footer-credits .developers i { margin: 0 8px; color: #fff; font-size: 0.8rem; }
-                    .footer-credits .developers span { color: #fff; font-weight: 300; }
-                    @media (max-width: 768px) {
-                        .mobile-menu { width: 100%; }
-                        .main-container { padding: 120px 5% 80px; }
-                        .footer-credits .developers { font-size: 0.7rem; flex-direction: column; gap: 5px; }
-                        .footer-credits .developers i { display: none; }
-                        .content-card { padding: 25px; }
-                        .content-card h2 { font-size: 1.5rem; }
-                    }
-                    .menu-overlay {
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background: rgba(0, 0, 0, 0.6);
-                        z-index: 1040;
-                        opacity: 0;
-                        visibility: hidden;
-                        transition: 0.3s;
-                    }
-                    .menu-overlay.active { opacity: 1; visibility: visible; }
-                </style>
-            </head>
-            <body>
-                <canvas id="particle-canvas"></canvas>
-                <div class="bg-watermark"></div>
-                <nav>
-                    <div class="logo-text">
-                        <i class="fas fa-${icon}"></i> ${pageName}<span> | Dettaglio</span>
-                    </div>
-                    <div class="hamburger" id="subHamburger">
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                    </div>
-                </nav>
-                <div class="menu-overlay" id="subMenuOverlay"></div>
-                <div class="mobile-menu" id="subMobileMenu">
-                    <div class="menu-header">
-                        <i class="fas fa-list-ul"></i> SEZIONI
-                    </div>
-                    <button class="close-menu" id="subCloseMenu">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <ul class="mobile-nav-links">
-                        <li><a href="#" data-sub="primo"><i class="fas fa-1"></i> Primo Problema</a></li>
-                        <li><a href="#" data-sub="secondo"><i class="fas fa-2"></i> Secondo Problema</a></li>
-                        <li><a href="#" data-sub="terzo"><i class="fas fa-3"></i> Terzo Problema</a></li>
-                        <li><a href="#" data-sub="quarto"><i class="fas fa-4"></i> Quarto Problema</a></li>
-                    </ul>
-                </div>
-                <main class="main-container">
-                    <div class="content-card" id="dynamicContent">
-                        <i class="fas fa-${icon}" style="font-size: 4rem; color: var(--accent-cyan); margin-bottom: 20px;"></i>
-                        <h2>${pageName}</h2>
-                        <p>Seleziona una delle voci dal menu hamburger per visualizzare i dettagli dei singoli problemi.</p>
-                    </div>
-                </main>
-                <footer class="footer-credits">
-                    <p>Modulo di approfondimento - ${pageName}</p>
-                    <div class="developers">
-                        <span>Sviluppato da</span>
-                        <i class="fas fa-code"></i>
-                        <strong>Alessio Lucchini</strong>
-                        <i class="fas fa-plus"></i>
-                        <strong>Andrea Squizzato</strong>
-                    </div>
-                </footer>
-                <script>
-                    const subHamburger = document.getElementById('subHamburger');
-                    const subMobileMenu = document.getElementById('subMobileMenu');
-                    const subMenuOverlay = document.getElementById('subMenuOverlay');
-                    const subCloseMenu = document.getElementById('subCloseMenu');
-                    
-                    function openSubMenu() {
-                        subMobileMenu.classList.add('active');
-                        subMenuOverlay.classList.add('active');
-                        const bars = document.querySelectorAll('#subHamburger .bar');
-                        if (bars.length) {
-                            bars[0].style.transform = 'rotate(-45deg) translate(-6px, 7px)';
-                            bars[1].style.opacity = '0';
-                            bars[2].style.transform = 'rotate(45deg) translate(-6px, -7px)';
-                        }
-                    }
-                    function closeSubMenu() {
-                        subMobileMenu.classList.remove('active');
-                        subMenuOverlay.classList.remove('active');
-                        const bars = document.querySelectorAll('#subHamburger .bar');
-                        if (bars.length) {
-                            bars[0].style.transform = 'rotate(0) translate(0, 0)';
-                            bars[1].style.opacity = '1';
-                            bars[2].style.transform = 'rotate(0) translate(0, 0)';
-                        }
-                    }
-                    subHamburger.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        if (subMobileMenu.classList.contains('active')) closeSubMenu();
-                        else openSubMenu();
-                    });
-                    subCloseMenu.addEventListener('click', closeSubMenu);
-                    subMenuOverlay.addEventListener('click', closeSubMenu);
-                    
-                    function updateContent(subKey) {
-                        const contentDiv = document.getElementById('dynamicContent');
-                        const pageIcon = "${icon}";
-                        const pageTitle = "${pageName}";
-                        let title = "", description = "";
-                        switch(subKey) {
-                            case "primo":
-                                title = "Primo Problema - " + pageTitle;
-                                description = "Contenuto dettagliato per il Primo Problema relativo a ${pageName}. Qui verranno inseriti tutti i calcoli e le spiegazioni necessarie per risolvere questa tipologia di esercizio di navigazione.";
-                                break;
-                            case "secondo":
-                                title = "Secondo Problema - " + pageTitle;
-                                description = "Approfondimento sul Secondo Problema. In questa sezione troverai formule, esempi pratici e strumenti interattivi per affrontare al meglio questa configurazione.";
-                                break;
-                            case "terzo":
-                                title = "Terzo Problema - " + pageTitle;
-                                description = "Analisi dettagliata del Terzo Problema. Include metodologie di calcolo avanzate e casi d'uso reali per piloti e navigatori.";
-                                break;
-                            case "quarto":
-                                title = "Quarto Problema - " + pageTitle;
-                                description = "Quarto Problema: soluzioni ottimizzate e considerazioni operative. Materiale completo per la preparazione e l'esecuzione in volo.";
-                                break;
-                            default:
-                                title = pageTitle;
-                                description = "Seleziona una delle voci dal menu hamburger per visualizzare i dettagli dei singoli problemi.";
-                        }
-                        contentDiv.innerHTML = \`
-                            <i class="fas fa-\${pageIcon}" style="font-size: 4rem; color: var(--accent-cyan); margin-bottom: 20px;"></i>
-                            <h2>\${title}</h2>
-                            <p>\${description}</p>
-                        \`;
-                        closeSubMenu();
-                    }
-                    
-                    document.querySelectorAll('#subMobileMenu .mobile-nav-links a').forEach(link => {
-                        link.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            const sub = link.getAttribute('data-sub');
-                            if (sub) updateContent(sub);
-                        });
-                    });
-                    
-                    // Particelle
-                    const canvas = document.getElementById('particle-canvas');
-                    const ctx = canvas.getContext('2d');
-                    let particles = [];
-                    function initParticles() {
-                        canvas.width = window.innerWidth;
-                        canvas.height = window.innerHeight;
-                        particles = [];
-                        for (let i = 0; i < 100; i++) {
-                            particles.push({
-                                x: Math.random() * canvas.width,
-                                y: Math.random() * canvas.height,
-                                vx: (Math.random() - 0.5) * 0.6,
-                                vy: (Math.random() - 0.5) * 0.6,
-                                size: Math.random() * 2 + 0.5,
-                                alpha: Math.random() * 0.5 + 0.2
-                            });
-                        }
-                    }
-                    function drawParticles() {
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        particles.forEach(p => {
-                            p.x += p.vx;
-                            p.y += p.vy;
-                            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                            ctx.beginPath();
-                            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                            ctx.fillStyle = \`rgba(0, 229, 255, \${p.alpha})\`;
-                            ctx.fill();
-                        });
-                        requestAnimationFrame(drawParticles);
-                    }
-                    window.addEventListener('resize', initParticles);
-                    initParticles();
-                    drawParticles();
-                </script>
-            </body>
-            </html>`;
-            newWindow.document.write(htmlContent);
-            newWindow.document.close();
+            return modules[moduleId] || modules.dashboard;
         }
 
-        // Associa evento a tutte le voci del menu principale
+        // Navigazione interna senza aprire nuove schede
+        function navigateTo(moduleId, addToHistory = true) {
+            // Aggiorna il contenuto principale
+            const container = document.getElementById('main-container');
+            if (container) {
+                container.innerHTML = getModuleHTML(moduleId);
+                // Riavvia gli effetti reveal per eventuali nuovi elementi (gestione classe active)
+                const reveals = container.querySelectorAll('.reveal');
+                reveals.forEach(el => el.classList.add('active'));
+                
+                // Se è dashboard, attacca eventi ai tile rapidi
+                if (moduleId === 'dashboard') {
+                    const tiles = document.querySelectorAll('#quick-access-grid .dashboard-tile');
+                    tiles.forEach(tile => {
+                        tile.addEventListener('click', (e) => {
+                            const page = tile.getAttribute('data-quick');
+                            if (page) navigateTo(page, true);
+                        });
+                    });
+                }
+            }
+            // Chiudi menu hamburger dopo la selezione (nuova pagina interna)
+            closeMenu();
+            
+            // Aggiorna titolo pagina per effetto "nuova pagina nel sito"
+            const titles = {
+                dashboard: 'Dashboard NavTech',
+                vento: 'Problema del Vento - NavTech',
+                lossodromia: 'Lossodromia - NavTech',
+                ortodromia: 'Ortodromia - NavTech',
+                pnr: 'PNR - Point of No Return',
+                per: 'PET - Punto di Eguaglianza Temporale',
+                intercettamento: 'Intercettamento - NavTech'
+            };
+            document.title = titles[moduleId] || 'Nav Dashboard Pro';
+            
+            // Gestione history API per navigare avanti/indietro (comportamento simile a pagine separate)
+            if (addToHistory) {
+                const state = { module: moduleId };
+                const url = new URL(window.location);
+                url.searchParams.set('nav', moduleId);
+                window.history.pushState(state, '', url);
+            }
+        }
+
+        // Gestione popstate (tasto indietro/avanti del browser)
+        window.addEventListener('popstate', (event) => {
+            let moduleId = 'dashboard';
+            if (event.state && event.state.module) {
+                moduleId = event.state.module;
+            } else {
+                const params = new URLSearchParams(window.location.search);
+                moduleId = params.get('nav') || 'dashboard';
+            }
+            // Carica senza aggiungere nuovamente history
+            const container = document.getElementById('main-container');
+            if (container) {
+                container.innerHTML = getModuleHTML(moduleId);
+                const reveals = container.querySelectorAll('.reveal');
+                reveals.forEach(el => el.classList.add('active'));
+                if (moduleId === 'dashboard') {
+                    const tiles = document.querySelectorAll('#quick-access-grid .dashboard-tile');
+                    tiles.forEach(tile => {
+                        tile.addEventListener('click', (e) => {
+                            const page = tile.getAttribute('data-quick');
+                            if (page) navigateTo(page, true);
+                        });
+                    });
+                }
+            }
+            const titles = {
+                dashboard: 'Dashboard NavTech',
+                vento: 'Problema del Vento - NavTech',
+                lossodromia: 'Lossodromia - NavTech',
+                ortodromia: 'Ortodromia - NavTech',
+                pnr: 'PNR - NavTech',
+                per: 'PET - NavTech',
+                intercettamento: 'Intercettamento - NavTech'
+            };
+            document.title = titles[moduleId] || 'NavTech';
+        });
+
+        // Gestione click sui link dell'hamburger: qui risolviamo il problema principale
         document.querySelectorAll('.mobile-nav-links a').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const pageKey = link.getAttribute('data-page');
                 if (pageKey) {
-                    openModule(pageKey);
-                    closeMenu();
+                    navigateTo(pageKey, true);
                 }
+                // chiudi eventuale menu già gestito dentro navigateTo
             });
         });
 
-        // Particelle per la pagina principale
+        // Logo cliccabile -> torna alla dashboard (home)
+        const logoHome = document.getElementById('logo-home');
+        if (logoHome) {
+            logoHome.addEventListener('click', () => {
+                navigateTo('dashboard', true);
+            });
+        }
+
+        // ---- Effetto particelle (CG) ----
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
+
         function initParticles() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -849,6 +709,7 @@
                 });
             }
         }
+
         function drawParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(p => {
@@ -863,21 +724,39 @@
             });
             requestAnimationFrame(drawParticles);
         }
-        window.addEventListener('resize', initParticles);
+
+        window.addEventListener('resize', () => {
+            initParticles();
+        });
         initParticles();
         drawParticles();
 
-        // Reveal animation
+        // IntersectionObserver per rivelazioni footer (effetto fade)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('active'));
         }, { threshold: 0.15 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // Vanilla tilt
+        
+        // Vanilla tilt opzionale
         if (typeof VanillaTilt !== 'undefined') {
             VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
                 max: 12, speed: 400, glare: true, "max-glare": 0.2, scale: 1.02
             });
+        }
+
+        // CARICA DASHBOARD INIZIALE (nessuna nuova scheda, contenuto nel main)
+        // Controllo se c'è parametro URL all'avvio
+        const initialParam = new URLSearchParams(window.location.search).get('nav');
+        if (initialParam && ['vento','lossodromia','ortodromia','pnr','per','intercettamento'].includes(initialParam)) {
+            navigateTo(initialParam, false);
+            // Sostituisci history state per coerenza
+            const state = { module: initialParam };
+            const url = new URL(window.location);
+            url.searchParams.set('nav', initialParam);
+            window.history.replaceState(state, '', url);
+        } else {
+            navigateTo('dashboard', false);
+            window.history.replaceState({ module: 'dashboard' }, '', window.location.pathname);
         }
     </script>
 </body>
