@@ -125,7 +125,6 @@
             right: 0;
         }
 
-        /* Stili per l'header dei menu */
         .menu-header {
             position: absolute;
             top: 25px;
@@ -437,6 +436,52 @@
             font-size: 1.1rem;
             color: var(--accent-cyan);
         }
+        .pnr-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 15px;
+        }
+        .info-box {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(0,229,255,0.2);
+        }
+        .info-box-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            border-left: 3px solid var(--accent-cyan);
+            padding-left: 12px;
+        }
+        .badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .badge-dati {
+            background: rgba(0, 229, 255, 0.12);
+            border: 1px solid rgba(0, 229, 255, 0.35);
+            color: var(--accent-cyan);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.9rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.5px;
+        }
+        .badge-incognite {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.9rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.5px;
+        }
         @media (max-width: 768px) {
             .mobile-menu, .mobile-menu-vento, .mobile-menu-pnr { width: 100%; }
             .main-container { padding: 120px 5% 80px; }
@@ -484,63 +529,6 @@
             margin-top: 20px;
             border: 1px solid rgba(0,229,255,0.2);
         }
-        .pnr-preview-card {
-            background: rgba(0, 0, 0, 0.45);
-            border: 1px solid rgba(0, 229, 255, 0.25);
-            border-radius: 18px;
-            padding: 22px 20px 18px 20px;
-            transition: all 0.2s;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .pnr-preview-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.15);
-            border-color: var(--accent-cyan);
-            background: rgba(0, 20, 30, 0.7);
-        }
-        .pnr-preview-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.15rem;
-            color: var(--accent-cyan);
-            border-left: 3px solid var(--accent-cyan);
-            padding-left: 12px;
-            line-height: 1.3;
-            margin-bottom: 8px;
-        }
-        .pnr-preview-row {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .pnr-preview-label {
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: rgba(255,255,255,0.4);
-            font-family: 'Orbitron', sans-serif;
-        }
-        .badge-dati {
-            background: rgba(0, 229, 255, 0.12);
-            border: 1px solid rgba(0, 229, 255, 0.35);
-            color: var(--accent-cyan);
-            border-radius: 20px;
-            padding: 3px 11px;
-            font-size: 0.82rem;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 0.5px;
-        }
-        .badge-incognite {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            border-radius: 20px;
-            padding: 3px 11px;
-            font-size: 0.82rem;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 0.5px;
-        }
     </style>
 </head>
 <body>
@@ -562,7 +550,6 @@
     <div class="menu-overlay-vento" id="menu-overlay-vento"></div>
     <div class="menu-overlay-pnr" id="menu-overlay-pnr"></div>
 
-    <!-- Menu principale -->
     <div class="mobile-menu" id="mobile-menu">
         <div class="menu-header"><i class="fas fa-compass"></i> NAVIGAZIONE</div>
         <button class="close-menu" id="close-menu"><i class="fas fa-times"></i></button>
@@ -576,7 +563,6 @@
         </ul>
     </div>
 
-    <!-- Menu contestuale vento -->
     <div class="mobile-menu-vento" id="mobile-menu-vento">
         <div class="menu-header"><i class="fas fa-wind"></i> PROBLEMI DEL VENTO</div>
         <button class="close-menu" id="close-menu-vento"><i class="fas fa-times"></i></button>
@@ -588,7 +574,6 @@
         </ul>
     </div>
 
-    <!-- Menu contestuale PNR -->
     <div class="mobile-menu-pnr" id="mobile-menu-pnr">
         <div class="menu-header"><i class="fas fa-map-location-dot"></i> PNR STESSA BASE</div>
         <button class="close-menu" id="close-menu-pnr"><i class="fas fa-times"></i></button>
@@ -597,9 +582,7 @@
         </ul>
     </div>
 
-    <main class="main-container" id="main-container">
-        <!-- Contenuto dinamico -->
-    </main>
+    <main class="main-container" id="main-container"></main>
 
     <footer class="footer-credits reveal">
         <p>Sistema di Navigazione Avanzata</p>
@@ -614,7 +597,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script>
-        // ---------- GESTIONE MENU ----------
+        // GESTIONE MENU
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuOverlay = document.getElementById('menu-overlay');
@@ -628,250 +611,21 @@
 
         let currentModule = 'home';
 
-        function openMainMenu() {
-            mobileMenu.classList.add('active');
-            menuOverlay.classList.add('active');
-            const bars = document.querySelectorAll('.bar');
-            bars[0].style.transform = 'rotate(-45deg) translate(-6px, 7px)';
-            bars[1].style.opacity = '0';
-            bars[2].style.transform = 'rotate(45deg) translate(-6px, -7px)';
-        }
-        function closeMainMenu() {
-            mobileMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            const bars = document.querySelectorAll('.bar');
-            bars[0].style.transform = 'rotate(0) translate(0, 0)';
-            bars[1].style.opacity = '1';
-            bars[2].style.transform = 'rotate(0) translate(0, 0)';
-        }
-        function openVentoMenu() {
-            mobileMenuVento.classList.add('active');
-            menuOverlayVento.classList.add('active');
-            const bars = document.querySelectorAll('.bar');
-            bars[0].style.transform = 'rotate(-45deg) translate(-6px, 7px)';
-            bars[1].style.opacity = '0';
-            bars[2].style.transform = 'rotate(45deg) translate(-6px, -7px)';
-        }
-        function closeVentoMenu() {
-            mobileMenuVento.classList.remove('active');
-            menuOverlayVento.classList.remove('active');
-            const bars = document.querySelectorAll('.bar');
-            bars[0].style.transform = 'rotate(0) translate(0, 0)';
-            bars[1].style.opacity = '1';
-            bars[2].style.transform = 'rotate(0) translate(0, 0)';
-        }
-        function openPnrMenu() {
-            mobileMenuPnr.classList.add('active');
-            menuOverlayPnr.classList.add('active');
-            const bars = document.querySelectorAll('.bar');
-            bars[0].style.transform = 'rotate(-45deg) translate(-6px, 7px)';
-            bars[1].style.opacity = '0';
-            bars[2].style.transform = 'rotate(45deg) translate(-6px, -7px)';
-        }
-        function closePnrMenu() {
-            mobileMenuPnr.classList.remove('active');
-            menuOverlayPnr.classList.remove('active');
-            const bars = document.querySelectorAll('.bar');
-            bars[0].style.transform = 'rotate(0) translate(0, 0)';
-            bars[1].style.opacity = '1';
-            bars[2].style.transform = 'rotate(0) translate(0, 0)';
-        }
+        function openMainMenu() { mobileMenu.classList.add('active'); menuOverlay.classList.add('active'); const bars = document.querySelectorAll('.bar'); bars[0].style.transform = 'rotate(-45deg) translate(-6px, 7px)'; bars[1].style.opacity = '0'; bars[2].style.transform = 'rotate(45deg) translate(-6px, -7px)'; }
+        function closeMainMenu() { mobileMenu.classList.remove('active'); menuOverlay.classList.remove('active'); const bars = document.querySelectorAll('.bar'); bars[0].style.transform = 'rotate(0) translate(0, 0)'; bars[1].style.opacity = '1'; bars[2].style.transform = 'rotate(0) translate(0, 0)'; }
+        function openVentoMenu() { mobileMenuVento.classList.add('active'); menuOverlayVento.classList.add('active'); const bars = document.querySelectorAll('.bar'); bars[0].style.transform = 'rotate(-45deg) translate(-6px, 7px)'; bars[1].style.opacity = '0'; bars[2].style.transform = 'rotate(45deg) translate(-6px, -7px)'; }
+        function closeVentoMenu() { mobileMenuVento.classList.remove('active'); menuOverlayVento.classList.remove('active'); const bars = document.querySelectorAll('.bar'); bars[0].style.transform = 'rotate(0) translate(0, 0)'; bars[1].style.opacity = '1'; bars[2].style.transform = 'rotate(0) translate(0, 0)'; }
+        function openPnrMenu() { mobileMenuPnr.classList.add('active'); menuOverlayPnr.classList.add('active'); const bars = document.querySelectorAll('.bar'); bars[0].style.transform = 'rotate(-45deg) translate(-6px, 7px)'; bars[1].style.opacity = '0'; bars[2].style.transform = 'rotate(45deg) translate(-6px, -7px)'; }
+        function closePnrMenu() { mobileMenuPnr.classList.remove('active'); menuOverlayPnr.classList.remove('active'); const bars = document.querySelectorAll('.bar'); bars[0].style.transform = 'rotate(0) translate(0, 0)'; bars[1].style.opacity = '1'; bars[2].style.transform = 'rotate(0) translate(0, 0)'; }
 
-        hamburger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (currentModule === 'vento') {
-                if (mobileMenuVento.classList.contains('active')) closeVentoMenu();
-                else openVentoMenu();
-            } else if (currentModule === 'pnr') {
-                if (mobileMenuPnr.classList.contains('active')) closePnrMenu();
-                else openPnrMenu();
-            } else {
-                if (mobileMenu.classList.contains('active')) closeMainMenu();
-                else openMainMenu();
-            }
-        });
-        closeMenuBtn.addEventListener('click', closeMainMenu);
-        menuOverlay.addEventListener('click', closeMainMenu);
-        closeMenuVentoBtn.addEventListener('click', closeVentoMenu);
-        menuOverlayVento.addEventListener('click', closeVentoMenu);
-        closeMenuPnrBtn.addEventListener('click', closePnrMenu);
-        menuOverlayPnr.addEventListener('click', closePnrMenu);
+        hamburger.addEventListener('click', (e) => { e.stopPropagation(); if (currentModule === 'vento') { if (mobileMenuVento.classList.contains('active')) closeVentoMenu(); else openVentoMenu(); } else if (currentModule === 'pnr') { if (mobileMenuPnr.classList.contains('active')) closePnrMenu(); else openPnrMenu(); } else { if (mobileMenu.classList.contains('active')) closeMainMenu(); else openMainMenu(); } });
+        closeMenuBtn.addEventListener('click', closeMainMenu); menuOverlay.addEventListener('click', closeMainMenu);
+        closeMenuVentoBtn.addEventListener('click', closeVentoMenu); menuOverlayVento.addEventListener('click', closeVentoMenu);
+        closeMenuPnrBtn.addEventListener('click', closePnrMenu); menuOverlayPnr.addEventListener('click', closePnrMenu);
 
-        // ---------- FUNZIONE FORMATTA TEMPO ----------
-        function formatTime(hours) {
-            const h = Math.floor(hours);
-            const mins = Math.round((hours - h) * 60);
-            return `${h} ore e ${mins} min`;
-        }
+        function formatTime(hours) { const h = Math.floor(hours); const mins = Math.round((hours - h) * 60); return `${h} ore e ${mins} min`; }
 
-        // ---------- MODULO PNR COMPLETO ----------
-        function showPnrCalculator() {
-            const container = document.getElementById('problemDetailContainer');
-            if (!container) return;
-            container.innerHTML = `
-                <div class="calculator-form">
-                    <div class="input-group">
-                        <div class="input-field">
-                            <label>TCo (Rotta vera andata) <i class="fas fa-arrow-right"></i></label>
-                            <input type="number" id="tco" step="any" placeholder="Inserisci TCo in gradi">
-                        </div>
-                        <div class="input-field">
-                            <label>TAS (Velocità propria) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="tas" step="any" placeholder="Inserisci TAS in nodi">
-                        </div>
-                        <div class="input-field">
-                            <label>W (Direzione del vento) <i class="fas fa-wind"></i></label>
-                            <input type="number" id="w" step="any" placeholder="Inserisci W in gradi">
-                        </div>
-                        <div class="input-field">
-                            <label>V (Velocità del vento) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="v" step="any" placeholder="Inserisci V in nodi">
-                        </div>
-                        <div class="input-field">
-                            <label>E (Distanza totale) <i class="fas fa-road"></i></label>
-                            <input type="number" id="e" step="any" placeholder="Inserisci E in NM">
-                        </div>
-                    </div>
-                    <button class="calcola" id="calcolaPnr">CALCOLA PNR</button>
-                    <div id="risultatiPnr"></div>
-                </div>
-            `;
-            const calcolaBtn = document.getElementById('calcolaPnr');
-            calcolaBtn.addEventListener('click', () => {
-                const tco = parseFloat(document.getElementById('tco').value);
-                const tas = parseFloat(document.getElementById('tas').value);
-                const w = parseFloat(document.getElementById('w').value);
-                const v = parseFloat(document.getElementById('v').value);
-                const e = parseFloat(document.getElementById('e').value);
-                
-                if (isNaN(tco) || isNaN(tas) || isNaN(w) || isNaN(v) || isNaN(e)) {
-                    document.getElementById('risultatiPnr').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
-                    return;
-                }
-                
-                const toRad = (deg) => deg * Math.PI / 180;
-                const toDeg = (rad) => rad * 180 / Math.PI;
-                
-                // Calcoli andata
-                const diffRad = toRad(w - tco);
-                const xc = v * Math.sin(diffRad);
-                const lc = -v * Math.cos(diffRad);
-                
-                const arg = Math.max(-1, Math.min(1, xc / tas));
-                const wcaRad = Math.asin(arg);
-                const wca = toDeg(wcaRad);
-                const etas = tas * Math.cos(wcaRad);
-                
-                let tho = tco + wca;
-                tho = ((tho % 360) + 360) % 360;
-                const gso = etas + lc;
-                
-                // Calcoli ritorno
-                const tch = (tco + 180) % 360;
-                let thh = tch - wca;
-                thh = ((thh % 360) + 360) % 360;
-                const gsh = etas - lc;
-                
-                // PNR finali
-                const pnrd = (e * gso * gsh) / (gso + gsh);
-                const pnrt_h = pnrd / gso;
-                const fth_h = pnrd / gsh;
-                
-                const round3 = (n) => n.toFixed(3);
-                const round1 = (n) => n.toFixed(1);
-                
-                const risultatiHtml = `
-                    <div class="results">
-                        <div class="section-title"><i class="fas fa-arrow-right"></i> RISULTATI ANDATA</div>
-                        <div class="results-grid">
-                            <div class="result-card">
-                                <div class="result-name">XC</div>
-                                <div class="detail-formula">XC = V · sin(W - TCo)</div>
-                                <div class="detail-substitution">XC = ${v} · sin(${w} - ${tco}) = ${v} · sin(${(w-tco).toFixed(3)}°)</div>
-                                <div class="detail-value">${round3(xc)}</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">LC</div>
-                                <div class="detail-formula">LC = -V · cos(W - TCo)</div>
-                                <div class="detail-substitution">LC = -${v} · cos(${w} - ${tco}) = -${v} · cos(${(w-tco).toFixed(3)}°)</div>
-                                <div class="detail-value">${round3(lc)}</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">WCA</div>
-                                <div class="detail-formula">WCA = arcsin(XC / TAS)</div>
-                                <div class="detail-substitution">WCA = arcsin(${round3(xc)} / ${tas}) = arcsin(${(xc/tas).toFixed(6)})</div>
-                                <div class="detail-value">${round3(wca)}°</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">ETAS</div>
-                                <div class="detail-formula">ETAS = TAS · cos(WCA)</div>
-                                <div class="detail-substitution">ETAS = ${tas} · cos(${round3(wca)}°) = ${tas} · ${Math.cos(wcaRad).toFixed(6)}</div>
-                                <div class="detail-value">${round3(etas)}</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">THo</div>
-                                <div class="detail-formula">THo = TCo + WCA</div>
-                                <div class="detail-substitution">THo = ${tco} + ${round3(wca)} = ${round3(tho)}</div>
-                                <div class="detail-value">${round3(tho)}°</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">GSo</div>
-                                <div class="detail-formula">GSo = ETAS + LC</div>
-                                <div class="detail-substitution">GSo = ${round3(etas)} + (${round3(lc)}) = ${round3(gso)}</div>
-                                <div class="detail-value">${round3(gso)}</div>
-                            </div>
-                        </div>
-                        
-                        <div class="section-title"><i class="fas fa-arrow-left"></i> RISULTATI RITORNO</div>
-                        <div class="results-grid">
-                            <div class="result-card">
-                                <div class="result-name">TCh</div>
-                                <div class="detail-formula">TCh = TCo + 180°</div>
-                                <div class="detail-substitution">TCh = ${tco} + 180 = ${round3(tch)}</div>
-                                <div class="detail-value">${round3(tch)}°</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">THh</div>
-                                <div class="detail-formula">THh = TCh - WCA</div>
-                                <div class="detail-substitution">THh = ${round3(tch)} - ${round3(wca)} = ${round3(thh)}</div>
-                                <div class="detail-value">${round3(thh)}°</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">GSh</div>
-                                <div class="detail-formula">GSh = ETAS - LC</div>
-                                <div class="detail-substitution">GSh = ${round3(etas)} - (${round3(lc)}) = ${round3(gsh)}</div>
-                                <div class="detail-value">${round3(gsh)}</div>
-                            </div>
-                        </div>
-                        
-                        <div class="section-title"><i class="fas fa-map-location-dot"></i> FINALI PNR</div>
-                        <div class="results-grid">
-                            <div class="result-card">
-                                <div class="result-name">PNRd</div>
-                                <div class="detail-formula">PNRd = (E · GSo · GSh) / (GSo + GSh)</div>
-                                <div class="detail-substitution">PNRd = (${e} · ${round3(gso)} · ${round3(gsh)}) / (${round3(gso)} + ${round3(gsh)})</div>
-                                <div class="detail-substitution">PNRd = ${(e * gso * gsh).toFixed(3)} / ${(gso + gsh).toFixed(3)}</div>
-                                <div class="detail-value">${round3(pnrd)} NM</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">PNRt</div>
-                                <div class="detail-formula">PNRt = PNRd / GSo</div>
-                                <div class="detail-substitution">PNRt = ${round3(pnrd)} / ${round3(gso)} = ${pnrt_h.toFixed(3)}</div>
-                                <div class="detail-value time-format">⏱️ ${formatTime(pnrt_h)}</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">FTh</div>
-                                <div class="detail-formula">FTh = PNRd / GSh</div>
-                                <div class="detail-substitution">FTh = ${round3(pnrd)} / ${round3(gsh)} = ${fth_h.toFixed(3)}</div>
-                                <div class="detail-value time-format">⏱️ ${formatTime(fth_h)}</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('risultatiPnr').innerHTML = risultatiHtml;
-            });
-        }
-
+        // SCHERMATA PRINCIPALE PNR (con Dati e Incognite come richiesto)
         function showPnrOverview() {
             const container = document.getElementById('problemDetailContainer');
             if (!container) return;
@@ -879,257 +633,150 @@
                 <div class="info-message">
                     <i class="fas fa-info-circle"></i> Seleziona "Calcola PNR" dal menu laterale per accedere al calcolatore
                 </div>
-                <div class="pnr-preview-card">
-                    <div class="pnr-preview-title">PNR - Stessa Base</div>
-                    <div class="pnr-preview-row">
-                        <div class="pnr-preview-label">Dati in ingresso</div>
-                        <div class="badge-dati">TCo</div>
-                        <div class="badge-dati">TAS</div>
-                        <div class="badge-dati">W</div>
-                        <div class="badge-dati">V</div>
-                        <div class="badge-dati">E</div>
+                <div class="pnr-info-grid">
+                    <div class="info-box">
+                        <div class="info-box-title"><i class="fas fa-database"></i> DATI IN INGRESSO</div>
+                        <div class="badge-container">
+                            <span class="badge-dati">TCo</span>
+                            <span class="badge-dati">TAS</span>
+                            <span class="badge-dati">W</span>
+                            <span class="badge-dati">V</span>
+                            <span class="badge-dati">E</span>
+                        </div>
                     </div>
-                    <div class="pnr-preview-row">
-                        <div class="pnr-preview-label">Risultati</div>
-                        <div class="badge-incognite">XC</div>
-                        <div class="badge-incognite">LC</div>
-                        <div class="badge-incognite">WCA</div>
-                        <div class="badge-incognite">ETAS</div>
-                        <div class="badge-incognite">THo</div>
-                        <div class="badge-incognite">GSo</div>
-                        <div class="badge-incognite">TCh</div>
-                        <div class="badge-incognite">THh</div>
-                        <div class="badge-incognite">GSh</div>
-                        <div class="badge-incognite">PNRd</div>
-                        <div class="badge-incognite">PNRt</div>
-                        <div class="badge-incognite">FTh</div>
+                    <div class="info-box">
+                        <div class="info-box-title"><i class="fas fa-question-circle"></i> INCOGNITE</div>
+                        <div class="badge-container">
+                            <span class="badge-incognite">PNRt</span>
+                            <span class="badge-incognite">PNRd</span>
+                            <span class="badge-incognite">TCh</span>
+                            <span class="badge-incognite">THh</span>
+                            <span class="badge-incognite">FTh</span>
+                        </div>
                     </div>
                 </div>
             `;
         }
 
-        // ---------- PANNELLO INFORMATIVO VENTO ----------
+        // CALCOLATORE PNR COMPLETO
+        function showPnrCalculator() {
+            const container = document.getElementById('problemDetailContainer');
+            if (!container) return;
+            container.innerHTML = `
+                <div class="calculator-form">
+                    <div class="input-group">
+                        <div class="input-field"><label>TCo (Rotta vera andata)</label><input type="number" id="tco" step="any" placeholder="Inserisci TCo in gradi"></div>
+                        <div class="input-field"><label>TAS (Velocità propria)</label><input type="number" id="tas" step="any" placeholder="Inserisci TAS in nodi"></div>
+                        <div class="input-field"><label>W (Direzione del vento)</label><input type="number" id="w" step="any" placeholder="Inserisci W in gradi"></div>
+                        <div class="input-field"><label>V (Velocità del vento)</label><input type="number" id="v" step="any" placeholder="Inserisci V in nodi"></div>
+                        <div class="input-field"><label>E (Distanza totale)</label><input type="number" id="e" step="any" placeholder="Inserisci E in NM"></div>
+                    </div>
+                    <button class="calcola" id="calcolaPnr">CALCOLA PNR</button>
+                    <div id="risultatiPnr"></div>
+                </div>
+            `;
+            document.getElementById('calcolaPnr').addEventListener('click', () => {
+                const tco = parseFloat(document.getElementById('tco').value);
+                const tas = parseFloat(document.getElementById('tas').value);
+                const w = parseFloat(document.getElementById('w').value);
+                const v = parseFloat(document.getElementById('v').value);
+                const e = parseFloat(document.getElementById('e').value);
+                if (isNaN(tco) || isNaN(tas) || isNaN(w) || isNaN(v) || isNaN(e)) {
+                    document.getElementById('risultatiPnr').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
+                    return;
+                }
+                const toRad = (deg) => deg * Math.PI / 180;
+                const diffRad = toRad(w - tco);
+                const xc = v * Math.sin(diffRad);
+                const lc = -v * Math.cos(diffRad);
+                const arg = Math.max(-1, Math.min(1, xc / tas));
+                const wcaRad = Math.asin(arg);
+                const wca = wcaRad * 180 / Math.PI;
+                const etas = tas * Math.cos(wcaRad);
+                let tho = tco + wca; tho = ((tho % 360) + 360) % 360;
+                const gso = etas + lc;
+                const tch = (tco + 180) % 360;
+                let thh = tch - wca; thh = ((thh % 360) + 360) % 360;
+                const gsh = etas - lc;
+                const pnrd = (e * gso * gsh) / (gso + gsh);
+                const pnrt_h = pnrd / gso;
+                const fth_h = pnrd / gsh;
+                const round3 = (n) => n.toFixed(3);
+                document.getElementById('risultatiPnr').innerHTML = `
+                    <div class="results">
+                        <div class="section-title"><i class="fas fa-arrow-right"></i> ANDATA</div>
+                        <div class="results-grid">
+                            <div class="result-card"><div class="result-name">XC</div><div class="detail-value">${round3(xc)}</div></div>
+                            <div class="result-card"><div class="result-name">LC</div><div class="detail-value">${round3(lc)}</div></div>
+                            <div class="result-card"><div class="result-name">WCA</div><div class="detail-value">${round3(wca)}°</div></div>
+                            <div class="result-card"><div class="result-name">ETAS</div><div class="detail-value">${round3(etas)}</div></div>
+                            <div class="result-card"><div class="result-name">THo</div><div class="detail-value">${round3(tho)}°</div></div>
+                            <div class="result-card"><div class="result-name">GSo</div><div class="detail-value">${round3(gso)}</div></div>
+                        </div>
+                        <div class="section-title"><i class="fas fa-arrow-left"></i> RITORNO</div>
+                        <div class="results-grid">
+                            <div class="result-card"><div class="result-name">TCh</div><div class="detail-value">${round3(tch)}°</div></div>
+                            <div class="result-card"><div class="result-name">THh</div><div class="detail-value">${round3(thh)}°</div></div>
+                            <div class="result-card"><div class="result-name">GSh</div><div class="detail-value">${round3(gsh)}</div></div>
+                        </div>
+                        <div class="section-title"><i class="fas fa-map-location-dot"></i> PNR</div>
+                        <div class="results-grid">
+                            <div class="result-card"><div class="result-name">PNRd</div><div class="detail-value">${round3(pnrd)} NM</div></div>
+                            <div class="result-card"><div class="result-name">PNRt</div><div class="detail-value time-format">⏱️ ${formatTime(pnrt_h)}</div></div>
+                            <div class="result-card"><div class="result-name">FTh</div><div class="detail-value time-format">⏱️ ${formatTime(fth_h)}</div></div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // FUNZIONI PROBLEMI VENTO (mantenute identiche all'originale)
         function getProblemiOverviewHTML() {
-            return `
-                <div class="info-message">
-                    <i class="fas fa-info-circle"></i> Seleziona uno dei problemi dal menu laterale per accedere al calcolatore
-                </div>
-                <div class="problemi-overview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 10px;">
-                    <div class="pnr-preview-card">
-                        <div class="pnr-preview-title">Primo Problema</div>
-                        <div class="pnr-preview-row">
-                            <div class="pnr-preview-label">Dati</div>
-                            <div class="badge-dati">TC</div><div class="badge-dati">TAS</div><div class="badge-dati">W</div><div class="badge-dati">V</div>
-                        </div>
-                        <div class="pnr-preview-row">
-                            <div class="pnr-preview-label">Incognite</div>
-                            <div class="badge-incognite">TH</div><div class="badge-incognite">GS</div>
-                        </div>
-                    </div>
-                    <div class="pnr-preview-card">
-                        <div class="pnr-preview-title">Secondo Problema</div>
-                        <div class="pnr-preview-row">
-                            <div class="pnr-preview-label">Dati</div>
-                            <div class="badge-dati">TH</div><div class="badge-dati">TAS</div><div class="badge-dati">W</div><div class="badge-dati">V</div>
-                        </div>
-                        <div class="pnr-preview-row">
-                            <div class="pnr-preview-label">Incognite</div>
-                            <div class="badge-incognite">TC</div><div class="badge-incognite">GS</div>
-                        </div>
-                    </div>
-                    <div class="pnr-preview-card">
-                        <div class="pnr-preview-title">Terzo Problema</div>
-                        <div class="pnr-preview-row">
-                            <div class="pnr-preview-label">Dati</div>
-                            <div class="badge-dati">TH</div><div class="badge-dati">TC</div><div class="badge-dati">GS</div><div class="badge-dati">TAS</div>
-                        </div>
-                        <div class="pnr-preview-row">
-                            <div class="pnr-preview-label">Incognite</div>
-                            <div class="badge-incognite">W</div><div class="badge-incognite">V</div>
-                        </div>
-                    </div>
-                    <div class="pnr-preview-card">
-                        <div class="pnr-preview-title">Quarto Problema</div>
-                        <div class="pnr-preview-row">
-                            <div class="pnr-preview-label">Dati</div>
-                            <div class="badge-dati">TC</div><div class="badge-dati">GS</div><div class="badge-dati">W</div><div class="badge-dati">V</div>
-                        </div>
-                        <div class="pnr-preview-row">
-                            <div class="pnr-preview-label">Incognite</div>
-                            <div class="badge-incognite">TH</div><div class="badge-incognite">TAS</div>
-                        </div>
-                    </div>
-                </div>
-            `;
+            return `<div class="info-message"><i class="fas fa-info-circle"></i> Seleziona uno dei problemi dal menu laterale per accedere al calcolatore</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 10px;">
+                    <div class="info-box"><div class="info-box-title">Primo Problema</div><div class="badge-container"><span class="badge-dati">TC</span><span class="badge-dati">TAS</span><span class="badge-dati">W</span><span class="badge-dati">V</span></div><div class="badge-container" style="margin-top:10px"><span class="badge-incognite">TH</span><span class="badge-incognite">GS</span></div></div>
+                    <div class="info-box"><div class="info-box-title">Secondo Problema</div><div class="badge-container"><span class="badge-dati">TH</span><span class="badge-dati">TAS</span><span class="badge-dati">W</span><span class="badge-dati">V</span></div><div class="badge-container" style="margin-top:10px"><span class="badge-incognite">TC</span><span class="badge-incognite">GS</span></div></div>
+                    <div class="info-box"><div class="info-box-title">Terzo Problema</div><div class="badge-container"><span class="badge-dati">TH</span><span class="badge-dati">TC</span><span class="badge-dati">GS</span><span class="badge-dati">TAS</span></div><div class="badge-container" style="margin-top:10px"><span class="badge-incognite">W</span><span class="badge-incognite">V</span></div></div>
+                    <div class="info-box"><div class="info-box-title">Quarto Problema</div><div class="badge-container"><span class="badge-dati">TC</span><span class="badge-dati">GS</span><span class="badge-dati">W</span><span class="badge-dati">V</span></div><div class="badge-container" style="margin-top:10px"><span class="badge-incognite">TH</span><span class="badge-incognite">TAS</span></div></div>
+                </div>`;
         }
+        function showPrimoProblema() { const c=document.getElementById('problemDetailContainer'); if(!c)return; c.innerHTML=`<div class="calculator-form"><div class="input-group"><div class="input-field"><label>TC</label><input id="tc" type="number" step="any"></div><div class="input-field"><label>TAS</label><input id="tas" type="number" step="any"></div><div class="input-field"><label>W</label><input id="w" type="number" step="any"></div><div class="input-field"><label>V</label><input id="v" type="number" step="any"></div></div><button class="calcola" id="calc1">CALCOLA</button><div id="res1"></div></div>`;
+        document.getElementById('calc1').addEventListener('click',()=>{let tc=parseFloat(document.getElementById('tc').value),tas=parseFloat(document.getElementById('tas').value),w=parseFloat(document.getElementById('w').value),v=parseFloat(document.getElementById('v').value);if(isNaN(tc)||isNaN(tas)||isNaN(w)||isNaN(v)){document.getElementById('res1').innerHTML='<div class="error-message">⚠️ Inserisci tutti i valori.</div>';return;}let dr=(w-tc)*Math.PI/180,xc=v*Math.sin(dr),lc=-v*Math.cos(dr),ratio=xc/tas;if(Math.abs(ratio)>1){document.getElementById('res1').innerHTML='<div class="error-message">⚠️ Vento troppo forte!</div>';return;}let wcaRad=Math.asin(ratio),wca=wcaRad*180/Math.PI,etas=tas*Math.cos(wcaRad),tho=((tc+wca)%360+360)%360,gs=etas+lc;document.getElementById('res1').innerHTML=`<div class="results"><div class="results-grid"><div class="result-card"><div class="result-name">XC</div><div class="detail-value">${xc.toFixed(3)}</div></div><div class="result-card"><div class="result-name">LC</div><div class="detail-value">${lc.toFixed(3)}</div></div><div class="result-card"><div class="result-name">WCA</div><div class="detail-value">${wca.toFixed(3)}°</div></div><div class="result-card"><div class="result-name">ETAS</div><div class="detail-value">${etas.toFixed(3)}</div></div><div class="result-card"><div class="result-name">TH</div><div class="detail-value">${tho.toFixed(3)}°</div></div><div class="result-card"><div class="result-name">GS</div><div class="detail-value">${gs.toFixed(3)}</div></div></div></div>`;});}
+        function showSecondoProblema() { const c=document.getElementById('problemDetailContainer'); if(!c)return; c.innerHTML=`<div class="calculator-form"><div class="input-group"><div class="input-field"><label>TH</label><input id="th" type="number" step="any"></div><div class="input-field"><label>TAS</label><input id="tas2" type="number" step="any"></div><div class="input-field"><label>W</label><input id="w2" type="number" step="any"></div><div class="input-field"><label>V</label><input id="v2" type="number" step="any"></div></div><button class="calcola" id="calc2">CALCOLA</button><div id="res2"></div></div>`;
+        document.getElementById('calc2').addEventListener('click',()=>{let th=parseFloat(document.getElementById('th').value),tas=parseFloat(document.getElementById('tas2').value),w=parseFloat(document.getElementById('w2').value),v=parseFloat(document.getElementById('v2').value);if(isNaN(th)||isNaN(tas)||isNaN(w)||isNaN(v)){document.getElementById('res2').innerHTML='<div class="error-message">⚠️ Inserisci tutti i valori.</div>';return;}let tcp=th,iter='';for(let i=1;i<=5;i++){let dr=(w-tcp)*Math.PI/180,xc=v*Math.sin(dr),ratio=xc/tas,wcaRad=Math.asin(Math.max(-1,Math.min(1,ratio))),wca=wcaRad*180/Math.PI,tcpNew=th-wca;iter+=`<div>Iter ${i}: WCA=${wca.toFixed(3)}°, TCp=${tcpNew.toFixed(3)}°</div>`;if(Math.abs(tcpNew-tcp)<0.001)break;tcp=tcpNew;}let dr=(w-tcp)*Math.PI/180,xc=v*Math.sin(dr),lc=-v*Math.cos(dr),wcaRad=Math.asin(Math.max(-1,Math.min(1,xc/tas))),wca=wcaRad*180/Math.PI,etas=tas*Math.cos(wcaRad),gs=etas+lc;document.getElementById('res2').innerHTML=`<div class="results">${iter}<div class="results-grid"><div class="result-card"><div class="result-name">LC</div><div class="detail-value">${lc.toFixed(3)}</div></div><div class="result-card"><div class="result-name">GS</div><div class="detail-value">${gs.toFixed(3)}</div></div></div></div>`;});}
+        function showTerzoProblema() { const c=document.getElementById('problemDetailContainer'); if(!c)return; c.innerHTML=`<div class="calculator-form"><div class="input-group"><div class="input-field"><label>TH</label><input id="th3" type="number" step="any"></div><div class="input-field"><label>TC</label><input id="tc3" type="number" step="any"></div><div class="input-field"><label>GS</label><input id="gs3" type="number" step="any"></div><div class="input-field"><label>TAS</label><input id="tas3" type="number" step="any"></div></div><button class="calcola" id="calc3">CALCOLA</button><div id="res3"></div></div>`;
+        document.getElementById('calc3').addEventListener('click',()=>{let th=parseFloat(document.getElementById('th3').value),tc=parseFloat(document.getElementById('tc3').value),gs=parseFloat(document.getElementById('gs3').value),tas=parseFloat(document.getElementById('tas3').value);if(isNaN(th)||isNaN(tc)||isNaN(gs)||isNaN(tas)){document.getElementById('res3').innerHTML='<div class="error-message">⚠️ Inserisci tutti i valori.</div>';return;}let wca=th-tc,wcaRad=wca*Math.PI/180,xc=tas*Math.sin(wcaRad),etas=tas*Math.cos(wcaRad),lc=gs-etas,vv=Math.sqrt(xc*xc+lc*lc);document.getElementById('res3').innerHTML=`<div class="results"><div class="results-grid"><div class="result-card"><div class="result-name">WCA</div><div class="detail-value">${wca.toFixed(3)}°</div></div><div class="result-card"><div class="result-name">XC</div><div class="detail-value">${xc.toFixed(3)}</div></div><div class="result-card"><div class="result-name">ETAS</div><div class="detail-value">${etas.toFixed(3)}</div></div><div class="result-card"><div class="result-name">LC</div><div class="detail-value">${lc.toFixed(3)}</div></div><div class="result-card"><div class="result-name">V</div><div class="detail-value">${vv.toFixed(3)}</div></div></div></div>`;});}
+        function showQuartoProblema() { const c=document.getElementById('problemDetailContainer'); if(!c)return; c.innerHTML=`<div class="calculator-form"><div class="input-group"><div class="input-field"><label>TC</label><input id="tc4" type="number" step="any"></div><div class="input-field"><label>GS</label><input id="gs4" type="number" step="any"></div><div class="input-field"><label>W</label><input id="w4" type="number" step="any"></div><div class="input-field"><label>V</label><input id="v4" type="number" step="any"></div></div><button class="calcola" id="calc4">CALCOLA</button><div id="res4"></div></div>`;
+        document.getElementById('calc4').addEventListener('click',()=>{let tc=parseFloat(document.getElementById('tc4').value),gs=parseFloat(document.getElementById('gs4').value),w=parseFloat(document.getElementById('w4').value),v=parseFloat(document.getElementById('v4').value);if(isNaN(tc)||isNaN(gs)||isNaN(w)||isNaN(v)){document.getElementById('res4').innerHTML='<div class="error-message">⚠️ Inserisci tutti i valori.</div>';return;}let dr=(w-tc)*Math.PI/180,xc=v*Math.sin(dr),lc=-v*Math.cos(dr),etas=gs-lc,wcaRad=Math.atan(xc/etas),wca=wcaRad*180/Math.PI,tho=((tc+wca)%360+360)%360,tas=etas/Math.cos(wcaRad);document.getElementById('res4').innerHTML=`<div class="results"><div class="results-grid"><div class="result-card"><div class="result-name">TH</div><div class="detail-value">${tho.toFixed(3)}°</div></div><div class="result-card"><div class="result-name">TAS</div><div class="detail-value">${tas.toFixed(3)}</div></div></div></div>`;});}
+        function showEmptyProblem() { const c=document.getElementById('problemDetailContainer'); if(c) c.innerHTML=getProblemiOverviewHTML(); }
 
-        // ---------- CONTENUTI MODULI ----------
-        function getModuleHTML(moduleId) {
-            if (moduleId === 'home') return `<div class="reveal active" style="min-height: 0;"></div>`;
-            if (moduleId === 'vento') {
-                return `
-                    <div class="reveal active">
-                        <div class="module-card" id="vento-module-card">
-                            <div class="module-title"><i class="fas fa-wind"></i> Problema del Vento</div>
-                            <div class="divider"></div>
-                            <div id="problemDetailContainer" class="problem-detail-box"></div>
-                        </div>
-                    </div>
-                `;
-            }
-            if (moduleId === 'pnr') {
-                return `
-                    <div class="reveal active">
-                        <div class="module-card" id="pnr-module-card">
-                            <div class="module-title"><i class="fas fa-map-location-dot"></i> PNR - Stessa Base</div>
-                            <div class="divider"></div>
-                            <div id="problemDetailContainer" class="problem-detail-box"></div>
-                        </div>
-                    </div>
-                `;
-            }
-            if (moduleId === 'lossodromia') {
-                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-route"></i> Lossodromia</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
-            }
-            if (moduleId === 'ortodromia') {
-                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-earth-americas"></i> Ortodromia</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
-            }
-            if (moduleId === 'per') {
-                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-clock-rotate-left"></i> PET</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
-            }
-            if (moduleId === 'intercettamento') {
-                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-crosshairs"></i> Intercettamento</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
-            }
-            return `<div class="reveal active" style="min-height: 0;"></div>`;
-        }
+        function setupVentoSubmenu() { document.querySelectorAll('.mobile-nav-links-vento a').forEach(link=>{link.addEventListener('click',(e)=>{e.preventDefault();const p=link.getAttribute('data-subproblem');if(p==='primo')showPrimoProblema();else if(p==='secondo')showSecondoProblema();else if(p==='terzo')showTerzoProblema();else if(p==='quarto')showQuartoProblema();else showEmptyProblem();closeVentoMenu();});});}
+        function setupPnrSubmenu() { document.querySelectorAll('.mobile-nav-links-pnr a').forEach(link=>{link.addEventListener('click',(e)=>{e.preventDefault();showPnrCalculator();closePnrMenu();});});}
 
-        // ---------- FUNZIONI PROBLEMI VENTO (mantenute identiche) ----------
-        function showPrimoProblema() { /* mantenuto invariato */ }
-        function showSecondoProblema() { /* mantenuto invariato */ }
-        function showTerzoProblema() { /* mantenuto invariato */ }
-        function showQuartoProblema() { /* mantenuto invariato */ }
-        function showEmptyProblem() { /* mantenuto invariato */ }
-
-        // Ridefinizione completa delle funzioni vento per sicurezza
-        function showPrimoProblema() {
-            const container = document.getElementById('problemDetailContainer');
-            if (!container) return;
-            container.innerHTML = `<div class="calculator-form"><div class="input-group"><div class="input-field"><label>TC (Rotta Vera)</label><input type="number" id="tc" step="any" placeholder="Inserisci TC in gradi"></div><div class="input-field"><label>TAS (Velocità propria)</label><input type="number" id="tas" step="any" placeholder="Inserisci TAS in nodi"></div><div class="input-field"><label>W (Direzione del vento)</label><input type="number" id="w" step="any" placeholder="Inserisci W in gradi"></div><div class="input-field"><label>V (Velocità del vento)</label><input type="number" id="v" step="any" placeholder="Inserisci V in nodi"></div></div><button class="calcola" id="calcolaPrimo">CALCOLA</button><div id="risultatiPrimo"></div></div>`;
-            document.getElementById('calcolaPrimo').addEventListener('click', () => {
-                const tc=parseFloat(document.getElementById('tc').value), tas=parseFloat(document.getElementById('tas').value), w=parseFloat(document.getElementById('w').value), v=parseFloat(document.getElementById('v').value);
-                if(isNaN(tc)||isNaN(tas)||isNaN(w)||isNaN(v)){document.getElementById('risultatiPrimo').innerHTML='<div class="error-message">⚠️ Inserisci tutti i valori.</div>';return;}
-                const diffRad=(w-tc)*Math.PI/180, xc=v*Math.sin(diffRad), lc=-v*Math.cos(diffRad), ratio=xc/tas;
-                if(Math.abs(ratio)>1){document.getElementById('risultatiPrimo').innerHTML='<div class="error-message">⚠️ VENTO TROPPO FORTE!</div>';return;}
-                const wcaRad=Math.asin(ratio), wca=wcaRad*180/Math.PI, etas=tas*Math.cos(wcaRad), tho=((tc+wca)%360+360)%360, gs=etas+lc;
-                document.getElementById('risultatiPrimo').innerHTML=`<div class="results"><div class="results-grid"><div class="result-card"><div class="result-name">XC</div><div class="detail-value">${xc.toFixed(3)}</div></div><div class="result-card"><div class="result-name">LC</div><div class="detail-value">${lc.toFixed(3)}</div></div><div class="result-card"><div class="result-name">WCA</div><div class="detail-value">${wca.toFixed(3)}°</div></div><div class="result-card"><div class="result-name">ETAS</div><div class="detail-value">${etas.toFixed(3)}</div></div><div class="result-card"><div class="result-name">TH</div><div class="detail-value">${tho.toFixed(3)}°</div></div><div class="result-card"><div class="result-name">GS</div><div class="detail-value">${gs.toFixed(3)}</div></div></div></div>`;
-            });
-        }
-        function showSecondoProblema() {
-            const container = document.getElementById('problemDetailContainer');
-            if (!container) return;
-            container.innerHTML = `<div class="calculator-form"><div class="input-group"><div class="input-field"><label>TH (Rotta vera)</label><input type="number" id="th" step="any" placeholder="Inserisci TH in gradi"></div><div class="input-field"><label>TAS</label><input type="number" id="tas2" step="any" placeholder="Inserisci TAS in nodi"></div><div class="input-field"><label>W</label><input type="number" id="w2" step="any" placeholder="Inserisci W in gradi"></div><div class="input-field"><label>V</label><input type="number" id="v2" step="any" placeholder="Inserisci V in nodi"></div></div><button class="calcola" id="calcolaSecondo">CALCOLA</button><div id="risultatiSecondo"></div></div>`;
-            document.getElementById('calcolaSecondo').addEventListener('click', () => {
-                let th=parseFloat(document.getElementById('th').value), tas=parseFloat(document.getElementById('tas2').value), w=parseFloat(document.getElementById('w2').value), v=parseFloat(document.getElementById('v2').value);
-                if(isNaN(th)||isNaN(tas)||isNaN(w)||isNaN(v)){document.getElementById('risultatiSecondo').innerHTML='<div class="error-message">⚠️ Inserisci tutti i valori.</div>';return;}
-                let tcp=th, iterations='';
-                for(let i=1;i<=5;i++){let diffRad=(w-tcp)*Math.PI/180, xc=v*Math.sin(diffRad), ratio=xc/tas, wcaRad=Math.asin(Math.max(-1,Math.min(1,ratio))), wca=wcaRad*180/Math.PI, tcpNew=th-wca; iterations+=`<div>Iter ${i}: WCA=${wca.toFixed(3)}°, TCp=${tcpNew.toFixed(3)}°</div>`; if(Math.abs(tcpNew-tcp)<0.001)break; tcp=tcpNew;}
-                const diffRad=(w-tcp)*Math.PI/180, xc=v*Math.sin(diffRad), lc=-v*Math.cos(diffRad), wcaRad=Math.asin(Math.max(-1,Math.min(1,xc/tas))), wca=wcaRad*180/Math.PI, etas=tas*Math.cos(wcaRad), gs=etas+lc;
-                document.getElementById('risultatiSecondo').innerHTML=`<div class="results">${iterations}<div class="results-grid"><div class="result-card"><div class="result-name">LC</div><div class="detail-value">${lc.toFixed(3)}</div></div><div class="result-card"><div class="result-name">GS</div><div class="detail-value">${gs.toFixed(3)}</div></div></div></div>`;
-            });
-        }
-        function showTerzoProblema() {
-            const container = document.getElementById('problemDetailContainer');
-            if (!container) return;
-            container.innerHTML = `<div class="calculator-form"><div class="input-group"><div class="input-field"><label>TH</label><input type="number" id="th3" step="any" placeholder="TH"></div><div class="input-field"><label>TC</label><input type="number" id="tc3" step="any" placeholder="TC"></div><div class="input-field"><label>GS</label><input type="number" id="gs3" step="any" placeholder="GS"></div><div class="input-field"><label>TAS</label><input type="number" id="tas3" step="any" placeholder="TAS"></div></div><button class="calcola" id="calcolaTerzo">CALCOLA</button><div id="risultatiTerzo"></div></div>`;
-            document.getElementById('calcolaTerzo').addEventListener('click', () => {
-                const th=parseFloat(document.getElementById('th3').value), tc=parseFloat(document.getElementById('tc3').value), gs=parseFloat(document.getElementById('gs3').value), tas=parseFloat(document.getElementById('tas3').value);
-                if(isNaN(th)||isNaN(tc)||isNaN(gs)||isNaN(tas)){document.getElementById('risultatiTerzo').innerHTML='<div class="error-message">⚠️ Inserisci tutti i valori.</div>';return;}
-                const wca=th-tc, wcaRad=wca*Math.PI/180, xc=tas*Math.sin(wcaRad), etas=tas*Math.cos(wcaRad), lc=gs-etas, v=Math.sqrt(xc*xc+lc*lc);
-                document.getElementById('risultatiTerzo').innerHTML=`<div class="results"><div class="results-grid"><div class="result-card"><div class="result-name">WCA</div><div class="detail-value">${wca.toFixed(3)}°</div></div><div class="result-card"><div class="result-name">XC</div><div class="detail-value">${xc.toFixed(3)}</div></div><div class="result-card"><div class="result-name">ETAS</div><div class="detail-value">${etas.toFixed(3)}</div></div><div class="result-card"><div class="result-name">LC</div><div class="detail-value">${lc.toFixed(3)}</div></div><div class="result-card"><div class="result-name">V (vento)</div><div class="detail-value">${v.toFixed(3)}</div></div></div></div>`;
-            });
-        }
-        function showQuartoProblema() {
-            const container = document.getElementById('problemDetailContainer');
-            if (!container) return;
-            container.innerHTML = `<div class="calculator-form"><div class="input-group"><div class="input-field"><label>TC</label><input type="number" id="tc4" step="any" placeholder="TC"></div><div class="input-field"><label>GS</label><input type="number" id="gs4" step="any" placeholder="GS"></div><div class="input-field"><label>W</label><input type="number" id="w4" step="any" placeholder="W"></div><div class="input-field"><label>V</label><input type="number" id="v4" step="any" placeholder="V"></div></div><button class="calcola" id="calcolaQuarto">CALCOLA</button><div id="risultatiQuarto"></div></div>`;
-            document.getElementById('calcolaQuarto').addEventListener('click', () => {
-                const tc=parseFloat(document.getElementById('tc4').value), gs=parseFloat(document.getElementById('gs4').value), w=parseFloat(document.getElementById('w4').value), v=parseFloat(document.getElementById('v4').value);
-                if(isNaN(tc)||isNaN(gs)||isNaN(w)||isNaN(v)){document.getElementById('risultatiQuarto').innerHTML='<div class="error-message">⚠️ Inserisci tutti i valori.</div>';return;}
-                const diffRad=(w-tc)*Math.PI/180, xc=v*Math.sin(diffRad), lc=-v*Math.cos(diffRad), etas=gs-lc, wcaRad=Math.atan(xc/etas), wca=wcaRad*180/Math.PI, tho=((tc+wca)%360+360)%360, tas=etas/Math.cos(wcaRad);
-                document.getElementById('risultatiQuarto').innerHTML=`<div class="results"><div class="results-grid"><div class="result-card"><div class="result-name">TH</div><div class="detail-value">${tho.toFixed(3)}°</div></div><div class="result-card"><div class="result-name">TAS</div><div class="detail-value">${tas.toFixed(3)}</div></div></div></div>`;
-            });
-        }
-        function showEmptyProblem() { const container = document.getElementById('problemDetailContainer'); if(container) container.innerHTML=getProblemiOverviewHTML(); }
-
-        function setupVentoSubmenu() {
-            document.querySelectorAll('.mobile-nav-links-vento a').forEach(link => {
-                link.addEventListener('click', (e) => { e.preventDefault(); const p=link.getAttribute('data-subproblem'); if(p==='primo')showPrimoProblema(); else if(p==='secondo')showSecondoProblema(); else if(p==='terzo')showTerzoProblema(); else if(p==='quarto')showQuartoProblema(); else showEmptyProblem(); closeVentoMenu(); });
-            });
-        }
-
-        function setupPnrSubmenu() {
-            document.querySelectorAll('.mobile-nav-links-pnr a').forEach(link => {
-                link.addEventListener('click', (e) => { e.preventDefault(); showPnrCalculator(); closePnrMenu(); });
-            });
-        }
-
-        // Navigazione principale
         function navigateTo(moduleId, addToHistory = true) {
             currentModule = moduleId;
             const container = document.getElementById('main-container');
             if (!container) return;
-            container.innerHTML = getModuleHTML(moduleId);
-            
-            if (moduleId === 'vento') {
-                closeMainMenu(); closePnrMenu();
-                mobileMenuVento.style.display = 'block';
-                mobileMenuPnr.style.display = 'none';
-                mobileMenu.style.display = 'none';
-                setTimeout(() => { const detailDiv = document.getElementById('problemDetailContainer'); if(detailDiv) detailDiv.innerHTML = getProblemiOverviewHTML(); setupVentoSubmenu(); }, 20);
-            } else if (moduleId === 'pnr') {
-                closeMainMenu(); closeVentoMenu();
-                mobileMenuPnr.style.display = 'block';
-                mobileMenuVento.style.display = 'none';
-                mobileMenu.style.display = 'none';
-                setTimeout(() => { const detailDiv = document.getElementById('problemDetailContainer'); if(detailDiv) showPnrOverview(); setupPnrSubmenu(); }, 20);
-            } else {
-                closeVentoMenu(); closePnrMenu();
-                mobileMenuVento.style.display = 'none';
-                mobileMenuPnr.style.display = 'none';
-                mobileMenu.style.display = 'block';
-            }
-            
-            const reveals = container.querySelectorAll('.reveal');
-            reveals.forEach(el => el.classList.add('active'));
-            
-            const titles = { home: 'NavTech | Navigazione', vento: 'Problema del Vento - NavTech', lossodromia: 'Lossodromia - NavTech', ortodromia: 'Ortodromia - NavTech', pnr: 'PNR - NavTech', per: 'PET - NavTech', intercettamento: 'Intercettamento - NavTech' };
-            document.title = titles[moduleId] || 'NavTech Pro';
-            
+            if (moduleId === 'home') { container.innerHTML = `<div class="reveal active" style="min-height: 0;"></div>`; closeMainMenu(); closeVentoMenu(); closePnrMenu(); mobileMenuVento.style.display='none'; mobileMenuPnr.style.display='none'; mobileMenu.style.display='block'; document.title='NavTech | Navigazione'; }
+            else if (moduleId === 'vento') { container.innerHTML=`<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-wind"></i> Problema del Vento</div><div class="divider"></div><div id="problemDetailContainer" class="problem-detail-box"></div></div></div>`; closeMainMenu(); closePnrMenu(); mobileMenuVento.style.display='block'; mobileMenuPnr.style.display='none'; mobileMenu.style.display='none'; setTimeout(()=>{const d=document.getElementById('problemDetailContainer');if(d)d.innerHTML=getProblemiOverviewHTML();setupVentoSubmenu();},20); document.title='Problema del Vento - NavTech'; }
+            else if (moduleId === 'pnr') { container.innerHTML=`<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-map-location-dot"></i> PNR - Stessa Base</div><div class="divider"></div><div id="problemDetailContainer" class="problem-detail-box"></div></div></div>`; closeMainMenu(); closeVentoMenu(); mobileMenuPnr.style.display='block'; mobileMenuVento.style.display='none'; mobileMenu.style.display='none'; setTimeout(()=>{const d=document.getElementById('problemDetailContainer');if(d)showPnrOverview();setupPnrSubmenu();},20); document.title='PNR - NavTech'; }
+            else { container.innerHTML=`<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-${moduleId==='lossodromia'?'route':moduleId==='ortodromia'?'earth-americas':moduleId==='per'?'clock-rotate-left':'crosshairs'}"></i> ${moduleId==='lossodromia'?'Lossodromia':moduleId==='ortodromia'?'Ortodromia':moduleId==='per'?'PET':'Intercettamento'}</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`; closeMainMenu(); closeVentoMenu(); closePnrMenu(); mobileMenuVento.style.display='none'; mobileMenuPnr.style.display='none'; mobileMenu.style.display='block'; document.title=`${moduleId.charAt(0).toUpperCase()+moduleId.slice(1)} - NavTech`; }
+            const reveals = container.querySelectorAll('.reveal'); reveals.forEach(el => el.classList.add('active'));
             if (addToHistory) { const state = { module: moduleId }; const url = new URL(window.location); url.searchParams.set('nav', moduleId); window.history.pushState(state, '', url); }
         }
-        
-        document.querySelectorAll('.mobile-nav-links a').forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); const pageKey = link.getAttribute('data-page'); if(pageKey) { navigateTo(pageKey, true); closeMainMenu(); } }); });
-        
-        const logoHome = document.getElementById('logo-home');
-        if(logoHome) logoHome.addEventListener('click', () => { navigateTo('home', true); closeMainMenu(); closeVentoMenu(); closePnrMenu(); });
-        
-        window.addEventListener('popstate', (event) => { let moduleId = 'home'; if(event.state && event.state.module) moduleId = event.state.module; else { const params = new URLSearchParams(window.location.search); moduleId = params.get('nav') || 'home'; } navigateTo(moduleId, false); });
-        
-        // Particelle
-        const canvas = document.getElementById('particle-canvas'); const ctx = canvas.getContext('2d'); let particles = [];
-        function initParticles() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; particles = []; for(let i=0;i<100;i++) particles.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, vx: (Math.random()-0.5)*0.6, vy: (Math.random()-0.5)*0.6, size: Math.random()*2+0.5, alpha: Math.random()*0.5+0.2 }); }
-        function drawParticles() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p => { p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>canvas.width) p.vx*=-1; if(p.y<0||p.y>canvas.height) p.vy*=-1; ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fillStyle=`rgba(0,229,255,${p.alpha})`; ctx.fill(); }); requestAnimationFrame(drawParticles); }
-        window.addEventListener('resize', () => { initParticles(); });
-        initParticles(); drawParticles();
-        
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('active')); }, { threshold: 0.15 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        
-        mobileMenuVento.style.display = 'none';
-        mobileMenuPnr.style.display = 'none';
-        mobileMenu.style.display = 'block';
+
+        document.querySelectorAll('.mobile-nav-links a').forEach(link=>{link.addEventListener('click',(e)=>{e.preventDefault();const pageKey=link.getAttribute('data-page');if(pageKey){navigateTo(pageKey,true);closeMainMenu();}});});
+        document.getElementById('logo-home').addEventListener('click',()=>{navigateTo('home',true);closeMainMenu();closeVentoMenu();closePnrMenu();});
+        window.addEventListener('popstate',(event)=>{let mid='home';if(event.state&&event.state.module)mid=event.state.module;else{const p=new URLSearchParams(window.location.search);mid=p.get('nav')||'home';}navigateTo(mid,false);});
+
+        const canvas=document.getElementById('particle-canvas'),ctx=canvas.getContext('2d');let particles=[];
+        function initParticles(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;particles=[];for(let i=0;i<100;i++)particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-0.5)*0.6,vy:(Math.random()-0.5)*0.6,size:Math.random()*2+0.5,alpha:Math.random()*0.5+0.2});}
+        function drawParticles(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle=`rgba(0,229,255,${p.alpha})`;ctx.fill();});requestAnimationFrame(drawParticles);}
+        window.addEventListener('resize',()=>initParticles()); initParticles(); drawParticles();
+        new IntersectionObserver((e)=>e.forEach(e=>e.isIntersecting&&e.target.classList.add('active')),{threshold:0.15}).observe(document.querySelector('.footer-credits'));
+        mobileMenuVento.style.display='none'; mobileMenuPnr.style.display='none'; mobileMenu.style.display='block';
         const initialParam = new URLSearchParams(window.location.search).get('nav');
-        if(initialParam && ['vento','lossodromia','ortodromia','pnr','per','intercettamento'].includes(initialParam)) { navigateTo(initialParam, false); const state = { module: initialParam }; window.history.replaceState(state, '', window.location.href); }
+        if(initialParam && ['vento','lossodromia','ortodromia','pnr','per','intercettamento'].includes(initialParam)) { navigateTo(initialParam, false); window.history.replaceState({ module: initialParam }, '', window.location.href); }
         else { navigateTo('home', false); window.history.replaceState({ module: 'home' }, '', window.location.pathname); }
     </script>
 </body>
