@@ -127,7 +127,6 @@
             right: 0;
         }
 
-        /* header dei menu */
         .menu-header {
             position: absolute;
             top: 25px;
@@ -461,7 +460,7 @@
             font-weight: 300;
         }
 
-        /* pannello overview (venti) */
+        /* pannello overview vento */
         .problemi-overview {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -686,26 +685,21 @@
     <script>
         // ---------- ELEMENTI MENU ----------
         const hamburger = document.getElementById('hamburger');
-        // principali
         const mobileMenu = document.getElementById('mobile-menu');
         const menuOverlay = document.getElementById('menu-overlay');
         const closeMenuBtn = document.getElementById('close-menu');
-        // vento
         const mobileMenuVento = document.getElementById('mobile-menu-vento');
         const menuOverlayVento = document.getElementById('menu-overlay-vento');
         const closeMenuVentoBtn = document.getElementById('close-menu-vento');
-        // pnr
         const mobileMenuPnr = document.getElementById('mobile-menu-pnr');
         const menuOverlayPnr = document.getElementById('menu-overlay-pnr');
         const closeMenuPnrBtn = document.getElementById('close-menu-pnr');
-        // intercettamento
         const mobileMenuInter = document.getElementById('mobile-menu-intercettamento');
         const menuOverlayInter = document.getElementById('menu-overlay-inter');
         const closeMenuInterBtn = document.getElementById('close-menu-inter');
 
         let currentModule = 'home';
 
-        // utility chiusura
         function closeAllMenus() {
             mobileMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
@@ -758,7 +752,7 @@
             bars[2].style.transform = 'rotate(45deg) translate(-6px, -7px)';
         }
 
-        // hamburger principale: decide in base al modulo attivo
+        // Hamburger dinamico
         hamburger.addEventListener('click', (e) => {
             e.stopPropagation();
             if (currentModule === 'vento') {
@@ -779,7 +773,6 @@
             }
         });
 
-        // chiusure varie
         closeMenuBtn.addEventListener('click', closeAllMenus);
         menuOverlay.addEventListener('click', closeAllMenus);
         closeMenuVentoBtn.addEventListener('click', closeAllMenus);
@@ -789,7 +782,7 @@
         closeMenuInterBtn.addEventListener('click', closeAllMenus);
         menuOverlayInter.addEventListener('click', closeAllMenus);
 
-        // ---------- FUNZIONI CONTENUTI (solo placeholder per PNR e INTERCETTAMENTO) ----------
+        // ---------- FUNZIONI PER I MODULI (PNR e INTERCETTAMENTO solo placeholder) ----------
         function showPnrOption(option) {
             const container = document.getElementById('main-container');
             if (!container) return;
@@ -832,7 +825,7 @@
             `;
         }
 
-        // Funzione per il modulo vento (identica all'originale, nessuna modifica)
+        // ---------- FUNZIONI PROBLEMA DEL VENTO (COMPLETE, INVARIATE) ----------
         function getProblemiOverviewHTML() {
             return `
                 <div class="info-message">
@@ -847,21 +840,300 @@
             `;
         }
 
-        // Le funzioni primo/secondo/terzo/quarto problema sono identiche all'originale (non modificate)
-        // (per brevità qui vengono riportate in forma compatta ma funzionanti)
-        function showPrimoProblema() { /* come da codice originale */ 
+        // Primo problema
+        function showPrimoProblema() {
             const container = document.getElementById('problemDetailContainer');
             if (!container) return;
-            container.innerHTML = `<div class="calculator-form">... (contenuto originale)</div>`;
-            // il contenuto reale è stato omesso per lunghezza, ma nel codice finale sarà completo.
+            container.innerHTML = `
+                <div class="calculator-form">
+                    <div class="input-group">
+                        <div class="input-field"><label>TC (Rotta Vera) <i class="fas fa-arrow-right"></i></label><input type="number" id="tc" step="any" placeholder="Inserisci TC in gradi"></div>
+                        <div class="input-field"><label>TAS (Velocità propria) <i class="fas fa-gauge-high"></i></label><input type="number" id="tas" step="any" placeholder="Inserisci TAS in nodi"></div>
+                        <div class="input-field"><label>W (Direzione del vento) <i class="fas fa-wind"></i></label><input type="number" id="w" step="any" placeholder="Inserisci W in gradi"></div>
+                        <div class="input-field"><label>V (Velocità del vento) <i class="fas fa-gauge-high"></i></label><input type="number" id="v" step="any" placeholder="Inserisci V in nodi"></div>
+                    </div>
+                    <button class="calcola" id="calcolaPrimo">CALCOLA</button>
+                    <div id="risultatiPrimo"></div>
+                </div>
+            `;
+            document.getElementById('calcolaPrimo').addEventListener('click', () => {
+                const tc = parseFloat(document.getElementById('tc').value);
+                const tas = parseFloat(document.getElementById('tas').value);
+                const w = parseFloat(document.getElementById('w').value);
+                const v = parseFloat(document.getElementById('v').value);
+                if (isNaN(tc) || isNaN(tas) || isNaN(w) || isNaN(v)) {
+                    document.getElementById('risultatiPrimo').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
+                    return;
+                }
+                const diff_deg = w - tc;
+                const diff_rad = diff_deg * Math.PI / 180;
+                const xc = v * Math.sin(diff_rad);
+                const lc = -v * Math.cos(diff_rad);
+                const rapporto = xc / tas;
+                if (Math.abs(rapporto) > 1) {
+                    document.getElementById('risultatiPrimo').innerHTML = `<div class="error-message">⚠️ VENTO TROPPO FORTE! Il rapporto xc/TAS supera 1.</div>`;
+                    return;
+                }
+                const wca_rad = Math.asin(rapporto);
+                const wca = wca_rad * 180 / Math.PI;
+                const etas = tas * Math.cos(wca_rad);
+                let th = tc + wca;
+                th = ((th % 360) + 360) % 360;
+                const gs = etas + lc;
+                const round3 = (n) => n.toFixed(3);
+                const risultatiHtml = `
+                    <div class="results"><div class="results-grid">
+                        <div class="result-card"><div class="result-name">XC</div><div class="detail-formula">XC = V · sin(W - TC)</div><div class="detail-substitution">XC = ${v} · sin(${w} - ${tc}) = ${v} · sin(${diff_deg}°)</div><div class="detail-substitution">sin(${diff_deg}°) = ${Math.sin(diff_rad).toFixed(6)}</div><div class="detail-value">${round3(xc)}</div></div>
+                        <div class="result-card"><div class="result-name">LC</div><div class="detail-formula">LC = -V · cos(W - TC)</div><div class="detail-substitution">LC = -${v} · cos(${w} - ${tc}) = -${v} · cos(${diff_deg}°)</div><div class="detail-substitution">cos(${diff_deg}°) = ${Math.cos(diff_rad).toFixed(6)}</div><div class="detail-value">${round3(lc)}</div></div>
+                        <div class="result-card"><div class="result-name">WCA</div><div class="detail-formula">WCA = arcsin(XC / TAS)</div><div class="detail-substitution">WCA = arcsin(${round3(xc)} / ${tas}) = arcsin(${rapporto.toFixed(6)})</div><div class="detail-substitution">arcsin(${rapporto.toFixed(6)}) = ${wca_rad.toFixed(6)} rad</div><div class="detail-value">${round3(wca)}°</div></div>
+                        <div class="result-card"><div class="result-name">ETAS</div><div class="detail-formula">ETAS = TAS · cos(WCA)</div><div class="detail-substitution">ETAS = ${tas} · cos(${round3(wca)}°) = ${tas} · ${Math.cos(wca_rad).toFixed(6)}</div><div class="detail-value">${round3(etas)}</div></div>
+                        <div class="result-card"><div class="result-name">TH</div><div class="detail-formula">TH = TC + WCA</div><div class="detail-substitution">TH = ${tc} + ${round3(wca)} = ${round3(th)}</div><div class="detail-value">${round3(th)}°</div></div>
+                        <div class="result-card"><div class="result-name">GS</div><div class="detail-formula">GS = ETAS + LC</div><div class="detail-substitution">GS = ${round3(etas)} + (${round3(lc)}) = ${round3(gs)}</div><div class="detail-value">${round3(gs)}</div></div>
+                    </div></div>
+                `;
+                document.getElementById('risultatiPrimo').innerHTML = risultatiHtml;
+            });
         }
-        // ATTENZIONE: Nel codice finale completo tutte le funzioni dei problemi del vento sono presenti integralmente.
-        // Qui per motivi di visualizzazione ho riassunto, ma nel deliverable finale metto il codice intero.
-        // Per sicurezza, nel file finale includerò l'intera logica originale (Primo, Secondo, Terzo, Quarto) senza modifiche.
 
-        // ---------- PANNELLO VENTO (invariato) + funzioni calcolo già presenti ----------
-        // (Nel file completo le funzioni showPrimoProblema, showSecondoProblema, showTerzoProblema, showQuartoProblema sono esattamente le stesse fornite in origine)
-        // Si allega codice completo con tutte le funzioni di calcolo del vento.
+        // Secondo problema (iterazioni)
+        function showSecondoProblema() {
+            const container = document.getElementById('problemDetailContainer');
+            if (!container) return;
+            container.innerHTML = `
+                <div class="calculator-form">
+                    <div class="input-group">
+                        <div class="input-field"><label>TH (Rotta vera) <i class="fas fa-arrow-right"></i></label><input type="number" id="th" step="any" placeholder="Inserisci TH in gradi"></div>
+                        <div class="input-field"><label>TAS (Velocità propria) <i class="fas fa-gauge-high"></i></label><input type="number" id="tas2" step="any" placeholder="Inserisci TAS in nodi"></div>
+                        <div class="input-field"><label>W (Direzione del vento) <i class="fas fa-wind"></i></label><input type="number" id="w2" step="any" placeholder="Inserisci W in gradi"></div>
+                        <div class="input-field"><label>V (Velocità del vento) <i class="fas fa-gauge-high"></i></label><input type="number" id="v2" step="any" placeholder="Inserisci V in nodi"></div>
+                    </div>
+                    <button class="calcola" id="calcolaSecondo">CALCOLA</button>
+                    <div id="risultatiSecondo"></div>
+                </div>
+            `;
+            document.getElementById('calcolaSecondo').addEventListener('click', () => {
+                const th = parseFloat(document.getElementById('th').value);
+                const tas = parseFloat(document.getElementById('tas2').value);
+                const wd = parseFloat(document.getElementById('w2').value);
+                const wv = parseFloat(document.getElementById('v2').value);
+                if (isNaN(th) || isNaN(tas) || isNaN(wd) || isNaN(wv)) {
+                    document.getElementById('risultatiSecondo').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
+                    return;
+                }
+                const round3 = (n) => n.toFixed(3);
+                let tcp_prev = th;
+                let iterationsHtml = '';
+                let converged = false;
+                let finalTcp = tcp_prev;
+                let finalWca = 0;
+                for (let i = 1; i <= 5; i++) {
+                    const alfa_deg = wd - tcp_prev;
+                    const alfa_rad = alfa_deg * Math.PI / 180;
+                    const xc = wv * Math.sin(alfa_rad);
+                    let ratio = xc / tas;
+                    if (ratio > 1) ratio = 1;
+                    if (ratio < -1) ratio = -1;
+                    const wca_rad = Math.asin(ratio);
+                    const wca = wca_rad * 180 / Math.PI;
+                    const tcp_curr = th - wca;
+                    const diff = Math.abs(tcp_curr - tcp_prev);
+                    finalTcp = tcp_curr;
+                    finalWca = wca;
+                    iterationsHtml += `
+                        <div class="iteration-card">
+                            <div class="iteration-title">Iterazione ${i}</div>
+                            <div class="iteration-detail">
+                                <div class="detail-item"><div class="detail-name">XC</div><div class="detail-formula">XC = V · sin(W - TCp<sub>prev</sub>)</div><div class="detail-substitution">XC = ${wv} · sin(${wd} - ${round3(tcp_prev)}) = ${wv} · sin(${alfa_deg.toFixed(3)}°)</div><div class="detail-substitution">sin(${alfa_deg.toFixed(3)}°) = ${Math.sin(alfa_rad).toFixed(6)}</div><div class="detail-value">${round3(xc)}</div></div>
+                                <div class="detail-item"><div class="detail-name">WCA</div><div class="detail-formula">WCA = arcsin(XC / TAS)</div><div class="detail-substitution">WCA = arcsin(${round3(xc)} / ${tas}) = arcsin(${ratio.toFixed(6)})</div><div class="detail-substitution">arcsin(${ratio.toFixed(6)}) = ${wca_rad.toFixed(6)} rad</div><div class="detail-value">${round3(wca)}°</div></div>
+                                <div class="detail-item"><div class="detail-name">TCp</div><div class="detail-formula">TCp = TH - WCA</div><div class="detail-substitution">TCp = ${th} - ${round3(wca)} = ${round3(tcp_curr)}</div><div class="detail-value">${round3(tcp_curr)}°</div></div>
+                            </div>
+                        </div>
+                    `;
+                    if (diff < 0.001) { converged = true; break; }
+                    tcp_prev = tcp_curr;
+                }
+                const ang_lc_rad = (wd - finalTcp) * Math.PI / 180;
+                const lc = -wv * Math.cos(ang_lc_rad);
+                const etas = tas * Math.cos(finalWca * Math.PI / 180);
+                const gs = etas + lc;
+                const finalHtml = `
+                    <div class="results">
+                        <h3 style="color:var(--accent-cyan); margin-bottom:15px;">Iterazioni</h3>
+                        ${iterationsHtml}
+                        ${converged ? '<div class="error-message" style="background:rgba(0,229,255,0.1); border-left-color:var(--accent-cyan); color:var(--accent-cyan);">✓ Convergenza raggiunta prima delle 5 iterazioni</div>' : ''}
+                        <h3 style="color:var(--accent-cyan); margin:30px 0 15px 0;">Risultati finali</h3>
+                        <div class="final-results">
+                            <div class="final-card"><div class="result-name">LC</div><div class="detail-formula">LC = -V · cos(W - TCp)</div><div class="detail-substitution">LC = -${wv} · cos(${wd} - ${round3(finalTcp)}) = -${wv} · cos(${(wd - finalTcp).toFixed(3)}°)</div><div class="detail-substitution">cos(${(wd - finalTcp).toFixed(3)}°) = ${Math.cos(ang_lc_rad).toFixed(6)}</div><div class="detail-value">${round3(lc)}</div></div>
+                            <div class="final-card"><div class="result-name">ETAS</div><div class="detail-formula">ETAS = TAS · cos(WCA)</div><div class="detail-substitution">ETAS = ${tas} · cos(${round3(finalWca)}°) = ${tas} · ${Math.cos(finalWca * Math.PI/180).toFixed(6)}</div><div class="detail-value">${round3(etas)}</div></div>
+                            <div class="final-card"><div class="result-name">GS</div><div class="detail-formula">GS = ETAS + LC</div><div class="detail-substitution">GS = ${round3(etas)} + (${round3(lc)}) = ${round3(gs)}</div><div class="detail-value">${round3(gs)}</div></div>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('risultatiSecondo').innerHTML = finalHtml;
+            });
+        }
+
+        // Terzo problema
+        function showTerzoProblema() {
+            const container = document.getElementById('problemDetailContainer');
+            if (!container) return;
+            container.innerHTML = `
+                <div class="calculator-form">
+                    <div class="input-group">
+                        <div class="input-field"><label>TH (Rotta vera) <i class="fas fa-arrow-right"></i></label><input type="number" id="th3" step="any" placeholder="Inserisci TH in gradi"></div>
+                        <div class="input-field"><label>TC (Traccia) <i class="fas fa-map"></i></label><input type="number" id="tc3" step="any" placeholder="Inserisci TC in gradi"></div>
+                        <div class="input-field"><label>GS (Velocità al suolo) <i class="fas fa-gauge-high"></i></label><input type="number" id="gs3" step="any" placeholder="Inserisci GS in nodi"></div>
+                        <div class="input-field"><label>TAS (Velocità propria) <i class="fas fa-gauge-high"></i></label><input type="number" id="tas3" step="any" placeholder="Inserisci TAS in nodi"></div>
+                    </div>
+                    <button class="calcola" id="calcolaTerzo">CALCOLA</button>
+                    <div id="risultatiTerzo"></div>
+                </div>
+            `;
+            document.getElementById('calcolaTerzo').addEventListener('click', () => {
+                const th = parseFloat(document.getElementById('th3').value);
+                const tc = parseFloat(document.getElementById('tc3').value);
+                const gs = parseFloat(document.getElementById('gs3').value);
+                const tas = parseFloat(document.getElementById('tas3').value);
+                if (isNaN(th) || isNaN(tc) || isNaN(gs) || isNaN(tas)) {
+                    document.getElementById('risultatiTerzo').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
+                    return;
+                }
+                const wca = th - tc;
+                const wca_rad = wca * Math.PI / 180;
+                const xc = tas * Math.sin(wca_rad);
+                const etas = tas * Math.cos(wca_rad);
+                const lc = gs - etas;
+                const v = Math.sqrt(xc * xc + lc * lc);
+                let w;
+                if (Math.abs(v) < 1e-6) w = 0;
+                else {
+                    const segno = xc > 0 ? -1 : 1;
+                    const asin_val = Math.asin(lc / v) * 180 / Math.PI;
+                    const angolo_interno = 90 - asin_val;
+                    let w_parziale = tc + (segno * angolo_interno);
+                    if (w_parziale < 180) w = w_parziale + 180;
+                    else w = w_parziale - 180;
+                    w = ((w % 360) + 360) % 360;
+                }
+                const round3 = (n) => n.toFixed(3);
+                const risultatiHtml = `
+                    <div class="results"><div class="results-grid">
+                        <div class="result-card"><div class="result-name">WCA</div><div class="detail-formula">WCA = TH - TC</div><div class="detail-substitution">WCA = ${th} - ${tc} = ${wca}</div><div class="detail-value">${round3(wca)}°</div></div>
+                        <div class="result-card"><div class="result-name">XC</div><div class="detail-formula">XC = TAS · sin(WCA)</div><div class="detail-substitution">XC = ${tas} · sin(${round3(wca)}°) = ${tas} · ${Math.sin(wca_rad).toFixed(6)}</div><div class="detail-value">${round3(xc)}</div></div>
+                        <div class="result-card"><div class="result-name">ETAS</div><div class="detail-formula">ETAS = TAS · cos(WCA)</div><div class="detail-substitution">ETAS = ${tas} · cos(${round3(wca)}°) = ${tas} · ${Math.cos(wca_rad).toFixed(6)}</div><div class="detail-value">${round3(etas)}</div></div>
+                        <div class="result-card"><div class="result-name">LC</div><div class="detail-formula">LC = GS - ETAS</div><div class="detail-substitution">LC = ${gs} - ${round3(etas)} = ${round3(lc)}</div><div class="detail-value">${round3(lc)}</div></div>
+                        <div class="result-card"><div class="result-name">V (vento)</div><div class="detail-formula">V = √(XC² + LC²)</div><div class="detail-substitution">V = √(${round3(xc)}² + ${round3(lc)}²) = √(${(xc*xc).toFixed(6)} + ${(lc*lc).toFixed(6)})</div><div class="detail-value">${round3(v)}</div></div>
+                        <div class="result-card"><div class="result-name">W (direzione vento)</div><div class="detail-formula">W = calcolo vettoriale</div><div class="detail-substitution">W = ${round3(w)}°</div><div class="detail-value">${round3(w)}°</div></div>
+                    </div></div>
+                `;
+                document.getElementById('risultatiTerzo').innerHTML = risultatiHtml;
+            });
+        }
+
+        // Quarto problema
+        function showQuartoProblema() {
+            const container = document.getElementById('problemDetailContainer');
+            if (!container) return;
+            container.innerHTML = `
+                <div class="calculator-form">
+                    <div class="input-group">
+                        <div class="input-field"><label>TC (Traccia) <i class="fas fa-map"></i></label><input type="number" id="tc4" step="any" placeholder="Inserisci TC in gradi"></div>
+                        <div class="input-field"><label>GS (Velocità al suolo) <i class="fas fa-gauge-high"></i></label><input type="number" id="gs4" step="any" placeholder="Inserisci GS in nodi"></div>
+                        <div class="input-field"><label>W (Direzione del vento) <i class="fas fa-wind"></i></label><input type="number" id="w4" step="any" placeholder="Inserisci W in gradi"></div>
+                        <div class="input-field"><label>V (Velocità del vento) <i class="fas fa-gauge-high"></i></label><input type="number" id="v4" step="any" placeholder="Inserisci V in nodi"></div>
+                    </div>
+                    <button class="calcola" id="calcolaQuarto">CALCOLA</button>
+                    <div id="risultatiQuarto"></div>
+                </div>
+            `;
+            document.getElementById('calcolaQuarto').addEventListener('click', () => {
+                const tc = parseFloat(document.getElementById('tc4').value);
+                const gs = parseFloat(document.getElementById('gs4').value);
+                const w = parseFloat(document.getElementById('w4').value);
+                const v = parseFloat(document.getElementById('v4').value);
+                if (isNaN(tc) || isNaN(gs) || isNaN(w) || isNaN(v)) {
+                    document.getElementById('risultatiQuarto').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
+                    return;
+                }
+                const diff_deg = w - tc;
+                const diff_rad = diff_deg * Math.PI / 180;
+                const xc = v * Math.sin(diff_rad);
+                const lc = -v * Math.cos(diff_rad);
+                const etas = gs - lc;
+                if (Math.abs(etas) < 1e-6) {
+                    document.getElementById('risultatiQuarto').innerHTML = `<div class="error-message">⚠️ Errore: ETAS prossimo a zero (divisione per zero).</div>`;
+                    return;
+                }
+                const wca_rad = Math.atan(xc / etas);
+                const wca = wca_rad * 180 / Math.PI;
+                let th = tc + wca;
+                th = ((th % 360) + 360) % 360;
+                const tas = etas / Math.cos(wca_rad);
+                const round3 = (n) => n.toFixed(3);
+                const risultatiHtml = `
+                    <div class="results"><div class="results-grid">
+                        <div class="result-card"><div class="result-name">XC</div><div class="detail-formula">XC = V · sin(W - TC)</div><div class="detail-substitution">XC = ${v} · sin(${w} - ${tc}) = ${v} · sin(${diff_deg}°)</div><div class="detail-substitution">sin(${diff_deg}°) = ${Math.sin(diff_rad).toFixed(6)}</div><div class="detail-value">${round3(xc)}</div></div>
+                        <div class="result-card"><div class="result-name">LC</div><div class="detail-formula">LC = -V · cos(W - TC)</div><div class="detail-substitution">LC = -${v} · cos(${w} - ${tc}) = -${v} · cos(${diff_deg}°)</div><div class="detail-substitution">cos(${diff_deg}°) = ${Math.cos(diff_rad).toFixed(6)}</div><div class="detail-value">${round3(lc)}</div></div>
+                        <div class="result-card"><div class="result-name">ETAS</div><div class="detail-formula">ETAS = GS - LC</div><div class="detail-substitution">ETAS = ${gs} - (${round3(lc)}) = ${round3(etas)}</div><div class="detail-value">${round3(etas)}</div></div>
+                        <div class="result-card"><div class="result-name">WCA</div><div class="detail-formula">WCA = arctan(XC / ETAS)</div><div class="detail-substitution">WCA = arctan(${round3(xc)} / ${round3(etas)}) = arctan(${(xc/etas).toFixed(6)})</div><div class="detail-substitution">arctan = ${wca_rad.toFixed(6)} rad</div><div class="detail-value">${round3(wca)}°</div></div>
+                        <div class="result-card"><div class="result-name">TH</div><div class="detail-formula">TH = TC + WCA</div><div class="detail-substitution">TH = ${tc} + ${round3(wca)} = ${round3(th)}</div><div class="detail-value">${round3(th)}°</div></div>
+                        <div class="result-card"><div class="result-name">TAS</div><div class="detail-formula">TAS = ETAS / cos(WCA)</div><div class="detail-substitution">TAS = ${round3(etas)} / cos(${round3(wca)}°) = ${round3(etas)} / ${Math.cos(wca_rad).toFixed(6)}</div><div class="detail-value">${round3(tas)}</div></div>
+                    </div></div>
+                `;
+                document.getElementById('risultatiQuarto').innerHTML = risultatiHtml;
+            });
+        }
+
+        function showEmptyProblem() {
+            const container = document.getElementById('problemDetailContainer');
+            if (container) container.innerHTML = getProblemiOverviewHTML();
+        }
+
+        function setupVentoSubmenu() {
+            const links = document.querySelectorAll('.mobile-nav-links-vento a');
+            links.forEach(link => {
+                link.removeEventListener('click', ventoHandler);
+                link.addEventListener('click', ventoHandler);
+            });
+        }
+        function ventoHandler(e) {
+            e.preventDefault();
+            const problem = this.getAttribute('data-subproblem');
+            if (problem === 'primo') showPrimoProblema();
+            else if (problem === 'secondo') showSecondoProblema();
+            else if (problem === 'terzo') showTerzoProblema();
+            else if (problem === 'quarto') showQuartoProblema();
+            else showEmptyProblem();
+            closeAllMenus();
+        }
+
+        function setupPnrSubmenu() {
+            const links = document.querySelectorAll('.mobile-nav-links-pnr a');
+            links.forEach(link => {
+                link.removeEventListener('click', pnrHandler);
+                link.addEventListener('click', pnrHandler);
+            });
+        }
+        function pnrHandler(e) {
+            e.preventDefault();
+            const opt = this.getAttribute('data-pnr-opt');
+            showPnrOption(opt);
+            closeAllMenus();
+        }
+
+        function setupInterSubmenu() {
+            const links = document.querySelectorAll('.mobile-nav-links-inter a');
+            links.forEach(link => {
+                link.removeEventListener('click', interHandler);
+                link.addEventListener('click', interHandler);
+            });
+        }
+        function interHandler(e) {
+            e.preventDefault();
+            const opt = this.getAttribute('data-inter-opt');
+            showIntercettamentoOption(opt);
+            closeAllMenus();
+        }
 
         function getModuleHTML(moduleId) {
             if (moduleId === 'home') return `<div class="reveal active" style="min-height: 0;"></div>`;
@@ -884,7 +1156,6 @@
             const container = document.getElementById('main-container');
             if (!container) return;
             container.innerHTML = getModuleHTML(moduleId);
-            
             if (moduleId === 'vento') {
                 closeAllMenus();
                 setTimeout(() => {
@@ -895,10 +1166,9 @@
             } else {
                 closeAllMenus();
             }
-            // aggiorna title
             const titles = { home:'NavTech', vento:'Problema del Vento', lossodromia:'Lossodromia', ortodromia:'Ortodromia', pnr:'PNR', per:'PET', intercettamento:'Intercettamento' };
             document.title = titles[moduleId] || 'NavTech';
-            if(addToHistory) {
+            if (addToHistory) {
                 const state = { module: moduleId };
                 const url = new URL(window.location);
                 url.searchParams.set('nav', moduleId);
@@ -906,62 +1176,13 @@
             }
         }
 
-        function setupVentoSubmenu() {
-            const links = document.querySelectorAll('.mobile-nav-links-vento a');
-            links.forEach(link => {
-                link.removeEventListener('click', ventoHandler);
-                link.addEventListener('click', ventoHandler);
-            });
-        }
-        function ventoHandler(e) {
-            e.preventDefault();
-            const problem = this.getAttribute('data-subproblem');
-            if (problem === 'primo') showPrimoProblema();
-            else if (problem === 'secondo') showSecondoProblema();
-            else if (problem === 'terzo') showTerzoProblema();
-            else if (problem === 'quarto') showQuartoProblema();
-            closeAllMenus();
-        }
-
-        // PNR submenu handler
-        function setupPnrSubmenu() {
-            const links = document.querySelectorAll('.mobile-nav-links-pnr a');
-            links.forEach(link => {
-                link.removeEventListener('click', pnrHandler);
-                link.addEventListener('click', pnrHandler);
-            });
-        }
-        function pnrHandler(e) {
-            e.preventDefault();
-            const opt = this.getAttribute('data-pnr-opt');
-            showPnrOption(opt);
-            closeAllMenus();
-        }
-
-        // Intercettamento submenu handler
-        function setupInterSubmenu() {
-            const links = document.querySelectorAll('.mobile-nav-links-inter a');
-            links.forEach(link => {
-                link.removeEventListener('click', interHandler);
-                link.addEventListener('click', interHandler);
-            });
-        }
-        function interHandler(e) {
-            e.preventDefault();
-            const opt = this.getAttribute('data-inter-opt');
-            showIntercettamentoOption(opt);
-            closeAllMenus();
-        }
-
-        // main menu links
+        // Eventi menu principale
         document.querySelectorAll('.mobile-nav-links a').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const page = link.getAttribute('data-page');
-                if(page) {
-                    navigateTo(page, true);
-                    closeAllMenus();
-                }
+                if (page) navigateTo(page, true);
+                closeAllMenus();
             });
         });
 
@@ -970,22 +1191,20 @@
 
         window.addEventListener('popstate', (event) => {
             let moduleId = event.state?.module || new URLSearchParams(window.location.search).get('nav') || 'home';
-            if(['vento','lossodromia','ortodromia','pnr','per','intercettamento'].includes(moduleId))
+            if (['vento','lossodromia','ortodromia','pnr','per','intercettamento'].includes(moduleId))
                 navigateTo(moduleId, false);
             else navigateTo('home', false);
         });
 
-        // inizializza handler per i nuovi menu
         setupPnrSubmenu();
         setupInterSubmenu();
-        
-        // Avvio
+
         const initialParam = new URLSearchParams(window.location.search).get('nav');
-        if(initialParam && ['vento','lossodromia','ortodromia','pnr','per','intercettamento'].includes(initialParam))
+        if (initialParam && ['vento','lossodromia','ortodromia','pnr','per','intercettamento'].includes(initialParam))
             navigateTo(initialParam, false);
         else navigateTo('home', false);
 
-        // particelle (identiche)
+        // Particelle
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -993,17 +1212,32 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             particles = [];
-            for(let i=0;i<100;i++) particles.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, vx: (Math.random()-0.5)*0.6, vy: (Math.random()-0.5)*0.6, size: Math.random()*2+0.5, alpha: Math.random()*0.5+0.2 });
+            for (let i = 0; i < 100; i++) {
+                particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 0.6, vy: (Math.random() - 0.5) * 0.6, size: Math.random() * 2 + 0.5, alpha: Math.random() * 0.5 + 0.2 });
+            }
         }
         function drawParticles() {
-            ctx.clearRect(0,0,canvas.width,canvas.height);
-            particles.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>canvas.width) p.vx*=-1; if(p.y<0||p.y>canvas.height) p.vy*=-1; ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fillStyle=`rgba(0,229,255,${p.alpha})`; ctx.fill(); });
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 229, 255, ${p.alpha})`;
+                ctx.fill();
+            });
             requestAnimationFrame(drawParticles);
         }
         window.addEventListener('resize', initParticles);
         initParticles();
         drawParticles();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('active'));
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
-    <!-- ATTENZIONE: Nel codice completo devono essere presenti le implementazioni integrali delle funzioni Primo/Secondo/Terzo/Quarto problema del vento (non modificate). Per motivi di spazio qui non sono riportate per intero, ma nel file finale vanno incluse esattamente come nell'originale. -->
 </body>
 </html>
