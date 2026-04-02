@@ -931,7 +931,137 @@
 
         // ---------- CONTENUTI MODULI ----------
         function getModuleHTML(moduleId) {
-            if (moduleId === 'home') return `<div class="reveal active" style="min-height: 0;"></div>`;
+            if (moduleId === 'home') return `
+                <div class="reveal active">
+
+                    <!-- HERO -->
+                    <div style="text-align:center; padding: 20px 0 60px 0; position:relative;">
+                        <div style="
+                            display:inline-block;
+                            background: radial-gradient(ellipse at center, rgba(0,229,255,0.08) 0%, transparent 70%);
+                            border-radius: 50%;
+                            width: 220px; height: 220px;
+                            margin: 0 auto 30px auto;
+                            display:flex; align-items:center; justify-content:center;
+                            position:relative;
+                        ">
+                            <!-- Anelli radar animati -->
+                            <div style="
+                                position:absolute; width:220px; height:220px; border-radius:50%;
+                                border: 1px solid rgba(0,229,255,0.15);
+                                animation: radarPulse 3s ease-out infinite;
+                            "></div>
+                            <div style="
+                                position:absolute; width:160px; height:160px; border-radius:50%;
+                                border: 1px solid rgba(0,229,255,0.25);
+                                animation: radarPulse 3s ease-out infinite 0.6s;
+                            "></div>
+                            <div style="
+                                position:absolute; width:100px; height:100px; border-radius:50%;
+                                border: 1px solid rgba(0,229,255,0.4);
+                                animation: radarPulse 3s ease-out infinite 1.2s;
+                            "></div>
+                            <!-- Bussola SVG -->
+                            <svg width="80" height="80" viewBox="0 0 80 80" style="position:relative; z-index:2; filter: drop-shadow(0 0 12px rgba(0,229,255,0.7));">
+                                <circle cx="40" cy="40" r="38" fill="none" stroke="rgba(0,229,255,0.4)" stroke-width="1.5"/>
+                                <circle cx="40" cy="40" r="3" fill="#00e5ff"/>
+                                <!-- N -->
+                                <text x="40" y="13" text-anchor="middle" font-family="Orbitron,sans-serif" font-size="9" fill="#00e5ff" font-weight="700">N</text>
+                                <!-- S -->
+                                <text x="40" y="73" text-anchor="middle" font-family="Orbitron,sans-serif" font-size="9" fill="rgba(255,255,255,0.4)">S</text>
+                                <!-- E -->
+                                <text x="71" y="44" text-anchor="middle" font-family="Orbitron,sans-serif" font-size="9" fill="rgba(255,255,255,0.4)">E</text>
+                                <!-- W -->
+                                <text x="9" y="44" text-anchor="middle" font-family="Orbitron,sans-serif" font-size="9" fill="rgba(255,255,255,0.4)">W</text>
+                                <!-- Ago Nord -->
+                                <polygon points="40,14 37,42 40,38 43,42" fill="#00e5ff" opacity="0.95"/>
+                                <!-- Ago Sud -->
+                                <polygon points="40,66 37,38 40,42 43,38" fill="rgba(255,255,255,0.25)"/>
+                                <!-- Tacche cardinali -->
+                                <line x1="40" y1="4" x2="40" y2="9" stroke="rgba(0,229,255,0.5)" stroke-width="1.5"/>
+                                <line x1="40" y1="71" x2="40" y2="76" stroke="rgba(0,229,255,0.3)" stroke-width="1.5"/>
+                                <line x1="4" y1="40" x2="9" y2="40" stroke="rgba(0,229,255,0.3)" stroke-width="1.5"/>
+                                <line x1="71" y1="40" x2="76" y2="40" stroke="rgba(0,229,255,0.3)" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+
+                        <div style="font-family:'Orbitron',sans-serif; font-size:3rem; font-weight:700; letter-spacing:6px; margin-bottom:10px; line-height:1.1;">
+                            NAV<span style="color:var(--accent-cyan);">TECH</span>
+                        </div>
+                        <div style="
+                            font-family:'Orbitron',sans-serif; font-size:0.72rem; letter-spacing:5px;
+                            color:rgba(0,229,255,0.6); text-transform:uppercase; margin-bottom:18px;
+                        ">Sistema di Navigazione Avanzata</div>
+                        <div style="
+                            width:120px; height:1px; margin:0 auto 24px auto;
+                            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+                        "></div>
+                        <p style="color:rgba(255,255,255,0.45); font-size:0.9rem; letter-spacing:1px; max-width:420px; margin:0 auto; line-height:1.8;">
+                            Strumenti di calcolo professionale per la navigazione aerea.<br>Seleziona un modulo dal menu.
+                        </p>
+                    </div>
+
+                    <!-- GRIGLIA MODULI -->
+                    <div style="
+                        display:grid;
+                        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                        gap:18px;
+                        max-width:1000px;
+                        margin:0 auto;
+                    ">
+                        ${[
+                            { icon:'fa-wind',             label:'Problema del Vento', desc:'4 problemi del triangolo del vento',  page:'vento'           },
+                            { icon:'fa-route',            label:'Lossodromia',         desc:'Calcolo rotta lossodromica',           page:'lossodromia'     },
+                            { icon:'fa-earth-americas',   label:'Ortodromia',           desc:'Calcolo rotta ortodromica',            page:'ortodromia'      },
+                            { icon:'fa-map-location-dot', label:'PNR',                  desc:'Punto di Non Ritorno',                 page:'pnr'             },
+                            { icon:'fa-clock-rotate-left',label:'PET',                  desc:'Punto di Eguale Tempo',               page:'per'             },
+                            { icon:'fa-crosshairs',       label:'Intercettamento',      desc:'Aereo/Aereo · Aereo/Nave',            page:'intercettamento' },
+                        ].map(m => `
+                        <div class="home-module-card" data-page="${m.page}" style="
+                            background: rgba(0,0,0,0.45);
+                            border: 1px solid rgba(0,229,255,0.18);
+                            border-radius:20px;
+                            padding:28px 22px;
+                            cursor:pointer;
+                            transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s, background 0.25s;
+                            display:flex; flex-direction:column; gap:14px;
+                        ">
+                            <div style="display:flex; align-items:center; gap:14px;">
+                                <div style="
+                                    width:46px; height:46px; border-radius:14px;
+                                    background:rgba(0,229,255,0.1);
+                                    border:1px solid rgba(0,229,255,0.3);
+                                    display:flex; align-items:center; justify-content:center;
+                                    flex-shrink:0;
+                                ">
+                                    <i class="fas ${m.icon}" style="color:var(--accent-cyan); font-size:1.2rem;"></i>
+                                </div>
+                                <div style="font-family:'Orbitron',sans-serif; font-size:0.95rem; color:#fff; letter-spacing:1px; line-height:1.3;">${m.label}</div>
+                            </div>
+                            <div style="
+                                font-size:0.78rem; color:rgba(255,255,255,0.38);
+                                letter-spacing:0.5px; line-height:1.6;
+                                border-top:1px solid rgba(0,229,255,0.1); padding-top:12px;
+                                font-family:'Poppins',sans-serif;
+                            ">${m.desc}</div>
+                        </div>
+                        `).join('')}
+                    </div>
+
+                    <style>
+                        @keyframes radarPulse {
+                            0%   { transform:scale(1);   opacity:0.6; }
+                            100% { transform:scale(1.35); opacity:0; }
+                        }
+                        .home-module-card:hover {
+                            transform: translateY(-5px) !important;
+                            box-shadow: 0 12px 35px rgba(0,229,255,0.18) !important;
+                            border-color: var(--accent-cyan) !important;
+                            background: rgba(0,20,30,0.75) !important;
+                        }
+                    </style>
+                </div>
+            `;
             if (moduleId === 'vento') {
                 return `
                     <div class="reveal active">
@@ -1753,6 +1883,14 @@
             }
 
             container.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
+
+            // Click sulle card della home
+            container.querySelectorAll('.home-module-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const page = card.getAttribute('data-page');
+                    if (page) navigateTo(page, true);
+                });
+            });
 
             const titles = {
                 home: 'NavTech | Navigazione',
