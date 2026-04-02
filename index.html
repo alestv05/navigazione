@@ -1,4 +1,4 @@
-perfetto ora nella pagina Problema del vento volgio mettere al <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -106,7 +106,6 @@ perfetto ora nella pagina Problema del vento volgio mettere al <!DOCTYPE html>
             border-radius: 2px;
         }
 
-        /* Menu principale e contestuale */
         .mobile-menu, .mobile-menu-vento {
             position: fixed;
             top: 0;
@@ -224,7 +223,6 @@ perfetto ora nella pagina Problema del vento volgio mettere al <!DOCTYPE html>
             transition: all 0.2s;
         }
 
-        /* Card per i moduli */
         .module-card {
             background: var(--card-bg);
             backdrop-filter: blur(8px);
@@ -260,7 +258,6 @@ perfetto ora nella pagina Problema del vento volgio mettere al <!DOCTYPE html>
             margin: 1rem 0 1.5rem 0;
         }
 
-        /* Stili per il calcolatore */
         .calculator-form {
             margin: 20px 0;
         }
@@ -448,12 +445,102 @@ perfetto ora nella pagina Problema del vento volgio mettere al <!DOCTYPE html>
             color: #fff;
             font-weight: 300;
         }
+
+        /* ---- PANNELLO SELEZIONE PROBLEMI ---- */
+        .problemi-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin-top: 10px;
+        }
+        .problema-preview-card {
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(0, 229, 255, 0.25);
+            border-radius: 18px;
+            padding: 22px 20px 18px 20px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, background 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .problema-preview-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.15);
+            border-color: var(--accent-cyan);
+            background: rgba(0, 20, 30, 0.7);
+        }
+        .problema-preview-num {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            color: rgba(0, 229, 255, 0.6);
+            text-transform: uppercase;
+        }
+        .problema-preview-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.05rem;
+            color: var(--accent-cyan);
+            border-left: 3px solid var(--accent-cyan);
+            padding-left: 10px;
+            line-height: 1.3;
+        }
+        .problema-preview-row {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .problema-preview-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.4);
+            font-family: 'Orbitron', sans-serif;
+        }
+        .problema-preview-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .badge-dati {
+            background: rgba(0, 229, 255, 0.12);
+            border: 1px solid rgba(0, 229, 255, 0.35);
+            color: var(--accent-cyan);
+            border-radius: 20px;
+            padding: 3px 11px;
+            font-size: 0.82rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.5px;
+        }
+        .badge-incognite {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border-radius: 20px;
+            padding: 3px 11px;
+            font-size: 0.82rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.5px;
+        }
+        .problema-preview-arrow {
+            text-align: right;
+            color: rgba(0, 229, 255, 0.5);
+            font-size: 0.85rem;
+            margin-top: 4px;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .problema-preview-card:hover .problema-preview-arrow {
+            color: var(--accent-cyan);
+            transform: translateX(4px);
+        }
+
         @media (max-width: 768px) {
             .mobile-menu, .mobile-menu-vento { width: 100%; }
             .main-container { padding: 120px 5% 80px; }
             .module-title { font-size: 1.5rem; }
             .input-group { flex-direction: column; gap: 12px; }
             .iteration-detail { flex-direction: column; }
+            .problemi-overview { grid-template-columns: 1fr; }
         }
         .reveal {
             opacity: 0;
@@ -612,7 +699,99 @@ perfetto ora nella pagina Problema del vento volgio mettere al <!DOCTYPE html>
         closeMenuVentoBtn.addEventListener('click', closeVentoMenu);
         menuOverlayVento.addEventListener('click', closeVentoMenu);
 
-        // ---------- CONTENUTI MODULI (puliti) ----------
+        // ---------- PANNELLO SELEZIONE PROBLEMI ----------
+        function getProblemiOverviewHTML() {
+            return `
+                <div class="problemi-overview">
+                    <div class="problema-preview-card" data-subproblem="primo">
+                        <div class="problema-preview-num">Problema 01</div>
+                        <div class="problema-preview-title">Primo Problema</div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Dati</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-dati">TC</span>
+                                <span class="badge-dati">TAS</span>
+                                <span class="badge-dati">W</span>
+                                <span class="badge-dati">V</span>
+                            </div>
+                        </div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Incognite</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-incognite">TH</span>
+                                <span class="badge-incognite">GS</span>
+                            </div>
+                        </div>
+                        <div class="problema-preview-arrow"><i class="fas fa-arrow-right"></i> Apri calcolatore</div>
+                    </div>
+                    <div class="problema-preview-card" data-subproblem="secondo">
+                        <div class="problema-preview-num">Problema 02</div>
+                        <div class="problema-preview-title">Secondo Problema</div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Dati</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-dati">TH</span>
+                                <span class="badge-dati">TAS</span>
+                                <span class="badge-dati">W</span>
+                                <span class="badge-dati">V</span>
+                            </div>
+                        </div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Incognite</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-incognite">TC</span>
+                                <span class="badge-incognite">GS</span>
+                            </div>
+                        </div>
+                        <div class="problema-preview-arrow"><i class="fas fa-arrow-right"></i> Apri calcolatore</div>
+                    </div>
+                    <div class="problema-preview-card" data-subproblem="terzo">
+                        <div class="problema-preview-num">Problema 03</div>
+                        <div class="problema-preview-title">Terzo Problema</div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Dati</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-dati">TH</span>
+                                <span class="badge-dati">TC</span>
+                                <span class="badge-dati">GS</span>
+                                <span class="badge-dati">TAS</span>
+                            </div>
+                        </div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Incognite</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-incognite">W</span>
+                                <span class="badge-incognite">V</span>
+                            </div>
+                        </div>
+                        <div class="problema-preview-arrow"><i class="fas fa-arrow-right"></i> Apri calcolatore</div>
+                    </div>
+                    <div class="problema-preview-card" data-subproblem="quarto">
+                        <div class="problema-preview-num">Problema 04</div>
+                        <div class="problema-preview-title">Quarto Problema</div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Dati</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-dati">TC</span>
+                                <span class="badge-dati">GS</span>
+                                <span class="badge-dati">W</span>
+                                <span class="badge-dati">V</span>
+                            </div>
+                        </div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Incognite</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-incognite">TH</span>
+                                <span class="badge-incognite">TAS</span>
+                            </div>
+                        </div>
+                        <div class="problema-preview-arrow"><i class="fas fa-arrow-right"></i> Apri calcolatore</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ---------- CONTENUTI MODULI ----------
         function getModuleHTML(moduleId) {
             if (moduleId === 'home') return `<div class="reveal active" style="min-height: 0;"></div>`;
             if (moduleId === 'vento') {
@@ -1098,10 +1277,23 @@ perfetto ora nella pagina Problema del vento volgio mettere al <!DOCTYPE html>
             });
         }
 
-        // ---------- ALTRI PROBLEMI (vuoti) ----------
+        // ---------- PANNELLO VUOTO (fallback) ----------
         function showEmptyProblem() {
             const container = document.getElementById('problemDetailContainer');
-            if (container) container.innerHTML = `<div style="text-align:center; padding:20px; color:#888;">Seleziona un problema dal menu</div>`;
+            if (container) container.innerHTML = getProblemiOverviewHTML();
+        }
+
+        // Attacca click alle card panoramica
+        function attachOverviewCardClicks() {
+            document.querySelectorAll('.problema-preview-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const prob = card.getAttribute('data-subproblem');
+                    if (prob === 'primo') showPrimoProblema();
+                    else if (prob === 'secondo') showSecondoProblema();
+                    else if (prob === 'terzo') showTerzoProblema();
+                    else if (prob === 'quarto') showQuartoProblema();
+                });
+            });
         }
 
         // Gestione click sottomenu vento
@@ -1141,7 +1333,8 @@ perfetto ora nella pagina Problema del vento volgio mettere al <!DOCTYPE html>
                 setTimeout(() => {
                     const detailDiv = document.getElementById('problemDetailContainer');
                     if (detailDiv) {
-                        detailDiv.innerHTML = `<div style="text-align:center; padding:20px; color:#888;">Seleziona un problema dal menu</div>`;
+                        detailDiv.innerHTML = getProblemiOverviewHTML();
+                        attachOverviewCardClicks();
                     }
                     setupVentoSubmenu();
                 }, 20);
