@@ -108,6 +108,7 @@
 
         .mobile-menu,
         .mobile-menu-vento,
+        .mobile-menu-lossodromia,
         .mobile-menu-intercettamento,
         .mobile-menu-pnr {
             position: fixed;
@@ -126,6 +127,7 @@
 
         .mobile-menu.active,
         .mobile-menu-vento.active,
+        .mobile-menu-lossodromia.active,
         .mobile-menu-intercettamento.active,
         .mobile-menu-pnr.active {
             right: 0;
@@ -157,6 +159,7 @@
 
         .mobile-nav-links,
         .mobile-nav-links-vento,
+        .mobile-nav-links-lossodromia,
         .mobile-nav-links-intercettamento,
         .mobile-nav-links-pnr {
             list-style: none;
@@ -165,6 +168,7 @@
 
         .mobile-nav-links li,
         .mobile-nav-links-vento li,
+        .mobile-nav-links-lossodromia li,
         .mobile-nav-links-intercettamento li,
         .mobile-nav-links-pnr li {
             margin: 0;
@@ -175,6 +179,7 @@
 
         .mobile-menu.active .mobile-nav-links li,
         .mobile-menu-vento.active .mobile-nav-links-vento li,
+        .mobile-menu-lossodromia.active .mobile-nav-links-lossodromia li,
         .mobile-menu-intercettamento.active .mobile-nav-links-intercettamento li,
         .mobile-menu-pnr.active .mobile-nav-links-pnr li {
             opacity: 1;
@@ -183,11 +188,13 @@
 
         .mobile-menu.active .mobile-nav-links li:nth-child(1),
         .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(1),
+        .mobile-menu-lossodromia.active .mobile-nav-links-lossodromia li:nth-child(1),
         .mobile-menu-intercettamento.active .mobile-nav-links-intercettamento li:nth-child(1),
         .mobile-menu-pnr.active .mobile-nav-links-pnr li:nth-child(1) { transition-delay: 0.1s; }
 
         .mobile-menu.active .mobile-nav-links li:nth-child(2),
         .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(2),
+        .mobile-menu-lossodromia.active .mobile-nav-links-lossodromia li:nth-child(2),
         .mobile-menu-intercettamento.active .mobile-nav-links-intercettamento li:nth-child(2),
         .mobile-menu-pnr.active .mobile-nav-links-pnr li:nth-child(2) { transition-delay: 0.2s; }
 
@@ -209,6 +216,7 @@
 
         .mobile-nav-links a,
         .mobile-nav-links-vento a,
+        .mobile-nav-links-lossodromia a,
         .mobile-nav-links-intercettamento a,
         .mobile-nav-links-pnr a {
             text-decoration: none;
@@ -227,6 +235,7 @@
 
         .mobile-nav-links a i,
         .mobile-nav-links-vento a i,
+        .mobile-nav-links-lossodromia a i,
         .mobile-nav-links-intercettamento a i,
         .mobile-nav-links-pnr a i {
             width: 35px;
@@ -236,6 +245,7 @@
 
         .mobile-nav-links a:hover,
         .mobile-nav-links-vento a:hover,
+        .mobile-nav-links-lossodromia a:hover,
         .mobile-nav-links-intercettamento a:hover,
         .mobile-nav-links-pnr a:hover {
             color: var(--accent-cyan);
@@ -560,7 +570,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Submodule content box */
         .submodule-box {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 20px;
@@ -572,6 +581,7 @@
         @media (max-width: 768px) {
             .mobile-menu,
             .mobile-menu-vento,
+            .mobile-menu-lossodromia,
             .mobile-menu-intercettamento,
             .mobile-menu-pnr { width: 100%; }
             .main-container { padding: 120px 5% 80px; }
@@ -601,6 +611,7 @@
 
         .menu-overlay,
         .menu-overlay-vento,
+        .menu-overlay-lossodromia,
         .menu-overlay-intercettamento,
         .menu-overlay-pnr {
             position: fixed;
@@ -616,6 +627,7 @@
         }
         .menu-overlay.active,
         .menu-overlay-vento.active,
+        .menu-overlay-lossodromia.active,
         .menu-overlay-intercettamento.active,
         .menu-overlay-pnr.active {
             opacity: 1;
@@ -658,6 +670,7 @@
     <!-- Overlay -->
     <div class="menu-overlay" id="menu-overlay"></div>
     <div class="menu-overlay-vento" id="menu-overlay-vento"></div>
+    <div class="menu-overlay-lossodromia" id="menu-overlay-lossodromia"></div>
     <div class="menu-overlay-intercettamento" id="menu-overlay-intercettamento"></div>
     <div class="menu-overlay-pnr" id="menu-overlay-pnr"></div>
 
@@ -684,6 +697,16 @@
             <li><a href="#" data-subproblem="secondo"><i class="fas fa-2"></i> Secondo Problema</a></li>
             <li><a href="#" data-subproblem="terzo"><i class="fas fa-3"></i> Terzo Problema</a></li>
             <li><a href="#" data-subproblem="quarto"><i class="fas fa-4"></i> Quarto Problema</a></li>
+        </ul>
+    </div>
+
+    <!-- Menu contestuale lossodromia -->
+    <div class="mobile-menu-lossodromia" id="mobile-menu-lossodromia">
+        <div class="menu-header"><i class="fas fa-route"></i> LOSSODROMIA</div>
+        <button class="close-menu" id="close-menu-lossodromia"><i class="fas fa-times"></i></button>
+        <ul class="mobile-nav-links-lossodromia">
+            <li><a href="#" data-sublossodromia="primo"><i class="fas fa-1"></i> Primo Problema</a></li>
+            <li><a href="#" data-sublossodromia="secondo"><i class="fas fa-2"></i> Secondo Problema</a></li>
         </ul>
     </div>
 
@@ -734,6 +757,10 @@
         const menuOverlayVento = document.getElementById('menu-overlay-vento');
         const closeMenuVentoBtn = document.getElementById('close-menu-vento');
 
+        const mobileMenuLossodromia = document.getElementById('mobile-menu-lossodromia');
+        const menuOverlayLossodromia = document.getElementById('menu-overlay-lossodromia');
+        const closeMenuLossodromiaBtn = document.getElementById('close-menu-lossodromia');
+
         const mobileMenuIntercettamento = document.getElementById('mobile-menu-intercettamento');
         const menuOverlayIntercettamento = document.getElementById('menu-overlay-intercettamento');
         const closeMenuIntercettamentoBtn = document.getElementById('close-menu-intercettamento');
@@ -782,6 +809,18 @@
             setHamburgerClosed();
         }
 
+        // ---------- OPEN/CLOSE MENU LOSSODROMIA ----------
+        function openLossodromiaMenu() {
+            mobileMenuLossodromia.classList.add('active');
+            menuOverlayLossodromia.classList.add('active');
+            setHamburgerOpen();
+        }
+        function closeLossodromiaMenu() {
+            mobileMenuLossodromia.classList.remove('active');
+            menuOverlayLossodromia.classList.remove('active');
+            setHamburgerClosed();
+        }
+
         // ---------- OPEN/CLOSE MENU INTERCETTAMENTO ----------
         function openIntercettamentoMenu() {
             mobileMenuIntercettamento.classList.add('active');
@@ -810,6 +849,7 @@
         function closeAllMenus() {
             closeMainMenu();
             closeVentoMenu();
+            closeLossodromiaMenu();
             closeIntercettamentoMenu();
             closePnrMenu();
         }
@@ -820,6 +860,9 @@
             if (currentModule === 'vento') {
                 if (mobileMenuVento.classList.contains('active')) closeVentoMenu();
                 else openVentoMenu();
+            } else if (currentModule === 'lossodromia') {
+                if (mobileMenuLossodromia.classList.contains('active')) closeLossodromiaMenu();
+                else openLossodromiaMenu();
             } else if (currentModule === 'intercettamento') {
                 if (mobileMenuIntercettamento.classList.contains('active')) closeIntercettamentoMenu();
                 else openIntercettamentoMenu();
@@ -837,6 +880,8 @@
         menuOverlay.addEventListener('click', closeMainMenu);
         closeMenuVentoBtn.addEventListener('click', closeVentoMenu);
         menuOverlayVento.addEventListener('click', closeVentoMenu);
+        closeMenuLossodromiaBtn.addEventListener('click', closeLossodromiaMenu);
+        menuOverlayLossodromia.addEventListener('click', closeLossodromiaMenu);
         closeMenuIntercettamentoBtn.addEventListener('click', closeIntercettamentoMenu);
         menuOverlayIntercettamento.addEventListener('click', closeIntercettamentoMenu);
         closeMenuPnrBtn.addEventListener('click', closePnrMenu);
@@ -929,6 +974,61 @@
             `;
         }
 
+        // ---------- OVERVIEW LOSSODROMIA ----------
+        function getLossodromiaOverviewHTML() {
+            return `
+                <div class="info-message">
+                    <i class="fas fa-info-circle"></i> Seleziona uno dei problemi dal menu laterale per accedere al calcolatore
+                </div>
+                <div class="problemi-overview">
+                    <div class="problema-preview-card">
+                        <div class="problema-preview-title">Primo Problema</div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Dati</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-dati">φa</span>
+                                <span class="badge-dati">λa</span>
+                                <span class="badge-dati">TC</span>
+                                <span class="badge-dati">D</span>
+                            </div>
+                        </div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Incognite</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-incognite">Δφ</span>
+                                <span class="badge-incognite">φb</span>
+                                <span class="badge-incognite">φm</span>
+                                <span class="badge-incognite">Δλ</span>
+                                <span class="badge-incognite">λb</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="problema-preview-card">
+                        <div class="problema-preview-title">Secondo Problema</div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Dati</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-dati">φa</span>
+                                <span class="badge-dati">λa</span>
+                                <span class="badge-dati">φb</span>
+                                <span class="badge-dati">λb</span>
+                            </div>
+                        </div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Incognite</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-incognite">Δφ</span>
+                                <span class="badge-incognite">Δλ</span>
+                                <span class="badge-incognite">φm</span>
+                                <span class="badge-incognite">TCq</span>
+                                <span class="badge-incognite">D</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
         // ---------- CONTENUTI MODULI ----------
         function getModuleHTML(moduleId) {
             if (moduleId === 'home') return `
@@ -945,7 +1045,6 @@
                             display:flex; align-items:center; justify-content:center;
                             position:relative;
                         ">
-                            <!-- Anelli radar animati -->
                             <div style="
                                 position:absolute; width:220px; height:220px; border-radius:50%;
                                 border: 1px solid rgba(0,229,255,0.15);
@@ -961,23 +1060,15 @@
                                 border: 1px solid rgba(0,229,255,0.4);
                                 animation: radarPulse 3s ease-out infinite 1.2s;
                             "></div>
-                            <!-- Bussola SVG -->
                             <svg width="80" height="80" viewBox="0 0 80 80" style="position:relative; z-index:2; filter: drop-shadow(0 0 12px rgba(0,229,255,0.7));">
                                 <circle cx="40" cy="40" r="38" fill="none" stroke="rgba(0,229,255,0.4)" stroke-width="1.5"/>
                                 <circle cx="40" cy="40" r="3" fill="#00e5ff"/>
-                                <!-- N -->
                                 <text x="40" y="13" text-anchor="middle" font-family="Orbitron,sans-serif" font-size="9" fill="#00e5ff" font-weight="700">N</text>
-                                <!-- S -->
                                 <text x="40" y="73" text-anchor="middle" font-family="Orbitron,sans-serif" font-size="9" fill="rgba(255,255,255,0.4)">S</text>
-                                <!-- E -->
                                 <text x="71" y="44" text-anchor="middle" font-family="Orbitron,sans-serif" font-size="9" fill="rgba(255,255,255,0.4)">E</text>
-                                <!-- W -->
                                 <text x="9" y="44" text-anchor="middle" font-family="Orbitron,sans-serif" font-size="9" fill="rgba(255,255,255,0.4)">W</text>
-                                <!-- Ago Nord -->
                                 <polygon points="40,14 37,42 40,38 43,42" fill="#00e5ff" opacity="0.95"/>
-                                <!-- Ago Sud -->
                                 <polygon points="40,66 37,38 40,42 43,38" fill="rgba(255,255,255,0.25)"/>
-                                <!-- Tacche cardinali -->
                                 <line x1="40" y1="4" x2="40" y2="9" stroke="rgba(0,229,255,0.5)" stroke-width="1.5"/>
                                 <line x1="40" y1="71" x2="40" y2="76" stroke="rgba(0,229,255,0.3)" stroke-width="1.5"/>
                                 <line x1="4" y1="40" x2="9" y2="40" stroke="rgba(0,229,255,0.3)" stroke-width="1.5"/>
@@ -1079,55 +1170,7 @@
                         <div class="module-card">
                             <div class="module-title"><i class="fas fa-route"></i> Lossodromia</div>
                             <div class="divider"></div>
-                            <div class="info-message">
-                                <i class="fas fa-info-circle"></i> Seleziona un problema dal menu laterale per accedere al calcolatore
-                            </div>
-                            <div class="problemi-overview">
-                                <div class="problema-preview-card">
-                                    <div class="problema-preview-title">Primo Problema</div>
-                                    <div class="problema-preview-row">
-                                        <div class="problema-preview-label">Dati</div>
-                                        <div class="problema-preview-badges">
-                                            <span class="badge-dati">φa</span>
-                                            <span class="badge-dati">λa</span>
-                                            <span class="badge-dati">TC</span>
-                                            <span class="badge-dati">D</span>
-                                        </div>
-                                    </div>
-                                    <div class="problema-preview-row">
-                                        <div class="problema-preview-label">Incognite</div>
-                                        <div class="problema-preview-badges">
-                                            <span class="badge-incognite">Δφ</span>
-                                            <span class="badge-incognite">φb</span>
-                                            <span class="badge-incognite">φm</span>
-                                            <span class="badge-incognite">Δλ</span>
-                                            <span class="badge-incognite">λb</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="problema-preview-card">
-                                    <div class="problema-preview-title">Secondo Problema</div>
-                                    <div class="problema-preview-row">
-                                        <div class="problema-preview-label">Dati</div>
-                                        <div class="problema-preview-badges">
-                                            <span class="badge-dati">φa</span>
-                                            <span class="badge-dati">λa</span>
-                                            <span class="badge-dati">φb</span>
-                                            <span class="badge-dati">λb</span>
-                                        </div>
-                                    </div>
-                                    <div class="problema-preview-row">
-                                        <div class="problema-preview-label">Incognite</div>
-                                        <div class="problema-preview-badges">
-                                            <span class="badge-incognite">Δφ</span>
-                                            <span class="badge-incognite">Δλ</span>
-                                            <span class="badge-incognite">φm</span>
-                                            <span class="badge-incognite">TCq</span>
-                                            <span class="badge-incognite">D</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div id="lossodromiaDetailContainer" class="problem-detail-box"></div>
                         </div>
                     </div>
                 `;
@@ -1169,6 +1212,216 @@
                 `;
             }
             return `<div class="reveal active" style="min-height: 0;"></div>`;
+        }
+
+        // ---------- SOTTOSEZIONI LOSSODROMIA ----------
+        function showLossodromia1() {
+            const container = document.getElementById('lossodromiaDetailContainer');
+            if (!container) return;
+            container.innerHTML = `
+                <div class="calculator-form">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label>φa (Latitudine partenza) <i class="fas fa-map-pin"></i></label>
+                            <input type="number" id="los1_fa" step="any" placeholder="Inserisci φa in gradi decimali">
+                        </div>
+                        <div class="input-field">
+                            <label>λa (Longitudine partenza) <i class="fas fa-map-pin"></i></label>
+                            <input type="number" id="los1_la" step="any" placeholder="Inserisci λa in gradi decimali">
+                        </div>
+                        <div class="input-field">
+                            <label>TC (Rotta vera) <i class="fas fa-arrow-right"></i></label>
+                            <input type="number" id="los1_tc" step="any" placeholder="Inserisci TC in gradi">
+                        </div>
+                        <div class="input-field">
+                            <label>D (Distanza) <i class="fas fa-ruler"></i></label>
+                            <input type="number" id="los1_d" step="any" placeholder="Inserisci D in NM">
+                        </div>
+                    </div>
+                    <button class="calcola" id="calcolaLos1">CALCOLA</button>
+                    <div id="risultatiLos1"></div>
+                </div>
+            `;
+            document.getElementById('calcolaLos1').addEventListener('click', () => {
+                const fa = parseFloat(document.getElementById('los1_fa').value);
+                const la = parseFloat(document.getElementById('los1_la').value);
+                const tc = parseFloat(document.getElementById('los1_tc').value);
+                const d  = parseFloat(document.getElementById('los1_d').value);
+                if ([fa, la, tc, d].some(isNaN)) {
+                    document.getElementById('risultatiLos1').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
+                    return;
+                }
+                const toRad = deg => deg * Math.PI / 180;
+                const round3 = n => n.toFixed(3);
+
+                const delta_phi = d * Math.cos(toRad(tc));          // Δφ in minuti d'arco
+                const phi_b_min = fa * 60 + delta_phi;              // φb in minuti
+                const phi_b = phi_b_min / 60;                        // φb in gradi decimali
+                const phi_m = (fa + phi_b) / 2;                      // φm latitudine media
+
+                let delta_lambda, lambda_b;
+                if (Math.abs(Math.cos(toRad(phi_m))) < 1e-9) {
+                    document.getElementById('risultatiLos1').innerHTML = `<div class="error-message">⚠️ Errore: rotta polare, cos(φm) ≈ 0.</div>`;
+                    return;
+                }
+                delta_lambda = (d * Math.sin(toRad(tc))) / Math.cos(toRad(phi_m));  // Δλ in minuti
+                lambda_b = la + delta_lambda / 60;                   // λb in gradi decimali
+
+                document.getElementById('risultatiLos1').innerHTML = `
+                    <div class="results">
+                        <div class="results-grid">
+                            <div class="result-card">
+                                <div class="result-name">Δφ</div>
+                                <div class="detail-formula">Δφ = D · cos(TC)</div>
+                                <div class="detail-substitution">Δφ = ${d} · cos(${tc}°) = ${d} · ${Math.cos(toRad(tc)).toFixed(6)}</div>
+                                <div class="detail-value">${round3(delta_phi)} ' (minuti d'arco)</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">φb</div>
+                                <div class="detail-formula">φb = φa + Δφ/60</div>
+                                <div class="detail-substitution">φb = ${fa} + (${round3(delta_phi)}/60) = ${fa} + ${round3(delta_phi/60)}</div>
+                                <div class="detail-value">${round3(phi_b)}°</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">φm</div>
+                                <div class="detail-formula">φm = (φa + φb) / 2</div>
+                                <div class="detail-substitution">φm = (${fa} + ${round3(phi_b)}) / 2</div>
+                                <div class="detail-value">${round3(phi_m)}°</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">Δλ</div>
+                                <div class="detail-formula">Δλ = (D · sin(TC)) / cos(φm)</div>
+                                <div class="detail-substitution">Δλ = (${d} · sin(${tc}°)) / cos(${round3(phi_m)}°)</div>
+                                <div class="detail-substitution">= ${round3(d * Math.sin(toRad(tc)))} / ${Math.cos(toRad(phi_m)).toFixed(6)}</div>
+                                <div class="detail-value">${round3(delta_lambda)} ' (minuti d'arco)</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">λb</div>
+                                <div class="detail-formula">λb = λa + Δλ/60</div>
+                                <div class="detail-substitution">λb = ${la} + (${round3(delta_lambda)}/60) = ${la} + ${round3(delta_lambda/60)}</div>
+                                <div class="detail-value">${round3(lambda_b)}°</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function showLossodromia2() {
+            const container = document.getElementById('lossodromiaDetailContainer');
+            if (!container) return;
+            container.innerHTML = `
+                <div class="calculator-form">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label>φa (Latitudine partenza) <i class="fas fa-map-pin"></i></label>
+                            <input type="number" id="los2_fa" step="any" placeholder="Inserisci φa in gradi decimali">
+                        </div>
+                        <div class="input-field">
+                            <label>λa (Longitudine partenza) <i class="fas fa-map-pin"></i></label>
+                            <input type="number" id="los2_la" step="any" placeholder="Inserisci λa in gradi decimali">
+                        </div>
+                        <div class="input-field">
+                            <label>φb (Latitudine arrivo) <i class="fas fa-map-pin"></i></label>
+                            <input type="number" id="los2_fb" step="any" placeholder="Inserisci φb in gradi decimali">
+                        </div>
+                        <div class="input-field">
+                            <label>λb (Longitudine arrivo) <i class="fas fa-map-pin"></i></label>
+                            <input type="number" id="los2_lb" step="any" placeholder="Inserisci λb in gradi decimali">
+                        </div>
+                    </div>
+                    <button class="calcola" id="calcolaLos2">CALCOLA</button>
+                    <div id="risultatiLos2"></div>
+                </div>
+            `;
+            document.getElementById('calcolaLos2').addEventListener('click', () => {
+                const fa = parseFloat(document.getElementById('los2_fa').value);
+                const la = parseFloat(document.getElementById('los2_la').value);
+                const fb = parseFloat(document.getElementById('los2_fb').value);
+                const lb = parseFloat(document.getElementById('los2_lb').value);
+                if ([fa, la, fb, lb].some(isNaN)) {
+                    document.getElementById('risultatiLos2').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
+                    return;
+                }
+                const toRad = deg => deg * Math.PI / 180;
+                const round3 = n => n.toFixed(3);
+
+                const delta_phi = (fb - fa) * 60;                    // Δφ in minuti
+                const delta_lambda = (lb - la) * 60;                 // Δλ in minuti
+                const phi_m = (fa + fb) / 2;                          // latitudine media
+
+                let tc_deg;
+                if (Math.abs(delta_phi) < 1e-9) {
+                    // Rotta est-ovest
+                    tc_deg = delta_lambda > 0 ? 90 : 270;
+                } else {
+                    const tan_tc = (delta_lambda * Math.cos(toRad(phi_m))) / delta_phi;
+                    tc_deg = Math.atan(tan_tc) * 180 / Math.PI;
+                    // Correzione quadrante
+                    if (delta_phi < 0) tc_deg += 180;
+                    tc_deg = ((tc_deg % 360) + 360) % 360;
+                }
+
+                const tc_rad = toRad(tc_deg);
+                let d;
+                if (Math.abs(Math.cos(tc_rad)) < 1e-9) {
+                    d = Math.abs(delta_lambda * Math.cos(toRad(phi_m)));
+                } else {
+                    d = Math.abs(delta_phi / Math.cos(tc_rad));
+                }
+
+                document.getElementById('risultatiLos2').innerHTML = `
+                    <div class="results">
+                        <div class="results-grid">
+                            <div class="result-card">
+                                <div class="result-name">Δφ</div>
+                                <div class="detail-formula">Δφ = (φb − φa) · 60</div>
+                                <div class="detail-substitution">Δφ = (${fb} − ${fa}) · 60 = ${round3(fb - fa)} · 60</div>
+                                <div class="detail-value">${round3(delta_phi)} ' (minuti d'arco)</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">Δλ</div>
+                                <div class="detail-formula">Δλ = (λb − λa) · 60</div>
+                                <div class="detail-substitution">Δλ = (${lb} − ${la}) · 60 = ${round3(lb - la)} · 60</div>
+                                <div class="detail-value">${round3(delta_lambda)} ' (minuti d'arco)</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">φm</div>
+                                <div class="detail-formula">φm = (φa + φb) / 2</div>
+                                <div class="detail-substitution">φm = (${fa} + ${fb}) / 2</div>
+                                <div class="detail-value">${round3(phi_m)}°</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">TCq</div>
+                                <div class="detail-formula">TCq = arctan(Δλ · cos(φm) / Δφ)</div>
+                                <div class="detail-substitution">TCq = arctan(${round3(delta_lambda)} · cos(${round3(phi_m)}°) / ${round3(delta_phi)})</div>
+                                <div class="detail-substitution">= arctan(${round3(delta_lambda * Math.cos(toRad(phi_m)))} / ${round3(delta_phi)})</div>
+                                <div class="detail-value">${round3(tc_deg)}°</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">D</div>
+                                <div class="detail-formula">D = |Δφ / cos(TCq)|</div>
+                                <div class="detail-substitution">D = |${round3(delta_phi)} / cos(${round3(tc_deg)}°)|</div>
+                                <div class="detail-substitution">cos(${round3(tc_deg)}°) = ${Math.cos(tc_rad).toFixed(6)}</div>
+                                <div class="detail-value">${round3(d)} NM</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // ---------- SETUP SOTTOMENU LOSSODROMIA ----------
+        function setupLossodromiaSubmenu() {
+            document.querySelectorAll('.mobile-nav-links-lossodromia a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const sub = link.getAttribute('data-sublossodromia');
+                    if (sub === 'primo') showLossodromia1();
+                    else if (sub === 'secondo') showLossodromia2();
+                    closeLossodromiaMenu();
+                });
+            });
         }
 
         // ---------- SOTTOSEZIONI INTERCETTAMENTO ----------
@@ -1304,7 +1557,6 @@
                 const toRad = d => d * Math.PI / 180;
                 const round3 = n => n.toFixed(3);
 
-                // Andata
                 const diff_deg = w - tco;
                 const diff_rad = toRad(diff_deg);
                 const xc   = v * Math.sin(diff_rad);
@@ -1316,12 +1568,10 @@
                 const tho  = ((tco + wca) % 360 + 360) % 360;
                 const gso  = etas + lc;
 
-                // Ritorno
                 const tch  = ((tco + 180) % 360 + 360) % 360;
                 const thh  = ((tch - wca) % 360 + 360) % 360;
                 const gsh  = etas - lc;
 
-                // PNR
                 if (Math.abs(gso + gsh) < 1e-6) {
                     document.getElementById('risultatiPnrStessaBase').innerHTML = `<div class="error-message">⚠️ Errore: GSo + GSh è zero.</div>`;
                     return;
@@ -1332,7 +1582,6 @@
 
                 document.getElementById('risultatiPnrStessaBase').innerHTML = `
                     <div class="results">
-
                         <h3 style="color:var(--accent-cyan); margin-bottom:15px; margin-top:10px;">Triangolo del vento — Andata</h3>
                         <div class="results-grid">
                             <div class="result-card">
@@ -1374,7 +1623,6 @@
                                 <div class="detail-value">${round3(gso)}</div>
                             </div>
                         </div>
-
                         <h3 style="color:var(--accent-cyan); margin:30px 0 15px 0;">Ritorno</h3>
                         <div class="results-grid">
                             <div class="result-card">
@@ -1396,7 +1644,6 @@
                                 <div class="detail-value">${round3(gsh)}</div>
                             </div>
                         </div>
-
                         <h3 style="color:var(--accent-cyan); margin:30px 0 15px 0;">Risultati PNR</h3>
                         <div class="final-results">
                             <div class="final-card">
@@ -1419,7 +1666,6 @@
                                 <div class="detail-value">${round3(fth)} h &nbsp;·&nbsp; ${formatTime(fth)}</div>
                             </div>
                         </div>
-
                     </div>
                 `;
             });
@@ -1435,7 +1681,7 @@
             `;
         }
 
-        // ---------- PRIMO PROBLEMA ----------
+        // ---------- PRIMO PROBLEMA VENTO ----------
         function showPrimoProblema() {
             const container = document.getElementById('problemDetailContainer');
             if (!container) return;
@@ -1536,7 +1782,7 @@
             });
         }
 
-        // ---------- SECONDO PROBLEMA ----------
+        // ---------- SECONDO PROBLEMA VENTO ----------
         function showSecondoProblema() {
             const container = document.getElementById('problemDetailContainer');
             if (!container) return;
@@ -1658,7 +1904,7 @@
             });
         }
 
-        // ---------- TERZO PROBLEMA ----------
+        // ---------- TERZO PROBLEMA VENTO ----------
         function showTerzoProblema() {
             const container = document.getElementById('problemDetailContainer');
             if (!container) return;
@@ -1758,7 +2004,7 @@
             });
         }
 
-        // ---------- QUARTO PROBLEMA ----------
+        // ---------- QUARTO PROBLEMA VENTO ----------
         function showQuartoProblema() {
             const container = document.getElementById('problemDetailContainer');
             if (!container) return;
@@ -1916,7 +2162,6 @@
             `;
         }
 
-
         function setupVentoSubmenu() {
             document.querySelectorAll('.mobile-nav-links-vento a').forEach(link => {
                 link.addEventListener('click', (e) => {
@@ -1961,6 +2206,7 @@
         function hideAllSideMenus() {
             mobileMenu.style.display = 'none';
             mobileMenuVento.style.display = 'none';
+            mobileMenuLossodromia.style.display = 'none';
             mobileMenuIntercettamento.style.display = 'none';
             mobileMenuPnr.style.display = 'none';
         }
@@ -1982,6 +2228,13 @@
                     if (detailDiv) detailDiv.innerHTML = getProblemiOverviewHTML();
                     setupVentoSubmenu();
                 }, 20);
+            } else if (moduleId === 'lossodromia') {
+                mobileMenuLossodromia.style.display = 'block';
+                setTimeout(() => {
+                    const detailDiv = document.getElementById('lossodromiaDetailContainer');
+                    if (detailDiv) detailDiv.innerHTML = getLossodromiaOverviewHTML();
+                    setupLossodromiaSubmenu();
+                }, 20);
             } else if (moduleId === 'intercettamento') {
                 mobileMenuIntercettamento.style.display = 'block';
                 setTimeout(() => {
@@ -2001,8 +2254,6 @@
             }
 
             container.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
-
-
 
             const titles = {
                 home: 'NavTech | Navigazione',
