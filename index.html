@@ -446,7 +446,7 @@
             font-weight: 300;
         }
 
-        /* ---- PANNELLO SELEZIONE PROBLEMI ---- */
+        /* ---- PANNELLO SELEZIONE PROBLEMI (SOLO INFORMATIVO) ---- */
         .problemi-overview {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -458,7 +458,6 @@
             border: 1px solid rgba(0, 229, 255, 0.25);
             border-radius: 18px;
             padding: 22px 20px 18px 20px;
-            cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, background 0.2s;
             display: flex;
             flex-direction: column;
@@ -522,17 +521,6 @@
             font-family: 'Orbitron', sans-serif;
             letter-spacing: 0.5px;
         }
-        .problema-preview-arrow {
-            text-align: right;
-            color: rgba(0, 229, 255, 0.5);
-            font-size: 0.85rem;
-            margin-top: 4px;
-            transition: color 0.2s, transform 0.2s;
-        }
-        .problema-preview-card:hover .problema-preview-arrow {
-            color: var(--accent-cyan);
-            transform: translateX(4px);
-        }
 
         @media (max-width: 768px) {
             .mobile-menu, .mobile-menu-vento { width: 100%; }
@@ -576,6 +564,16 @@
             padding: 1rem;
             margin-top: 20px;
             border: 1px solid rgba(0,229,255,0.2);
+        }
+        .info-message {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.95rem;
+        }
+        .info-message i {
+            color: var(--accent-cyan);
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -699,11 +697,14 @@
         closeMenuVentoBtn.addEventListener('click', closeVentoMenu);
         menuOverlayVento.addEventListener('click', closeVentoMenu);
 
-        // ---------- PANNELLO SELEZIONE PROBLEMI ----------
+        // ---------- PANNELLO SELEZIONE PROBLEMI (SOLO INFORMATIVO, NON CLICCABILE) ----------
         function getProblemiOverviewHTML() {
             return `
+                <div class="info-message">
+                    <i class="fas fa-info-circle"></i> Seleziona uno dei problemi dal menu laterale per accedere al calcolatore
+                </div>
                 <div class="problemi-overview">
-                    <div class="problema-preview-card" data-subproblem="primo">
+                    <div class="problema-preview-card">
                         <div class="problema-preview-num">Problema 01</div>
                         <div class="problema-preview-title">Primo Problema</div>
                         <div class="problema-preview-row">
@@ -722,9 +723,8 @@
                                 <span class="badge-incognite">GS</span>
                             </div>
                         </div>
-                        <div class="problema-preview-arrow"><i class="fas fa-arrow-right"></i> Apri calcolatore</div>
                     </div>
-                    <div class="problema-preview-card" data-subproblem="secondo">
+                    <div class="problema-preview-card">
                         <div class="problema-preview-num">Problema 02</div>
                         <div class="problema-preview-title">Secondo Problema</div>
                         <div class="problema-preview-row">
@@ -743,9 +743,8 @@
                                 <span class="badge-incognite">GS</span>
                             </div>
                         </div>
-                        <div class="problema-preview-arrow"><i class="fas fa-arrow-right"></i> Apri calcolatore</div>
                     </div>
-                    <div class="problema-preview-card" data-subproblem="terzo">
+                    <div class="problema-preview-card">
                         <div class="problema-preview-num">Problema 03</div>
                         <div class="problema-preview-title">Terzo Problema</div>
                         <div class="problema-preview-row">
@@ -764,9 +763,8 @@
                                 <span class="badge-incognite">V</span>
                             </div>
                         </div>
-                        <div class="problema-preview-arrow"><i class="fas fa-arrow-right"></i> Apri calcolatore</div>
                     </div>
-                    <div class="problema-preview-card" data-subproblem="quarto">
+                    <div class="problema-preview-card">
                         <div class="problema-preview-num">Problema 04</div>
                         <div class="problema-preview-title">Quarto Problema</div>
                         <div class="problema-preview-row">
@@ -785,7 +783,6 @@
                                 <span class="badge-incognite">TAS</span>
                             </div>
                         </div>
-                        <div class="problema-preview-arrow"><i class="fas fa-arrow-right"></i> Apri calcolatore</div>
                     </div>
                 </div>
             `;
@@ -806,19 +803,19 @@
                 `;
             }
             if (moduleId === 'lossodromia') {
-                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-route"></i> Lossodromia</div><div class="divider"></div></div></div>`;
+                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-route"></i> Lossodromia</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
             }
             if (moduleId === 'ortodromia') {
-                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-earth-americas"></i> Ortodromia</div><div class="divider"></div></div></div>`;
+                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-earth-americas"></i> Ortodromia</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
             }
             if (moduleId === 'pnr') {
-                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-map-location-dot"></i> PNR</div><div class="divider"></div></div></div>`;
+                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-map-location-dot"></i> PNR</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
             }
             if (moduleId === 'per') {
-                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-clock-rotate-left"></i> PET</div><div class="divider"></div></div></div>`;
+                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-clock-rotate-left"></i> PET</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
             }
             if (moduleId === 'intercettamento') {
-                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-crosshairs"></i> Intercettamento</div><div class="divider"></div></div></div>`;
+                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-crosshairs"></i> Intercettamento</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
             }
             return `<div class="reveal active" style="min-height: 0;"></div>`;
         }
@@ -832,19 +829,19 @@
                     <div class="input-group">
                         <div class="input-field">
                             <label>TC (Rotta Vera) <i class="fas fa-arrow-right"></i></label>
-                            <input type="number" id="tc" step="any" placeholder="">
+                            <input type="number" id="tc" step="any" placeholder="Inserisci TC in gradi">
                         </div>
                         <div class="input-field">
                             <label>TAS (Velocità propria) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="tas" step="any" placeholder="">
+                            <input type="number" id="tas" step="any" placeholder="Inserisci TAS in nodi">
                         </div>
                         <div class="input-field">
                             <label>W (Direzione del vento) <i class="fas fa-wind"></i></label>
-                            <input type="number" id="w" step="any" placeholder="">
+                            <input type="number" id="w" step="any" placeholder="Inserisci W in gradi">
                         </div>
                         <div class="input-field">
                             <label>V (Velocità del vento) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="v" step="any" placeholder="">
+                            <input type="number" id="v" step="any" placeholder="Inserisci V in nodi">
                         </div>
                     </div>
                     <button class="calcola" id="calcolaPrimo">CALCOLA</button>
@@ -935,19 +932,19 @@
                     <div class="input-group">
                         <div class="input-field">
                             <label>TH (Rotta vera) <i class="fas fa-arrow-right"></i></label>
-                            <input type="number" id="th" step="any" placeholder="">
+                            <input type="number" id="th" step="any" placeholder="Inserisci TH in gradi">
                         </div>
                         <div class="input-field">
                             <label>TAS (Velocità propria) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="tas2" step="any" placeholder="">
+                            <input type="number" id="tas2" step="any" placeholder="Inserisci TAS in nodi">
                         </div>
                         <div class="input-field">
                             <label>W (Direzione del vento) <i class="fas fa-wind"></i></label>
-                            <input type="number" id="w2" step="any" placeholder="">
+                            <input type="number" id="w2" step="any" placeholder="Inserisci W in gradi">
                         </div>
                         <div class="input-field">
                             <label>V (Velocità del vento) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="v2" step="any" placeholder="">
+                            <input type="number" id="v2" step="any" placeholder="Inserisci V in nodi">
                         </div>
                     </div>
                     <button class="calcola" id="calcolaSecondo">CALCOLA</button>
@@ -1067,19 +1064,19 @@
                     <div class="input-group">
                         <div class="input-field">
                             <label>TH (Rotta vera) <i class="fas fa-arrow-right"></i></label>
-                            <input type="number" id="th3" step="any" placeholder="">
+                            <input type="number" id="th3" step="any" placeholder="Inserisci TH in gradi">
                         </div>
                         <div class="input-field">
                             <label>TC (Traccia) <i class="fas fa-map"></i></label>
-                            <input type="number" id="tc3" step="any" placeholder="">
+                            <input type="number" id="tc3" step="any" placeholder="Inserisci TC in gradi">
                         </div>
                         <div class="input-field">
                             <label>GS (Velocità al suolo) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="gs3" step="any" placeholder="">
+                            <input type="number" id="gs3" step="any" placeholder="Inserisci GS in nodi">
                         </div>
                         <div class="input-field">
                             <label>TAS (Velocità propria) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="tas3" step="any" placeholder="">
+                            <input type="number" id="tas3" step="any" placeholder="Inserisci TAS in nodi">
                         </div>
                     </div>
                     <button class="calcola" id="calcolaTerzo">CALCOLA</button>
@@ -1178,19 +1175,19 @@
                     <div class="input-group">
                         <div class="input-field">
                             <label>TC (Traccia) <i class="fas fa-map"></i></label>
-                            <input type="number" id="tc4" step="any" placeholder="">
+                            <input type="number" id="tc4" step="any" placeholder="Inserisci TC in gradi">
                         </div>
                         <div class="input-field">
                             <label>GS (Velocità al suolo) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="gs4" step="any" placeholder="">
+                            <input type="number" id="gs4" step="any" placeholder="Inserisci GS in nodi">
                         </div>
                         <div class="input-field">
                             <label>W (Direzione del vento) <i class="fas fa-wind"></i></label>
-                            <input type="number" id="w4" step="any" placeholder="">
+                            <input type="number" id="w4" step="any" placeholder="Inserisci W in gradi">
                         </div>
                         <div class="input-field">
                             <label>V (Velocità del vento) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="v4" step="any" placeholder="">
+                            <input type="number" id="v4" step="any" placeholder="Inserisci V in nodi">
                         </div>
                     </div>
                     <button class="calcola" id="calcolaQuarto">CALCOLA</button>
@@ -1277,23 +1274,10 @@
             });
         }
 
-        // ---------- PANNELLO VUOTO (fallback) ----------
+        // ---------- PANNELLO INFORMATIVO (NON CLICCABILE) ----------
         function showEmptyProblem() {
             const container = document.getElementById('problemDetailContainer');
             if (container) container.innerHTML = getProblemiOverviewHTML();
-        }
-
-        // Attacca click alle card panoramica
-        function attachOverviewCardClicks() {
-            document.querySelectorAll('.problema-preview-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    const prob = card.getAttribute('data-subproblem');
-                    if (prob === 'primo') showPrimoProblema();
-                    else if (prob === 'secondo') showSecondoProblema();
-                    else if (prob === 'terzo') showTerzoProblema();
-                    else if (prob === 'quarto') showQuartoProblema();
-                });
-            });
         }
 
         // Gestione click sottomenu vento
@@ -1334,7 +1318,6 @@
                     const detailDiv = document.getElementById('problemDetailContainer');
                     if (detailDiv) {
                         detailDiv.innerHTML = getProblemiOverviewHTML();
-                        attachOverviewCardClicks();
                     }
                     setupVentoSubmenu();
                 }, 20);
