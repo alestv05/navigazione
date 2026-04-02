@@ -1022,7 +1022,7 @@
                             border: 1px solid rgba(0,229,255,0.18);
                             border-radius:20px;
                             padding:28px 22px;
-                            cursor:pointer;
+                            cursor:default;
                             transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s, background 0.25s;
                             display:flex; flex-direction:column; gap:14px;
                         ">
@@ -1884,13 +1884,7 @@
 
             container.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
 
-            // Click sulle card della home
-            container.querySelectorAll('.home-module-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    const page = card.getAttribute('data-page');
-                    if (page) navigateTo(page, true);
-                });
-            });
+
 
             const titles = {
                 home: 'NavTech | Navigazione',
