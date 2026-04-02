@@ -106,7 +106,7 @@
             border-radius: 2px;
         }
 
-        .mobile-menu, .mobile-menu-vento, .mobile-menu-intercettamento, .mobile-menu-pnr {
+        .mobile-menu, .mobile-menu-vento {
             position: fixed;
             top: 0;
             right: -100%;
@@ -121,7 +121,7 @@
             box-shadow: -10px 0 50px rgba(0, 229, 255, 0.2);
         }
 
-        .mobile-menu.active, .mobile-menu-vento.active, .mobile-menu-intercettamento.active, .mobile-menu-pnr.active {
+        .mobile-menu.active, .mobile-menu-vento.active {
             right: 0;
         }
 
@@ -150,12 +150,12 @@
             margin-right: 8px;
         }
 
-        .mobile-nav-links, .mobile-nav-links-vento, .mobile-nav-links-intercettamento, .mobile-nav-links-pnr {
+        .mobile-nav-links, .mobile-nav-links-vento {
             list-style: none;
             padding: 0 30px;
         }
 
-        .mobile-nav-links li, .mobile-nav-links-vento li, .mobile-nav-links-intercettamento li, .mobile-nav-links-pnr li {
+        .mobile-nav-links li, .mobile-nav-links-vento li {
             margin: 0;
             opacity: 0;
             transform: translateX(50px);
@@ -163,39 +163,25 @@
         }
 
         .mobile-menu.active .mobile-nav-links li,
-        .mobile-menu-vento.active .mobile-nav-links-vento li,
-        .mobile-menu-intercettamento.active .mobile-nav-links-intercettamento li,
-        .mobile-menu-pnr.active .mobile-nav-links-pnr li {
+        .mobile-menu-vento.active .mobile-nav-links-vento li {
             opacity: 1;
             transform: translateX(0);
         }
 
         .mobile-menu.active .mobile-nav-links li:nth-child(1),
-        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(1),
-        .mobile-menu-intercettamento.active .mobile-nav-links-intercettamento li:nth-child(1),
-        .mobile-menu-pnr.active .mobile-nav-links-pnr li:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(1) { transition-delay: 0.1s; }
         .mobile-menu.active .mobile-nav-links li:nth-child(2),
-        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(2),
-        .mobile-menu-intercettamento.active .mobile-nav-links-intercettamento li:nth-child(2),
-        .mobile-menu-pnr.active .mobile-nav-links-pnr li:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(2) { transition-delay: 0.2s; }
         .mobile-menu.active .mobile-nav-links li:nth-child(3),
-        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(3),
-        .mobile-menu-intercettamento.active .mobile-nav-links-intercettamento li:nth-child(3),
-        .mobile-menu-pnr.active .mobile-nav-links-pnr li:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(3) { transition-delay: 0.3s; }
         .mobile-menu.active .mobile-nav-links li:nth-child(4),
-        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(4),
-        .mobile-menu-intercettamento.active .mobile-nav-links-intercettamento li:nth-child(4),
-        .mobile-menu-pnr.active .mobile-nav-links-pnr li:nth-child(4) { transition-delay: 0.4s; }
+        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(4) { transition-delay: 0.4s; }
         .mobile-menu.active .mobile-nav-links li:nth-child(5),
-        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(5),
-        .mobile-menu-intercettamento.active .mobile-nav-links-intercettamento li:nth-child(5),
-        .mobile-menu-pnr.active .mobile-nav-links-pnr li:nth-child(5) { transition-delay: 0.5s; }
+        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(5) { transition-delay: 0.5s; }
         .mobile-menu.active .mobile-nav-links li:nth-child(6),
-        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(6),
-        .mobile-menu-intercettamento.active .mobile-nav-links-intercettamento li:nth-child(6),
-        .mobile-menu-pnr.active .mobile-nav-links-pnr li:nth-child(6) { transition-delay: 0.6s; }
+        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(6) { transition-delay: 0.6s; }
 
-        .mobile-nav-links a, .mobile-nav-links-vento a, .mobile-nav-links-intercettamento a, .mobile-nav-links-pnr a {
+        .mobile-nav-links a, .mobile-nav-links-vento a {
             text-decoration: none;
             color: #fff;
             font-size: 1.25rem;
@@ -210,13 +196,13 @@
             letter-spacing: 1px;
         }
 
-        .mobile-nav-links a i, .mobile-nav-links-vento a i, .mobile-nav-links-intercettamento a i, .mobile-nav-links-pnr a i {
+        .mobile-nav-links a i, .mobile-nav-links-vento a i {
             width: 35px;
             font-size: 1.4rem;
             color: var(--accent-cyan);
         }
 
-        .mobile-nav-links a:hover, .mobile-nav-links-vento a:hover, .mobile-nav-links-intercettamento a:hover, .mobile-nav-links-pnr a:hover {
+        .mobile-nav-links a:hover, .mobile-nav-links-vento a:hover {
             color: var(--accent-cyan);
             padding-left: 20px;
             border-bottom-color: var(--accent-cyan);
@@ -302,7 +288,7 @@
             color: var(--accent-cyan);
             font-size: 0.9rem;
         }
-        .input-field input, .input-field select {
+        .input-field input {
             width: 100%;
             padding: 12px;
             background: rgba(0,0,0,0.5);
@@ -312,10 +298,7 @@
             font-size: 1rem;
             transition: 0.2s;
         }
-        .input-field select option {
-            background: var(--bg-dark);
-        }
-        .input-field input:focus, .input-field select:focus {
+        .input-field input:focus {
             outline: none;
             border-color: var(--accent-cyan);
             box-shadow: 0 0 8px rgba(0,229,255,0.3);
@@ -496,6 +479,7 @@
             border-color: var(--accent-cyan);
             background: rgba(0, 20, 30, 0.7);
         }
+        /* Rimossa la classe .problema-preview-num */
         .problema-preview-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 1.15rem;
@@ -544,7 +528,7 @@
         }
 
         @media (max-width: 768px) {
-            .mobile-menu, .mobile-menu-vento, .mobile-menu-intercettamento, .mobile-menu-pnr { width: 100%; }
+            .mobile-menu, .mobile-menu-vento { width: 100%; }
             .main-container { padding: 120px 5% 80px; }
             .module-title { font-size: 1.5rem; }
             .input-group { flex-direction: column; gap: 12px; }
@@ -569,7 +553,7 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-dark); }
         ::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 4px; }
-        .menu-overlay, .menu-overlay-vento, .menu-overlay-intercettamento, .menu-overlay-pnr {
+        .menu-overlay, .menu-overlay-vento {
             position: fixed;
             top: 0;
             left: 0;
@@ -581,7 +565,7 @@
             visibility: hidden;
             transition: 0.3s;
         }
-        .menu-overlay.active, .menu-overlay-vento.active, .menu-overlay-intercettamento.active, .menu-overlay-pnr.active {
+        .menu-overlay.active, .menu-overlay-vento.active {
             opacity: 1;
             visibility: visible;
         }
@@ -621,8 +605,6 @@
 
     <div class="menu-overlay" id="menu-overlay"></div>
     <div class="menu-overlay-vento" id="menu-overlay-vento"></div>
-    <div class="menu-overlay-intercettamento" id="menu-overlay-intercettamento"></div>
-    <div class="menu-overlay-pnr" id="menu-overlay-pnr"></div>
 
     <!-- Menu principale -->
     <div class="mobile-menu" id="mobile-menu">
@@ -647,26 +629,6 @@
             <li><a href="#" data-subproblem="secondo"><i class="fas fa-2"></i> Secondo Problema</a></li>
             <li><a href="#" data-subproblem="terzo"><i class="fas fa-3"></i> Terzo Problema</a></li>
             <li><a href="#" data-subproblem="quarto"><i class="fas fa-4"></i> Quarto Problema</a></li>
-        </ul>
-    </div>
-
-    <!-- Menu contestuale intercettamento -->
-    <div class="mobile-menu-intercettamento" id="mobile-menu-intercettamento">
-        <div class="menu-header"><i class="fas fa-crosshairs"></i> INTERCETTAMENTO</div>
-        <button class="close-menu" id="close-menu-intercettamento"><i class="fas fa-times"></i></button>
-        <ul class="mobile-nav-links-intercettamento">
-            <li><a href="#" data-intercept="aereo-aereo"><i class="fas fa-plane"></i> Aereo/Aereo</a></li>
-            <li><a href="#" data-intercept="aereo-nave"><i class="fas fa-ship"></i> Aereo/Nave</a></li>
-        </ul>
-    </div>
-
-    <!-- Menu contestuale PNR -->
-    <div class="mobile-menu-pnr" id="mobile-menu-pnr">
-        <div class="menu-header"><i class="fas fa-map-location-dot"></i> PNR</div>
-        <button class="close-menu" id="close-menu-pnr"><i class="fas fa-times"></i></button>
-        <ul class="mobile-nav-links-pnr">
-            <li><a href="#" data-pnr="stessa-base"><i class="fas fa-home"></i> Stessa Base</a></li>
-            <li><a href="#" data-pnr="base-alternata"><i class="fas fa-exchange-alt"></i> Base Alternata</a></li>
         </ul>
     </div>
 
@@ -695,21 +657,8 @@
         const mobileMenuVento = document.getElementById('mobile-menu-vento');
         const menuOverlayVento = document.getElementById('menu-overlay-vento');
         const closeMenuVentoBtn = document.getElementById('close-menu-vento');
-        const mobileMenuIntercettamento = document.getElementById('mobile-menu-intercettamento');
-        const menuOverlayIntercettamento = document.getElementById('menu-overlay-intercettamento');
-        const closeMenuIntercettamentoBtn = document.getElementById('close-menu-intercettamento');
-        const mobileMenuPnr = document.getElementById('mobile-menu-pnr');
-        const menuOverlayPnr = document.getElementById('menu-overlay-pnr');
-        const closeMenuPnrBtn = document.getElementById('close-menu-pnr');
 
         let currentModule = 'home';
-
-        function resetBars() {
-            const bars = document.querySelectorAll('.bar');
-            bars[0].style.transform = 'rotate(0) translate(0, 0)';
-            bars[1].style.opacity = '1';
-            bars[2].style.transform = 'rotate(0) translate(0, 0)';
-        }
 
         function openMainMenu() {
             mobileMenu.classList.add('active');
@@ -722,7 +671,10 @@
         function closeMainMenu() {
             mobileMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
-            resetBars();
+            const bars = document.querySelectorAll('.bar');
+            bars[0].style.transform = 'rotate(0) translate(0, 0)';
+            bars[1].style.opacity = '1';
+            bars[2].style.transform = 'rotate(0) translate(0, 0)';
         }
         function openVentoMenu() {
             mobileMenuVento.classList.add('active');
@@ -735,33 +687,10 @@
         function closeVentoMenu() {
             mobileMenuVento.classList.remove('active');
             menuOverlayVento.classList.remove('active');
-            resetBars();
-        }
-        function openIntercettamentoMenu() {
-            mobileMenuIntercettamento.classList.add('active');
-            menuOverlayIntercettamento.classList.add('active');
             const bars = document.querySelectorAll('.bar');
-            bars[0].style.transform = 'rotate(-45deg) translate(-6px, 7px)';
-            bars[1].style.opacity = '0';
-            bars[2].style.transform = 'rotate(45deg) translate(-6px, -7px)';
-        }
-        function closeIntercettamentoMenu() {
-            mobileMenuIntercettamento.classList.remove('active');
-            menuOverlayIntercettamento.classList.remove('active');
-            resetBars();
-        }
-        function openPnrMenu() {
-            mobileMenuPnr.classList.add('active');
-            menuOverlayPnr.classList.add('active');
-            const bars = document.querySelectorAll('.bar');
-            bars[0].style.transform = 'rotate(-45deg) translate(-6px, 7px)';
-            bars[1].style.opacity = '0';
-            bars[2].style.transform = 'rotate(45deg) translate(-6px, -7px)';
-        }
-        function closePnrMenu() {
-            mobileMenuPnr.classList.remove('active');
-            menuOverlayPnr.classList.remove('active');
-            resetBars();
+            bars[0].style.transform = 'rotate(0) translate(0, 0)';
+            bars[1].style.opacity = '1';
+            bars[2].style.transform = 'rotate(0) translate(0, 0)';
         }
 
         hamburger.addEventListener('click', (e) => {
@@ -769,12 +698,6 @@
             if (currentModule === 'vento') {
                 if (mobileMenuVento.classList.contains('active')) closeVentoMenu();
                 else openVentoMenu();
-            } else if (currentModule === 'intercettamento') {
-                if (mobileMenuIntercettamento.classList.contains('active')) closeIntercettamentoMenu();
-                else openIntercettamentoMenu();
-            } else if (currentModule === 'pnr') {
-                if (mobileMenuPnr.classList.contains('active')) closePnrMenu();
-                else openPnrMenu();
             } else {
                 if (mobileMenu.classList.contains('active')) closeMainMenu();
                 else openMainMenu();
@@ -784,12 +707,8 @@
         menuOverlay.addEventListener('click', closeMainMenu);
         closeMenuVentoBtn.addEventListener('click', closeVentoMenu);
         menuOverlayVento.addEventListener('click', closeVentoMenu);
-        closeMenuIntercettamentoBtn.addEventListener('click', closeIntercettamentoMenu);
-        menuOverlayIntercettamento.addEventListener('click', closeIntercettamentoMenu);
-        closeMenuPnrBtn.addEventListener('click', closePnrMenu);
-        menuOverlayPnr.addEventListener('click', closePnrMenu);
 
-        // ---------- PANNELLO SELEZIONE PROBLEMI (SOLO INFORMATIVO) - SENZA NUMERI ----------
+        // ---------- PANNELLO SELEZIONE PROBLEMI (SOLO INFORMATIVO, NON CLICCABILE) - SENZA NUMERI ----------
         function getProblemiOverviewHTML() {
             return `
                 <div class="info-message">
@@ -876,295 +795,6 @@
             `;
         }
 
-        // ---------- INTERCETTAMENTO AEREO/AEREO ----------
-        function showIntercettamentoAereoAereo() {
-            const container = document.getElementById('problemDetailContainer');
-            if (!container) return;
-            container.innerHTML = `
-                <div class="calculator-form">
-                    <div class="input-group">
-                        <div class="input-field">
-                            <label>Distanza iniziale (D) <i class="fas fa-arrows-left-right"></i></label>
-                            <input type="number" id="distanza" step="any" placeholder="Inserisci distanza in NM">
-                        </div>
-                        <div class="input-field">
-                            <label>Velocità aereo A (Va) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="velocitaA" step="any" placeholder="Inserisci velocità in nodi">
-                        </div>
-                        <div class="input-field">
-                            <label>Velocità aereo B (Vb) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="velocitaB" step="any" placeholder="Inserisci velocità in nodi">
-                        </div>
-                    </div>
-                    <button class="calcola" id="calcolaIntercettamentoAA">CALCOLA</button>
-                    <div id="risultatiIntercettamentoAA"></div>
-                </div>
-            `;
-            const calcolaBtn = document.getElementById('calcolaIntercettamentoAA');
-            calcolaBtn.addEventListener('click', () => {
-                const D = parseFloat(document.getElementById('distanza').value);
-                const Va = parseFloat(document.getElementById('velocitaA').value);
-                const Vb = parseFloat(document.getElementById('velocitaB').value);
-                if (isNaN(D) || isNaN(Va) || isNaN(Vb)) {
-                    document.getElementById('risultatiIntercettamentoAA').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
-                    return;
-                }
-                if (Va <= Vb) {
-                    document.getElementById('risultatiIntercettamentoAA').innerHTML = `<div class="error-message">⚠️ Per l'intercettamento, la velocità dell'aereo A (Va) deve essere maggiore della velocità dell'aereo B (Vb).</div>`;
-                    return;
-                }
-                const Vrel = Va - Vb;
-                const t = D / Vrel;
-                const distanzaPercorsaA = Va * t;
-                const distanzaPercorsaB = Vb * t;
-                const round3 = (n) => n.toFixed(3);
-                const risultatiHtml = `
-                    <div class="results">
-                        <div class="results-grid">
-                            <div class="result-card">
-                                <div class="result-name">Velocità relativa</div>
-                                <div class="detail-formula">Vrel = Va - Vb</div>
-                                <div class="detail-substitution">Vrel = ${Va} - ${Vb} = ${Vrel}</div>
-                                <div class="detail-value">${round3(Vrel)} nodi</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">Tempo di intercettamento</div>
-                                <div class="detail-formula">t = D / Vrel</div>
-                                <div class="detail-substitution">t = ${D} / ${Vrel} = ${t}</div>
-                                <div class="detail-value">${round3(t)} ore (${(t*60).toFixed(2)} minuti)</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">Distanza percorsa da A</div>
-                                <div class="detail-formula">Da = Va · t</div>
-                                <div class="detail-substitution">Da = ${Va} · ${t} = ${distanzaPercorsaA}</div>
-                                <div class="detail-value">${round3(distanzaPercorsaA)} NM</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">Distanza percorsa da B</div>
-                                <div class="detail-formula">Db = Vb · t</div>
-                                <div class="detail-substitution">Db = ${Vb} · ${t} = ${distanzaPercorsaB}</div>
-                                <div class="detail-value">${round3(distanzaPercorsaB)} NM</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('risultatiIntercettamentoAA').innerHTML = risultatiHtml;
-            });
-        }
-
-        // ---------- INTERCETTAMENTO AEREO/NAVE ----------
-        function showIntercettamentoAereoNave() {
-            const container = document.getElementById('problemDetailContainer');
-            if (!container) return;
-            container.innerHTML = `
-                <div class="calculator-form">
-                    <div class="input-group">
-                        <div class="input-field">
-                            <label>Distanza iniziale (D) <i class="fas fa-arrows-left-right"></i></label>
-                            <input type="number" id="distanzaAN" step="any" placeholder="Inserisci distanza in NM">
-                        </div>
-                        <div class="input-field">
-                            <label>Velocità aereo (Va) <i class="fas fa-plane"></i></label>
-                            <input type="number" id="velocitaAereo" step="any" placeholder="Inserisci velocità in nodi">
-                        </div>
-                        <div class="input-field">
-                            <label>Velocità nave (Vn) <i class="fas fa-ship"></i></label>
-                            <input type="number" id="velocitaNave" step="any" placeholder="Inserisci velocità in nodi">
-                        </div>
-                    </div>
-                    <button class="calcola" id="calcolaIntercettamentoAN">CALCOLA</button>
-                    <div id="risultatiIntercettamentoAN"></div>
-                </div>
-            `;
-            const calcolaBtn = document.getElementById('calcolaIntercettamentoAN');
-            calcolaBtn.addEventListener('click', () => {
-                const D = parseFloat(document.getElementById('distanzaAN').value);
-                const Va = parseFloat(document.getElementById('velocitaAereo').value);
-                const Vn = parseFloat(document.getElementById('velocitaNave').value);
-                if (isNaN(D) || isNaN(Va) || isNaN(Vn)) {
-                    document.getElementById('risultatiIntercettamentoAN').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
-                    return;
-                }
-                if (Va <= Vn) {
-                    document.getElementById('risultatiIntercettamentoAN').innerHTML = `<div class="error-message">⚠️ Per l'intercettamento, la velocità dell'aereo (Va) deve essere maggiore della velocità della nave (Vn).</div>`;
-                    return;
-                }
-                const Vrel = Va - Vn;
-                const t = D / Vrel;
-                const distanzaPercorsaAereo = Va * t;
-                const distanzaPercorsaNave = Vn * t;
-                const round3 = (n) => n.toFixed(3);
-                const risultatiHtml = `
-                    <div class="results">
-                        <div class="results-grid">
-                            <div class="result-card">
-                                <div class="result-name">Velocità relativa</div>
-                                <div class="detail-formula">Vrel = Va - Vn</div>
-                                <div class="detail-substitution">Vrel = ${Va} - ${Vn} = ${Vrel}</div>
-                                <div class="detail-value">${round3(Vrel)} nodi</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">Tempo di intercettamento</div>
-                                <div class="detail-formula">t = D / Vrel</div>
-                                <div class="detail-substitution">t = ${D} / ${Vrel} = ${t}</div>
-                                <div class="detail-value">${round3(t)} ore (${(t*60).toFixed(2)} minuti)</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">Distanza percorsa dall'aereo</div>
-                                <div class="detail-formula">Da = Va · t</div>
-                                <div class="detail-substitution">Da = ${Va} · ${t} = ${distanzaPercorsaAereo}</div>
-                                <div class="detail-value">${round3(distanzaPercorsaAereo)} NM</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">Distanza percorsa dalla nave</div>
-                                <div class="detail-formula">Dn = Vn · t</div>
-                                <div class="detail-substitution">Dn = ${Vn} · ${t} = ${distanzaPercorsaNave}</div>
-                                <div class="detail-value">${round3(distanzaPercorsaNave)} NM</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('risultatiIntercettamentoAN').innerHTML = risultatiHtml;
-            });
-        }
-
-        // ---------- PNR STESSA BASE ----------
-        function showPnrStessaBase() {
-            const container = document.getElementById('problemDetailContainer');
-            if (!container) return;
-            container.innerHTML = `
-                <div class="calculator-form">
-                    <div class="input-group">
-                        <div class="input-field">
-                            <label>Distanza totale (D) <i class="fas fa-arrows-left-right"></i></label>
-                            <input type="number" id="distanzaTotale" step="any" placeholder="Inserisci distanza in NM">
-                        </div>
-                        <div class="input-field">
-                            <label>Velocità andata (V1) <i class="fas fa-arrow-right"></i></label>
-                            <input type="number" id="vAndata" step="any" placeholder="Inserisci velocità in nodi">
-                        </div>
-                        <div class="input-field">
-                            <label>Velocità ritorno (V2) <i class="fas fa-arrow-left"></i></label>
-                            <input type="number" id="vRitorno" step="any" placeholder="Inserisci velocità in nodi">
-                        </div>
-                    </div>
-                    <button class="calcola" id="calcolaPnrStessaBase">CALCOLA</button>
-                    <div id="risultatiPnrStessaBase"></div>
-                </div>
-            `;
-            const calcolaBtn = document.getElementById('calcolaPnrStessaBase');
-            calcolaBtn.addEventListener('click', () => {
-                const D = parseFloat(document.getElementById('distanzaTotale').value);
-                const V1 = parseFloat(document.getElementById('vAndata').value);
-                const V2 = parseFloat(document.getElementById('vRitorno').value);
-                if (isNaN(D) || isNaN(V1) || isNaN(V2)) {
-                    document.getElementById('risultatiPnrStessaBase').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
-                    return;
-                }
-                if (V1 <= 0 || V2 <= 0) {
-                    document.getElementById('risultatiPnrStessaBase').innerHTML = `<div class="error-message">⚠️ Le velocità devono essere maggiori di zero.</div>`;
-                    return;
-                }
-                const dPNR = (D * V2) / (V1 + V2);
-                const tAndata = dPNR / V1;
-                const tRitorno = dPNR / V2;
-                const round3 = (n) => n.toFixed(3);
-                const risultatiHtml = `
-                    <div class="results">
-                        <div class="results-grid">
-                            <div class="result-card">
-                                <div class="result-name">Distanza PNR</div>
-                                <div class="detail-formula">dPNR = (D · V2) / (V1 + V2)</div>
-                                <div class="detail-substitution">dPNR = (${D} · ${V2}) / (${V1} + ${V2}) = ${D * V2} / ${V1 + V2}</div>
-                                <div class="detail-value">${round3(dPNR)} NM</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">Tempo di andata al PNR</div>
-                                <div class="detail-formula">t1 = dPNR / V1</div>
-                                <div class="detail-substitution">t1 = ${round3(dPNR)} / ${V1} = ${tAndata}</div>
-                                <div class="detail-value">${round3(tAndata)} ore (${(tAndata*60).toFixed(2)} minuti)</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">Tempo di ritorno dal PNR</div>
-                                <div class="detail-formula">t2 = dPNR / V2</div>
-                                <div class="detail-substitution">t2 = ${round3(dPNR)} / ${V2} = ${tRitorno}</div>
-                                <div class="detail-value">${round3(tRitorno)} ore (${(tRitorno*60).toFixed(2)} minuti)</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">Tempo totale massimo</div>
-                                <div class="detail-formula">Tmax = t1 + t2</div>
-                                <div class="detail-substitution">Tmax = ${round3(tAndata)} + ${round3(tRitorno)} = ${tAndata + tRitorno}</div>
-                                <div class="detail-value">${round3(tAndata + tRitorno)} ore (${((tAndata + tRitorno)*60).toFixed(2)} minuti)</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('risultatiPnrStessaBase').innerHTML = risultatiHtml;
-            });
-        }
-
-        // ---------- PNR BASE ALTERNATA ----------
-        function showPnrBaseAlternata() {
-            const container = document.getElementById('problemDetailContainer');
-            if (!container) return;
-            container.innerHTML = `
-                <div class="calculator-form">
-                    <div class="input-group">
-                        <div class="input-field">
-                            <label>Distanza dalla base di partenza (D1) <i class="fas fa-home"></i></label>
-                            <input type="number" id="distanzaPartenza" step="any" placeholder="Inserisci distanza in NM">
-                        </div>
-                        <div class="input-field">
-                            <label>Distanza dalla base alternativa (D2) <i class="fas fa-map-marker-alt"></i></label>
-                            <input type="number" id="distanzaAlternativa" step="any" placeholder="Inserisci distanza in NM">
-                        </div>
-                        <div class="input-field">
-                            <label>Velocità di crociera (Vc) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="velocitaCrociera" step="any" placeholder="Inserisci velocità in nodi">
-                        </div>
-                    </div>
-                    <button class="calcola" id="calcolaPnrBaseAlternata">CALCOLA</button>
-                    <div id="risultatiPnrBaseAlternata"></div>
-                </div>
-            `;
-            const calcolaBtn = document.getElementById('calcolaPnrBaseAlternata');
-            calcolaBtn.addEventListener('click', () => {
-                const D1 = parseFloat(document.getElementById('distanzaPartenza').value);
-                const D2 = parseFloat(document.getElementById('distanzaAlternativa').value);
-                const Vc = parseFloat(document.getElementById('velocitaCrociera').value);
-                if (isNaN(D1) || isNaN(D2) || isNaN(Vc)) {
-                    document.getElementById('risultatiPnrBaseAlternata').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
-                    return;
-                }
-                if (Vc <= 0) {
-                    document.getElementById('risultatiPnrBaseAlternata').innerHTML = `<div class="error-message">⚠️ La velocità deve essere maggiore di zero.</div>`;
-                    return;
-                }
-                const dPNR = (D1 + D2) / 2;
-                const tempo = dPNR / Vc;
-                const round3 = (n) => n.toFixed(3);
-                const risultatiHtml = `
-                    <div class="results">
-                        <div class="results-grid">
-                            <div class="result-card">
-                                <div class="result-name">Distanza PNR</div>
-                                <div class="detail-formula">dPNR = (D1 + D2) / 2</div>
-                                <div class="detail-substitution">dPNR = (${D1} + ${D2}) / 2 = ${D1 + D2} / 2</div>
-                                <div class="detail-value">${round3(dPNR)} NM</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">Tempo per raggiungere il PNR</div>
-                                <div class="detail-formula">t = dPNR / Vc</div>
-                                <div class="detail-substitution">t = ${round3(dPNR)} / ${Vc} = ${tempo}</div>
-                                <div class="detail-value">${round3(tempo)} ore (${(tempo*60).toFixed(2)} minuti)</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('risultatiPnrBaseAlternata').innerHTML = risultatiHtml;
-            });
-        }
-
         // ---------- CONTENUTI MODULI ----------
         function getModuleHTML(moduleId) {
             if (moduleId === 'home') return `<div class="reveal active" style="min-height: 0;"></div>`;
@@ -1186,29 +816,13 @@
                 return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-earth-americas"></i> Ortodromia</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
             }
             if (moduleId === 'pnr') {
-                return `
-                    <div class="reveal active">
-                        <div class="module-card" id="pnr-module-card">
-                            <div class="module-title"><i class="fas fa-map-location-dot"></i> PNR (Point of No Return)</div>
-                            <div class="divider"></div>
-                            <div id="problemDetailContainer" class="problem-detail-box"></div>
-                        </div>
-                    </div>
-                `;
+                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-map-location-dot"></i> PNR</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
             }
             if (moduleId === 'per') {
                 return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-clock-rotate-left"></i> PET</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
             }
             if (moduleId === 'intercettamento') {
-                return `
-                    <div class="reveal active">
-                        <div class="module-card" id="intercettamento-module-card">
-                            <div class="module-title"><i class="fas fa-crosshairs"></i> Intercettamento</div>
-                            <div class="divider"></div>
-                            <div id="problemDetailContainer" class="problem-detail-box"></div>
-                        </div>
-                    </div>
-                `;
+                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-crosshairs"></i> Intercettamento</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
             }
             return `<div class="reveal active" style="min-height: 0;"></div>`;
         }
@@ -1673,28 +1287,6 @@
             if (container) container.innerHTML = getProblemiOverviewHTML();
         }
 
-        function showEmptyIntercettamento() {
-            const container = document.getElementById('problemDetailContainer');
-            if (container) {
-                container.innerHTML = `
-                    <div class="info-message">
-                        <i class="fas fa-info-circle"></i> Seleziona il tipo di intercettamento dal menu laterale
-                    </div>
-                `;
-            }
-        }
-
-        function showEmptyPnr() {
-            const container = document.getElementById('problemDetailContainer');
-            if (container) {
-                container.innerHTML = `
-                    <div class="info-message">
-                        <i class="fas fa-info-circle"></i> Seleziona il tipo di PNR dal menu laterale
-                    </div>
-                `;
-            }
-        }
-
         // Gestione click sottomenu vento
         function setupVentoSubmenu() {
             const submenuLinks = document.querySelectorAll('.mobile-nav-links-vento a');
@@ -1718,40 +1310,6 @@
             });
         }
 
-        // Gestione click sottomenu intercettamento
-        function setupIntercettamentoSubmenu() {
-            const submenuLinks = document.querySelectorAll('.mobile-nav-links-intercettamento a');
-            submenuLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const type = link.getAttribute('data-intercept');
-                    if (type === 'aereo-aereo') {
-                        showIntercettamentoAereoAereo();
-                    } else if (type === 'aereo-nave') {
-                        showIntercettamentoAereoNave();
-                    }
-                    closeIntercettamentoMenu();
-                });
-            });
-        }
-
-        // Gestione click sottomenu PNR
-        function setupPnrSubmenu() {
-            const submenuLinks = document.querySelectorAll('.mobile-nav-links-pnr a');
-            submenuLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const type = link.getAttribute('data-pnr');
-                    if (type === 'stessa-base') {
-                        showPnrStessaBase();
-                    } else if (type === 'base-alternata') {
-                        showPnrBaseAlternata();
-                    }
-                    closePnrMenu();
-                });
-            });
-        }
-
         // Navigazione principale
         function navigateTo(moduleId, addToHistory = true) {
             currentModule = moduleId;
@@ -1761,11 +1319,7 @@
             
             if (moduleId === 'vento') {
                 closeMainMenu();
-                closeIntercettamentoMenu();
-                closePnrMenu();
                 mobileMenuVento.style.display = 'block';
-                mobileMenuIntercettamento.style.display = 'none';
-                mobileMenuPnr.style.display = 'none';
                 mobileMenu.style.display = 'none';
                 setTimeout(() => {
                     const detailDiv = document.getElementById('problemDetailContainer');
@@ -1774,51 +1328,9 @@
                     }
                     setupVentoSubmenu();
                 }, 20);
-            } else if (moduleId === 'intercettamento') {
-                closeMainMenu();
-                closeVentoMenu();
-                closePnrMenu();
-                mobileMenuIntercettamento.style.display = 'block';
-                mobileMenuVento.style.display = 'none';
-                mobileMenuPnr.style.display = 'none';
-                mobileMenu.style.display = 'none';
-                setTimeout(() => {
-                    const detailDiv = document.getElementById('problemDetailContainer');
-                    if (detailDiv) {
-                        detailDiv.innerHTML = `
-                            <div class="info-message">
-                                <i class="fas fa-info-circle"></i> Seleziona il tipo di intercettamento dal menu laterale
-                            </div>
-                        `;
-                    }
-                    setupIntercettamentoSubmenu();
-                }, 20);
-            } else if (moduleId === 'pnr') {
-                closeMainMenu();
-                closeVentoMenu();
-                closeIntercettamentoMenu();
-                mobileMenuPnr.style.display = 'block';
-                mobileMenuVento.style.display = 'none';
-                mobileMenuIntercettamento.style.display = 'none';
-                mobileMenu.style.display = 'none';
-                setTimeout(() => {
-                    const detailDiv = document.getElementById('problemDetailContainer');
-                    if (detailDiv) {
-                        detailDiv.innerHTML = `
-                            <div class="info-message">
-                                <i class="fas fa-info-circle"></i> Seleziona il tipo di PNR dal menu laterale
-                            </div>
-                        `;
-                    }
-                    setupPnrSubmenu();
-                }, 20);
             } else {
                 closeVentoMenu();
-                closeIntercettamentoMenu();
-                closePnrMenu();
                 mobileMenuVento.style.display = 'none';
-                mobileMenuIntercettamento.style.display = 'none';
-                mobileMenuPnr.style.display = 'none';
                 mobileMenu.style.display = 'block';
             }
             
@@ -1863,8 +1375,6 @@
                 navigateTo('home', true);
                 closeMainMenu();
                 closeVentoMenu();
-                closeIntercettamentoMenu();
-                closePnrMenu();
             });
         }
         
@@ -1875,132 +1385,65 @@
                 moduleId = event.state.module;
             } else {
                 const params = new URLSearchParams(window.location.search);
-                moduleId = params);
-                moduleId.get(' = params.get('nav')nav') || ' || 'home';
+                moduleId = params.get('nav') || 'home';
             }
-home';
-            navigateTo(            }
-            navigateTo(moduleIdmoduleId, false, false);
-       );
+            navigateTo(moduleId, false);
         });
         
- });
-        
-        // Particelle        //
-        Particelle
-        const canvas const canvas = document = document.getElementById('.getElementById('particleparticle-canvas-canvas');
-       ');
-        const ctx const ctx = canvas = canvas.getContext('2.getContext('2d');
-d');
-        let        let particles = [];
- particles = [];
-               function init function initParticles() {
-            canvasParticles() {
-            canvas.width =.width = window.innerWidth;
- window.innerWidth;
-            canvas            canvas.height = window.inner.height =Height;
-            particles window.innerHeight;
+        // Particelle
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function initParticles() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
             particles = [];
- = [];
-            for            for (let (let i = i = 0; i 0; i <  < 100; i++)100; i++) {
-                {
-                particles.push particles.push({
-({
-                    x: Math.random                    x: Math.random() *() * canvas.width canvas.width,
-                   ,
-                    y: y: Math.random Math.random() * canvas.height() * canvas.height,
-                   ,
-                    vx vx: (: (Math.randomMath.random() -() - 0.5) * 0.5 0) * 0.6.6,
-                   ,
-                    vy: vy: (Math (Math.random() - .random() - 0.0.5)5) *  * 0.0.6,
-6,
-                    size                    size: Math.random(): Math * .random() * 2 +2 + 0 0.5.5,
-                   ,
-                    alpha: alpha: Math.random Math.random() * 0.5() * 0.5 + 0 + .2
-0.2
+            for (let i = 0; i < 100; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.6,
+                    vy: (Math.random() - 0.5) * 0.6,
+                    size: Math.random() * 2 + 0.5,
+                    alpha: Math.random() * 0.5 + 0.2
                 });
             }
         }
-                });
-            }
-        }
-        function        function drawParticles() {
-            drawParticles() ctx.clear {
-            ctx.clearRect(0, 0Rect(0, 0, canvas, canvas.width,.width, canvas.height);
-            canvas.height);
-            particles.forEach particles.forEach(p =>(p => {
- {
-                               p.x p.x += p.vx;
-                += p.vx;
-                p.y p.y += p += p.vy.vy;
-               ;
-                if (p.x < if (p.x 0 || <  p.x0 || p.x > canvas.width) > canvas.width) p.v p.vx *=x *= -1;
-                -1;
-                if ( if (p.yp.y <  < 0 ||0 || p p.y.y > canvas.height) > canvas.height) p.vy *= p.vy *= -1 -1;
-               ;
-                ctx.beginPath ctx.beginPath();
-                ctx();
-                ctx.arc(p.x.arc, p.y,(p.x, p.y, p.size p.size, 0, 0,, Math.PI * 2 Math.PI * 2);
-                ctx.fill);
-                ctx.fillStyle = `rgStyle = `rgba(0,ba(0, 229,  229, 255, ${p255, ${p.alpha})`;
-.alpha})`;
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 229, 255, ${p.alpha})`;
                 ctx.fill();
             });
-            requestAnimationFrame                ctx.fill();
-            });
-            requestAnimationFrame(draw(drawParticles);
+            requestAnimationFrame(drawParticles);
         }
-       Particles);
-        }
-        window.addEventListener window.addEventListener('resize',('resize', () => () => { initParticles(); });
- { initParticles        init(); });
-        initParticlesParticles();
-       ();
-        drawP drawParticles();
+        window.addEventListener('resize', () => { initParticles(); });
+        initParticles();
+        drawParticles();
         
-        const observerarticles();
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('active'));
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         
-        = new const observer Intersection = new IntersectionObserver((Observer((entries)entries) => {
- => {
-            entries.forEach(            entriesentry =>.forEach(entry => entry.is entry.isIntersectingIntersecting && entry.target.classList && entry.add('active'));
-        },.target.classList.add('active'));
-        }, { threshold { threshold: : 0.0.15 });
-15 });
-               document document.querySelectorAll('.reve.querySelectorAll('.reveal').forEach(el => observeral').forEach(el => observer.ob.observe(elserve(el));
-        
-));
-        
-        //        // Avvio Avvio - nascondi - nascondi tutti i tutti i menu contestuali tr menu contestuali tranne quelloanne quello principale
-        principale
- mobileMenuV        mobileMenuVento.style.display = 'none';
-        mobileMenuento.style.display = 'none';
-        mobileMenuIntercIntercettettamento.style.display = 'none';
-        mobileamento.style.display = 'none';
-        mobileMenuPMenuPnr.style.display =nr.style.display = 'none';
-        mobileMenu.style.display 'none';
-        mobileMenu.style.display = ' = 'block';
-block';
-        
-               
-        const initialParam = new URLSearchParams(window.location const initialParam = new URLSearchParams(window.location.search).get.search).('nav');
-        if (initialParam && ['vento','lossodromia','ortodromia','pnr','per','get('nav');
-        if (initialParam && ['vento','lossodromia','ortodromia','pnr','per','intercettamentointercettamento'].includes(initialParam))'].includes(initialParam)) {
-            navigateTo {
-            navigateTo(initialParam(initialParam,, false);
-            const state = { module false);
-            const state = { module: initial: initialParam };
-Param };
-            window.history.replaceState(state,            window.history.replaceState(state, '', window '', window.location.h.location.href);
+        // Avvio
+        mobileMenuVento.style.display = 'none';
+        mobileMenu.style.display = 'block';
+        const initialParam = new URLSearchParams(window.location.search).get('nav');
+        if (initialParam && ['vento','lossodromia','ortodromia','pnr','per','intercettamento'].includes(initialParam)) {
+            navigateTo(initialParam, false);
+            const state = { module: initialParam };
+            window.history.replaceState(state, '', window.location.href);
         } else {
-            navigateTo('ref);
-        } else {
-            navigatehome', false);
-To('home', false);
-            window            window.history.history.replaceState({ module: '.replaceState({ module: 'home'home' }, '', }, '', window.location window.location.pathname);
+            navigateTo('home', false);
+            window.history.replaceState({ module: 'home' }, '', window.location.pathname);
         }
-   .pathname);
-        }
- </script    </script>
-</body>
+    </script>
 </body>
 </html>
