@@ -1006,15 +1006,227 @@
             `;
         }
 
+        // ---------- OVERVIEW PNR ----------
+        function getPnrOverviewHTML() {
+            return `
+                <div class="info-message">
+                    <i class="fas fa-info-circle"></i> Seleziona una tipologia dal menu laterale per accedere al calcolatore
+                </div>
+                <div class="problemi-overview">
+                    <div class="problema-preview-card">
+                        <div class="problema-preview-title">PNR Stessa Base</div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Dati</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-dati">TCo</span>
+                                <span class="badge-dati">TAS</span>
+                                <span class="badge-dati">W</span>
+                                <span class="badge-dati">V</span>
+                                <span class="badge-dati">E</span>
+                            </div>
+                        </div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Incognite</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-incognite">PNRd</span>
+                                <span class="badge-incognite">PNRt</span>
+                                <span class="badge-incognite">TCh</span>
+                                <span class="badge-incognite">THh</span>
+                                <span class="badge-incognite">FTh</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="problema-preview-card">
+                        <div class="problema-preview-title">PNR Base Alternata</div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Dati</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-dati">—</span>
+                            </div>
+                        </div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Incognite</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-incognite">—</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ---------- HELPER FORMATO TEMPO ----------
+        function formatTime(hDec) {
+            const h = Math.floor(hDec);
+            let m = Math.round((hDec - h) * 60 * 10) / 10;
+            if (m >= 60) { return (h + 1) + " ore e 0 min"; }
+            return h + " ore e " + m + " min";
+        }
+
         // ---------- SOTTOSEZIONI PNR ----------
         function showStessaBase() {
             const container = document.getElementById('pnrDetailContainer');
             if (!container) return;
             container.innerHTML = `
-                <div class="info-message">
-                    <i class="fas fa-house"></i> PNR Stessa Base — Modulo in fase di sviluppo
+                <div class="calculator-form">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label>TCo (Rotta vera andata) <i class="fas fa-arrow-right"></i></label>
+                            <input type="number" id="pnr_tco" step="any" placeholder="Inserisci TCo in gradi">
+                        </div>
+                        <div class="input-field">
+                            <label>TAS (Velocità propria) <i class="fas fa-gauge-high"></i></label>
+                            <input type="number" id="pnr_tas" step="any" placeholder="Inserisci TAS in nodi">
+                        </div>
+                        <div class="input-field">
+                            <label>W (Direzione del vento) <i class="fas fa-wind"></i></label>
+                            <input type="number" id="pnr_w" step="any" placeholder="Inserisci W in gradi">
+                        </div>
+                        <div class="input-field">
+                            <label>V (Velocità del vento) <i class="fas fa-gauge-high"></i></label>
+                            <input type="number" id="pnr_v" step="any" placeholder="Inserisci V in nodi">
+                        </div>
+                        <div class="input-field">
+                            <label>E (Autonomia totale) <i class="fas fa-clock"></i></label>
+                            <input type="number" id="pnr_e" step="any" placeholder="Inserisci E in ore">
+                        </div>
+                    </div>
+                    <button class="calcola" id="calcolaPnrStessaBase">CALCOLA</button>
+                    <div id="risultatiPnrStessaBase"></div>
                 </div>
             `;
+            document.getElementById('calcolaPnrStessaBase').addEventListener('click', () => {
+                const tco = parseFloat(document.getElementById('pnr_tco').value);
+                const tas = parseFloat(document.getElementById('pnr_tas').value);
+                const w   = parseFloat(document.getElementById('pnr_w').value);
+                const v   = parseFloat(document.getElementById('pnr_v').value);
+                const e   = parseFloat(document.getElementById('pnr_e').value);
+                if ([tco, tas, w, v, e].some(isNaN)) {
+                    document.getElementById('risultatiPnrStessaBase').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
+                    return;
+                }
+                const toRad = d => d * Math.PI / 180;
+                const round3 = n => n.toFixed(3);
+
+                // Andata
+                const diff_deg = w - tco;
+                const diff_rad = toRad(diff_deg);
+                const xc   = v * Math.sin(diff_rad);
+                const lc   = -v * Math.cos(diff_rad);
+                const arg  = Math.max(-1, Math.min(1, xc / tas));
+                const wca_rad = Math.asin(arg);
+                const wca  = wca_rad * 180 / Math.PI;
+                const etas = tas * Math.cos(wca_rad);
+                const tho  = ((tco + wca) % 360 + 360) % 360;
+                const gso  = etas + lc;
+
+                // Ritorno
+                const tch  = ((tco + 180) % 360 + 360) % 360;
+                const thh  = ((tch - wca) % 360 + 360) % 360;
+                const gsh  = etas - lc;
+
+                // PNR
+                if (Math.abs(gso + gsh) < 1e-6) {
+                    document.getElementById('risultatiPnrStessaBase').innerHTML = `<div class="error-message">⚠️ Errore: GSo + GSh è zero.</div>`;
+                    return;
+                }
+                const pnrd = (e * gso * gsh) / (gso + gsh);
+                const pnrt = pnrd / gso;
+                const fth  = pnrd / gsh;
+
+                document.getElementById('risultatiPnrStessaBase').innerHTML = `
+                    <div class="results">
+
+                        <h3 style="color:var(--accent-cyan); margin-bottom:15px; margin-top:10px;">Triangolo del vento — Andata</h3>
+                        <div class="results-grid">
+                            <div class="result-card">
+                                <div class="result-name">XC</div>
+                                <div class="detail-formula">XC = V · sin(W − TCo)</div>
+                                <div class="detail-substitution">XC = ${v} · sin(${w} − ${tco}) = ${v} · sin(${diff_deg}°)</div>
+                                <div class="detail-substitution">sin(${diff_deg}°) = ${Math.sin(diff_rad).toFixed(6)}</div>
+                                <div class="detail-value">${round3(xc)}</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">LC</div>
+                                <div class="detail-formula">LC = −V · cos(W − TCo)</div>
+                                <div class="detail-substitution">LC = −${v} · cos(${diff_deg}°) = −${v} · ${Math.cos(diff_rad).toFixed(6)}</div>
+                                <div class="detail-value">${round3(lc)}</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">WCA</div>
+                                <div class="detail-formula">WCA = arcsin(XC / TAS)</div>
+                                <div class="detail-substitution">WCA = arcsin(${round3(xc)} / ${tas}) = arcsin(${arg.toFixed(6)})</div>
+                                <div class="detail-substitution">= ${wca_rad.toFixed(6)} rad</div>
+                                <div class="detail-value">${round3(wca)}°</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">ETAS</div>
+                                <div class="detail-formula">ETAS = TAS · cos(WCA)</div>
+                                <div class="detail-substitution">ETAS = ${tas} · cos(${round3(wca)}°) = ${tas} · ${Math.cos(wca_rad).toFixed(6)}</div>
+                                <div class="detail-value">${round3(etas)}</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">THo</div>
+                                <div class="detail-formula">THo = TCo + WCA</div>
+                                <div class="detail-substitution">THo = ${tco} + ${round3(wca)} = ${round3(tho)}</div>
+                                <div class="detail-value">${round3(tho)}°</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">GSo</div>
+                                <div class="detail-formula">GSo = ETAS + LC</div>
+                                <div class="detail-substitution">GSo = ${round3(etas)} + (${round3(lc)}) = ${round3(gso)}</div>
+                                <div class="detail-value">${round3(gso)}</div>
+                            </div>
+                        </div>
+
+                        <h3 style="color:var(--accent-cyan); margin:30px 0 15px 0;">Ritorno</h3>
+                        <div class="results-grid">
+                            <div class="result-card">
+                                <div class="result-name">TCh</div>
+                                <div class="detail-formula">TCh = (TCo + 180) mod 360</div>
+                                <div class="detail-substitution">TCh = (${tco} + 180) mod 360 = ${round3(tch)}</div>
+                                <div class="detail-value">${round3(tch)}°</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">THh</div>
+                                <div class="detail-formula">THh = TCh − WCA</div>
+                                <div class="detail-substitution">THh = ${round3(tch)} − ${round3(wca)} = ${round3(thh)}</div>
+                                <div class="detail-value">${round3(thh)}°</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-name">GSh</div>
+                                <div class="detail-formula">GSh = ETAS − LC</div>
+                                <div class="detail-substitution">GSh = ${round3(etas)} − (${round3(lc)}) = ${round3(gsh)}</div>
+                                <div class="detail-value">${round3(gsh)}</div>
+                            </div>
+                        </div>
+
+                        <h3 style="color:var(--accent-cyan); margin:30px 0 15px 0;">Risultati PNR</h3>
+                        <div class="final-results">
+                            <div class="final-card">
+                                <div class="result-name">PNRd</div>
+                                <div class="detail-formula">PNRd = (E · GSo · GSh) / (GSo + GSh)</div>
+                                <div class="detail-substitution">PNRd = (${e} · ${round3(gso)} · ${round3(gsh)}) / (${round3(gso)} + ${round3(gsh)})</div>
+                                <div class="detail-substitution">= ${round3(e * gso * gsh)} / ${round3(gso + gsh)}</div>
+                                <div class="detail-value">${round3(pnrd)} NM</div>
+                            </div>
+                            <div class="final-card">
+                                <div class="result-name">PNRt</div>
+                                <div class="detail-formula">PNRt = PNRd / GSo</div>
+                                <div class="detail-substitution">PNRt = ${round3(pnrd)} / ${round3(gso)}</div>
+                                <div class="detail-value">${round3(pnrt)} h &nbsp;·&nbsp; ${formatTime(pnrt)}</div>
+                            </div>
+                            <div class="final-card">
+                                <div class="result-name">FTh</div>
+                                <div class="detail-formula">FTh = PNRd / GSh</div>
+                                <div class="detail-substitution">FTh = ${round3(pnrd)} / ${round3(gsh)}</div>
+                                <div class="detail-value">${round3(fth)} h &nbsp;·&nbsp; ${formatTime(fth)}</div>
+                            </div>
+                        </div>
+
+                    </div>
+                `;
+            });
         }
 
         function showBaseAlternata() {
@@ -1521,7 +1733,11 @@
                 setTimeout(() => { setupIntercettamentoSubmenu(); }, 20);
             } else if (moduleId === 'pnr') {
                 mobileMenuPnr.style.display = 'block';
-                setTimeout(() => { setupPnrSubmenu(); }, 20);
+                setTimeout(() => {
+                    const detailDiv = document.getElementById('pnrDetailContainer');
+                    if (detailDiv) detailDiv.innerHTML = getPnrOverviewHTML();
+                    setupPnrSubmenu();
+                }, 20);
             } else {
                 mobileMenu.style.display = 'block';
             }
