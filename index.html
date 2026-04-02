@@ -125,20 +125,27 @@
             right: 0;
         }
 
+        /* Stili comuni per l'header dei menu */
         .menu-header {
             position: absolute;
             top: 25px;
             left: 30px;
-            right: 70px;      /* evita sovrapposizione con il pulsante di chiusura */
+            right: 60px;          /* spazio sufficiente per la X */
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
             color: var(--accent-cyan);
             letter-spacing: 2px;
             border-bottom: 1px solid var(--accent-cyan);
             padding-bottom: 8px;
+            /* Impostazioni per evitare tagli */
+            font-size: 0.9rem;     /* dimensione ridotta per stare su una riga */
             white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            overflow: visible;
+            text-overflow: clip;
+        }
+
+        /* Per il menu principale possiamo tenere un font leggermente più grande */
+        .mobile-menu .menu-header {
+            font-size: 1.1rem;
         }
 
         .menu-header i {
@@ -535,10 +542,10 @@
             .iteration-detail { flex-direction: column; }
             .problemi-overview { grid-template-columns: 1fr; }
             .menu-header {
-                font-size: 1rem;
-                right: 60px;
-                white-space: normal;
-                word-break: break-word;
+                font-size: 0.85rem;   /* ancora più piccolo su mobile */
+                white-space: normal;   /* se necessario va a capo */
+                word-break: keep-all;
+                right: 50px;
             }
         }
         .reveal {
@@ -620,7 +627,7 @@
         </ul>
     </div>
 
-    <!-- Menu contestuale vento (corretto: X non si sovrappone più) -->
+    <!-- Menu contestuale vento (testo completo senza tagli) -->
     <div class="mobile-menu-vento" id="mobile-menu-vento">
         <div class="menu-header"><i class="fas fa-wind"></i> PROBLEMI DEL VENTO</div>
         <button class="close-menu" id="close-menu-vento"><i class="fas fa-times"></i></button>
