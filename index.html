@@ -106,7 +106,8 @@
             border-radius: 2px;
         }
 
-        .mobile-menu, .mobile-menu-vento {
+        /* Menu laterali generici */
+        .mobile-menu, .mobile-menu-vento, .mobile-menu-intercettamento, .mobile-menu-pnr {
             position: fixed;
             top: 0;
             right: -100%;
@@ -121,11 +122,11 @@
             box-shadow: -10px 0 50px rgba(0, 229, 255, 0.2);
         }
 
-        .mobile-menu.active, .mobile-menu-vento.active {
+        .mobile-menu.active, .mobile-menu-vento.active, 
+        .mobile-menu-intercettamento.active, .mobile-menu-pnr.active {
             right: 0;
         }
 
-        /* Stili per l'header dei menu */
         .menu-header {
             position: absolute;
             top: 25px;
@@ -142,7 +143,7 @@
             text-overflow: clip;
         }
 
-        .mobile-menu .menu-header {
+        .mobile-menu .menu-header, .mobile-menu-intercettamento .menu-header, .mobile-menu-pnr .menu-header {
             font-size: 1.1rem;
         }
 
@@ -150,12 +151,14 @@
             margin-right: 8px;
         }
 
-        .mobile-nav-links, .mobile-nav-links-vento {
+        .mobile-nav-links, .mobile-nav-links-vento, 
+        .mobile-nav-links-intercettamento, .mobile-nav-links-pnr {
             list-style: none;
             padding: 0 30px;
         }
 
-        .mobile-nav-links li, .mobile-nav-links-vento li {
+        .mobile-nav-links li, .mobile-nav-links-vento li,
+        .mobile-nav-links-intercettamento li, .mobile-nav-links-pnr li {
             margin: 0;
             opacity: 0;
             transform: translateX(50px);
@@ -163,25 +166,31 @@
         }
 
         .mobile-menu.active .mobile-nav-links li,
-        .mobile-menu-vento.active .mobile-nav-links-vento li {
+        .mobile-menu-vento.active .mobile-nav-links-vento li,
+        .mobile-menu-intercettamento.active .mobile-nav-links-intercettamento li,
+        .mobile-menu-pnr.active .mobile-nav-links-pnr li {
             opacity: 1;
             transform: translateX(0);
         }
 
+        /* delay generici */
         .mobile-menu.active .mobile-nav-links li:nth-child(1),
-        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(1),
+        .mobile-menu-intercettamento.active .mobile-nav-links-intercettamento li:nth-child(1),
+        .mobile-menu-pnr.active .mobile-nav-links-pnr li:nth-child(1) { transition-delay: 0.1s; }
         .mobile-menu.active .mobile-nav-links li:nth-child(2),
-        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(2),
+        .mobile-menu-intercettamento.active .mobile-nav-links-intercettamento li:nth-child(2),
+        .mobile-menu-pnr.active .mobile-nav-links-pnr li:nth-child(2) { transition-delay: 0.2s; }
         .mobile-menu.active .mobile-nav-links li:nth-child(3),
         .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(3) { transition-delay: 0.3s; }
         .mobile-menu.active .mobile-nav-links li:nth-child(4),
         .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(4) { transition-delay: 0.4s; }
-        .mobile-menu.active .mobile-nav-links li:nth-child(5),
-        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(5) { transition-delay: 0.5s; }
-        .mobile-menu.active .mobile-nav-links li:nth-child(6),
-        .mobile-menu-vento.active .mobile-nav-links-vento li:nth-child(6) { transition-delay: 0.6s; }
+        .mobile-menu.active .mobile-nav-links li:nth-child(5) { transition-delay: 0.5s; }
+        .mobile-menu.active .mobile-nav-links li:nth-child(6) { transition-delay: 0.6s; }
 
-        .mobile-nav-links a, .mobile-nav-links-vento a {
+        .mobile-nav-links a, .mobile-nav-links-vento a,
+        .mobile-nav-links-intercettamento a, .mobile-nav-links-pnr a {
             text-decoration: none;
             color: #fff;
             font-size: 1.25rem;
@@ -196,13 +205,15 @@
             letter-spacing: 1px;
         }
 
-        .mobile-nav-links a i, .mobile-nav-links-vento a i {
+        .mobile-nav-links a i, .mobile-nav-links-vento a i,
+        .mobile-nav-links-intercettamento a i, .mobile-nav-links-pnr a i {
             width: 35px;
             font-size: 1.4rem;
             color: var(--accent-cyan);
         }
 
-        .mobile-nav-links a:hover, .mobile-nav-links-vento a:hover {
+        .mobile-nav-links a:hover, .mobile-nav-links-vento a:hover,
+        .mobile-nav-links-intercettamento a:hover, .mobile-nav-links-pnr a:hover {
             color: var(--accent-cyan);
             padding-left: 20px;
             border-bottom-color: var(--accent-cyan);
@@ -268,162 +279,20 @@
             margin: 1rem 0 1.5rem 0;
         }
 
-        .calculator-form {
-            margin: 20px 0;
-        }
-        .input-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        .input-field {
-            flex: 1;
-            min-width: 150px;
-        }
-        .input-field label {
-            display: block;
-            margin-bottom: 8px;
-            font-family: 'Orbitron', monospace;
-            color: var(--accent-cyan);
-            font-size: 0.9rem;
-        }
-        .input-field input {
-            width: 100%;
-            padding: 12px;
-            background: rgba(0,0,0,0.5);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 1rem;
-            transition: 0.2s;
-        }
-        .input-field input:focus {
-            outline: none;
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 8px rgba(0,229,255,0.3);
-        }
-        button.calcola {
-            background: linear-gradient(135deg, var(--accent-cyan), #0099cc);
-            border: none;
-            padding: 12px 30px;
-            border-radius: 40px;
-            font-family: 'Orbitron', monospace;
-            font-weight: bold;
-            font-size: 1rem;
-            color: #02050a;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 10px;
-        }
-        button.calcola:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 15px var(--accent-cyan);
-        }
-        .results {
-            margin-top: 30px;
-        }
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-        }
-        .result-card {
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 20px;
-            padding: 18px;
-            border: 1px solid rgba(0,229,255,0.2);
-            transition: 0.2s;
-        }
-        .result-card:hover {
-            border-color: var(--accent-cyan);
-            background: rgba(0, 20, 30, 0.7);
-        }
-        .result-name {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.3rem;
-            color: var(--accent-cyan);
-            margin-bottom: 12px;
-            border-left: 3px solid var(--accent-cyan);
-            padding-left: 12px;
-        }
-        .detail-formula {
-            font-family: monospace;
-            background: rgba(0,229,255,0.1);
-            padding: 8px;
-            border-radius: 12px;
-            margin: 10px 0;
-            font-size: 0.85rem;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-        .detail-substitution {
-            font-family: monospace;
+        .info-message {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.95rem;
             background: rgba(0,0,0,0.3);
-            padding: 8px;
-            border-radius: 8px;
-            margin: 8px 0;
-            font-size: 0.85rem;
-            color: #ccc;
-        }
-        .detail-value {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #fff;
-            margin-top: 12px;
-            text-align: right;
-            border-top: 1px dashed rgba(0,229,255,0.3);
-            padding-top: 10px;
-        }
-        .iteration-card {
-            background: rgba(0, 0, 0, 0.4);
             border-radius: 20px;
-            padding: 18px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(0,229,255,0.2);
-        }
-        .iteration-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.2rem;
-            color: var(--accent-cyan);
-            margin-bottom: 15px;
-            border-left: 3px solid var(--accent-cyan);
-            padding-left: 12px;
-        }
-        .iteration-detail {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 10px;
-        }
-        .detail-item {
-            flex: 1;
-            min-width: 200px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            padding: 12px;
-        }
-        .final-results {
-            margin-top: 30px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        .final-card {
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 20px;
-            padding: 18px;
-            border: 1px solid rgba(0,229,255,0.2);
-        }
-        .error-message {
-            background: rgba(255,0,0,0.2);
-            border-left: 4px solid #ff4444;
-            padding: 12px;
-            border-radius: 12px;
             margin-top: 20px;
-            color: #ff8888;
         }
+        .info-message i {
+            color: var(--accent-cyan);
+            margin-right: 10px;
+        }
+
         .footer-credits {
             position: relative;
             width: 100%;
@@ -456,84 +325,10 @@
             font-weight: 300;
         }
 
-        /* ---- PANNELLO SELEZIONE PROBLEMI (SOLO INFORMATIVO) ---- */
-        .problemi-overview {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 18px;
-            margin-top: 10px;
-        }
-        .problema-preview-card {
-            background: rgba(0, 0, 0, 0.45);
-            border: 1px solid rgba(0, 229, 255, 0.25);
-            border-radius: 18px;
-            padding: 22px 20px 18px 20px;
-            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, background 0.2s;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .problema-preview-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.15);
-            border-color: var(--accent-cyan);
-            background: rgba(0, 20, 30, 0.7);
-        }
-        /* Rimossa la classe .problema-preview-num */
-        .problema-preview-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.15rem;
-            color: var(--accent-cyan);
-            border-left: 3px solid var(--accent-cyan);
-            padding-left: 12px;
-            line-height: 1.3;
-            margin-bottom: 8px;
-        }
-        .problema-preview-row {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .problema-preview-label {
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: rgba(255,255,255,0.4);
-            font-family: 'Orbitron', sans-serif;
-        }
-        .problema-preview-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-        .badge-dati {
-            background: rgba(0, 229, 255, 0.12);
-            border: 1px solid rgba(0, 229, 255, 0.35);
-            color: var(--accent-cyan);
-            border-radius: 20px;
-            padding: 3px 11px;
-            font-size: 0.82rem;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 0.5px;
-        }
-        .badge-incognite {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            border-radius: 20px;
-            padding: 3px 11px;
-            font-size: 0.82rem;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 0.5px;
-        }
-
         @media (max-width: 768px) {
-            .mobile-menu, .mobile-menu-vento { width: 100%; }
+            .mobile-menu, .mobile-menu-vento, .mobile-menu-intercettamento, .mobile-menu-pnr { width: 100%; }
             .main-container { padding: 120px 5% 80px; }
             .module-title { font-size: 1.5rem; }
-            .input-group { flex-direction: column; gap: 12px; }
-            .iteration-detail { flex-direction: column; }
-            .problemi-overview { grid-template-columns: 1fr; }
             .menu-header {
                 font-size: 0.85rem;
                 white-space: normal;
@@ -553,7 +348,7 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-dark); }
         ::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 4px; }
-        .menu-overlay, .menu-overlay-vento {
+        .menu-overlay, .menu-overlay-vento, .menu-overlay-intercettamento, .menu-overlay-pnr {
             position: fixed;
             top: 0;
             left: 0;
@@ -565,26 +360,10 @@
             visibility: hidden;
             transition: 0.3s;
         }
-        .menu-overlay.active, .menu-overlay-vento.active {
+        .menu-overlay.active, .menu-overlay-vento.active,
+        .menu-overlay-intercettamento.active, .menu-overlay-pnr.active {
             opacity: 1;
             visibility: visible;
-        }
-        .problem-detail-box {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 20px;
-            padding: 1rem;
-            margin-top: 20px;
-            border: 1px solid rgba(0,229,255,0.2);
-        }
-        .info-message {
-            text-align: center;
-            padding: 30px;
-            color: rgba(255,255,255,0.6);
-            font-size: 0.95rem;
-        }
-        .info-message i {
-            color: var(--accent-cyan);
-            margin-right: 10px;
         }
     </style>
 </head>
@@ -603,8 +382,11 @@
         </div>
     </nav>
 
+    <!-- Overlay generici -->
     <div class="menu-overlay" id="menu-overlay"></div>
     <div class="menu-overlay-vento" id="menu-overlay-vento"></div>
+    <div class="menu-overlay-intercettamento" id="menu-overlay-intercettamento"></div>
+    <div class="menu-overlay-pnr" id="menu-overlay-pnr"></div>
 
     <!-- Menu principale -->
     <div class="mobile-menu" id="mobile-menu">
@@ -620,7 +402,7 @@
         </ul>
     </div>
 
-    <!-- Menu contestuale vento -->
+    <!-- Menu Problema del Vento -->
     <div class="mobile-menu-vento" id="mobile-menu-vento">
         <div class="menu-header"><i class="fas fa-wind"></i> PROBLEMI DEL VENTO</div>
         <button class="close-menu" id="close-menu-vento"><i class="fas fa-times"></i></button>
@@ -629,6 +411,26 @@
             <li><a href="#" data-subproblem="secondo"><i class="fas fa-2"></i> Secondo Problema</a></li>
             <li><a href="#" data-subproblem="terzo"><i class="fas fa-3"></i> Terzo Problema</a></li>
             <li><a href="#" data-subproblem="quarto"><i class="fas fa-4"></i> Quarto Problema</a></li>
+        </ul>
+    </div>
+
+    <!-- Menu Intercettamento -->
+    <div class="mobile-menu-intercettamento" id="mobile-menu-intercettamento">
+        <div class="menu-header"><i class="fas fa-crosshairs"></i> INTERCETTAMENTO</div>
+        <button class="close-menu" id="close-menu-intercettamento"><i class="fas fa-times"></i></button>
+        <ul class="mobile-nav-links-intercettamento">
+            <li><a href="#" data-inter="aereo-aereo"><i class="fas fa-plane"></i> Aereo/Aereo</a></li>
+            <li><a href="#" data-inter="aereo-nave"><i class="fas fa-ship"></i> Aereo/Nave</a></li>
+        </ul>
+    </div>
+
+    <!-- Menu PNR -->
+    <div class="mobile-menu-pnr" id="mobile-menu-pnr">
+        <div class="menu-header"><i class="fas fa-map-location-dot"></i> PNR</div>
+        <button class="close-menu" id="close-menu-pnr"><i class="fas fa-times"></i></button>
+        <ul class="mobile-nav-links-pnr">
+            <li><a href="#" data-pnr="stessa-base"><i class="fas fa-home"></i> Stessa Base</a></li>
+            <li><a href="#" data-pnr="base-alternata"><i class="fas fa-exchange-alt"></i> Base Alternata</a></li>
         </ul>
     </div>
 
@@ -647,667 +449,150 @@
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script>
-        // ---------- GESTIONE MENU ----------
+        // Riferimenti ai menu e overlay
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuOverlay = document.getElementById('menu-overlay');
         const closeMenuBtn = document.getElementById('close-menu');
+
         const mobileMenuVento = document.getElementById('mobile-menu-vento');
         const menuOverlayVento = document.getElementById('menu-overlay-vento');
         const closeMenuVentoBtn = document.getElementById('close-menu-vento');
 
-        let currentModule = 'home';
+        const mobileMenuInter = document.getElementById('mobile-menu-intercettamento');
+        const menuOverlayInter = document.getElementById('menu-overlay-intercettamento');
+        const closeMenuInterBtn = document.getElementById('close-menu-intercettamento');
 
-        function openMainMenu() {
-            mobileMenu.classList.add('active');
-            menuOverlay.classList.add('active');
-            const bars = document.querySelectorAll('.bar');
-            bars[0].style.transform = 'rotate(-45deg) translate(-6px, 7px)';
-            bars[1].style.opacity = '0';
-            bars[2].style.transform = 'rotate(45deg) translate(-6px, -7px)';
-        }
-        function closeMainMenu() {
+        const mobileMenuPnr = document.getElementById('mobile-menu-pnr');
+        const menuOverlayPnr = document.getElementById('menu-overlay-pnr');
+        const closeMenuPnrBtn = document.getElementById('close-menu-pnr');
+
+        let currentModule = 'home'; // 'vento', 'intercettamento', 'pnr', 'lossodromia', ...
+
+        // Funzioni di apertura/chiusura menu
+        function closeAllMenus() {
             mobileMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
+            mobileMenuVento.classList.remove('active');
+            menuOverlayVento.classList.remove('active');
+            mobileMenuInter.classList.remove('active');
+            menuOverlayInter.classList.remove('active');
+            mobileMenuPnr.classList.remove('active');
+            menuOverlayPnr.classList.remove('active');
             const bars = document.querySelectorAll('.bar');
             bars[0].style.transform = 'rotate(0) translate(0, 0)';
             bars[1].style.opacity = '1';
             bars[2].style.transform = 'rotate(0) translate(0, 0)';
         }
-        function openVentoMenu() {
-            mobileMenuVento.classList.add('active');
-            menuOverlayVento.classList.add('active');
+
+        function openMenuForCurrentModule() {
+            closeAllMenus();
+            if (currentModule === 'vento') {
+                mobileMenuVento.classList.add('active');
+                menuOverlayVento.classList.add('active');
+            } else if (currentModule === 'intercettamento') {
+                mobileMenuInter.classList.add('active');
+                menuOverlayInter.classList.add('active');
+            } else if (currentModule === 'pnr') {
+                mobileMenuPnr.classList.add('active');
+                menuOverlayPnr.classList.add('active');
+            } else {
+                mobileMenu.classList.add('active');
+                menuOverlay.classList.add('active');
+            }
             const bars = document.querySelectorAll('.bar');
             bars[0].style.transform = 'rotate(-45deg) translate(-6px, 7px)';
             bars[1].style.opacity = '0';
             bars[2].style.transform = 'rotate(45deg) translate(-6px, -7px)';
-        }
-        function closeVentoMenu() {
-            mobileMenuVento.classList.remove('active');
-            menuOverlayVento.classList.remove('active');
-            const bars = document.querySelectorAll('.bar');
-            bars[0].style.transform = 'rotate(0) translate(0, 0)';
-            bars[1].style.opacity = '1';
-            bars[2].style.transform = 'rotate(0) translate(0, 0)';
         }
 
         hamburger.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (currentModule === 'vento') {
-                if (mobileMenuVento.classList.contains('active')) closeVentoMenu();
-                else openVentoMenu();
+            if (mobileMenu.classList.contains('active') || mobileMenuVento.classList.contains('active') ||
+                mobileMenuInter.classList.contains('active') || mobileMenuPnr.classList.contains('active')) {
+                closeAllMenus();
             } else {
-                if (mobileMenu.classList.contains('active')) closeMainMenu();
-                else openMainMenu();
+                openMenuForCurrentModule();
             }
         });
-        closeMenuBtn.addEventListener('click', closeMainMenu);
-        menuOverlay.addEventListener('click', closeMainMenu);
-        closeMenuVentoBtn.addEventListener('click', closeVentoMenu);
-        menuOverlayVento.addEventListener('click', closeVentoMenu);
 
-        // ---------- PANNELLO SELEZIONE PROBLEMI (SOLO INFORMATIVO, NON CLICCABILE) - SENZA NUMERI ----------
-        function getProblemiOverviewHTML() {
-            return `
-                <div class="info-message">
-                    <i class="fas fa-info-circle"></i> Seleziona uno dei problemi dal menu laterale per accedere al calcolatore
-                </div>
-                <div class="problemi-overview">
-                    <div class="problema-preview-card">
-                        <div class="problema-preview-title">Primo Problema</div>
-                        <div class="problema-preview-row">
-                            <div class="problema-preview-label">Dati</div>
-                            <div class="problema-preview-badges">
-                                <span class="badge-dati">TC</span>
-                                <span class="badge-dati">TAS</span>
-                                <span class="badge-dati">W</span>
-                                <span class="badge-dati">V</span>
-                            </div>
-                        </div>
-                        <div class="problema-preview-row">
-                            <div class="problema-preview-label">Incognite</div>
-                            <div class="problema-preview-badges">
-                                <span class="badge-incognite">TH</span>
-                                <span class="badge-incognite">GS</span>
-                            </div>
-                        </div>
+        // Chiusura con pulsanti
+        closeMenuBtn.addEventListener('click', closeAllMenus);
+        menuOverlay.addEventListener('click', closeAllMenus);
+        closeMenuVentoBtn.addEventListener('click', closeAllMenus);
+        menuOverlayVento.addEventListener('click', closeAllMenus);
+        closeMenuInterBtn.addEventListener('click', closeAllMenus);
+        menuOverlayInter.addEventListener('click', closeAllMenus);
+        closeMenuPnrBtn.addEventListener('click', closeAllMenus);
+        menuOverlayPnr.addEventListener('click', closeAllMenus);
+
+        // Helper per mostrare messaggi nei container specifici
+        function setMessage(containerId, title, message) {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.innerHTML = `
+                    <div class="info-message">
+                        <i class="fas fa-info-circle"></i> ${message}
                     </div>
-                    <div class="problema-preview-card">
-                        <div class="problema-preview-title">Secondo Problema</div>
-                        <div class="problema-preview-row">
-                            <div class="problema-preview-label">Dati</div>
-                            <div class="problema-preview-badges">
-                                <span class="badge-dati">TH</span>
-                                <span class="badge-dati">TAS</span>
-                                <span class="badge-dati">W</span>
-                                <span class="badge-dati">V</span>
-                            </div>
-                        </div>
-                        <div class="problema-preview-row">
-                            <div class="problema-preview-label">Incognite</div>
-                            <div class="problema-preview-badges">
-                                <span class="badge-incognite">TC</span>
-                                <span class="badge-incognite">GS</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="problema-preview-card">
-                        <div class="problema-preview-title">Terzo Problema</div>
-                        <div class="problema-preview-row">
-                            <div class="problema-preview-label">Dati</div>
-                            <div class="problema-preview-badges">
-                                <span class="badge-dati">TH</span>
-                                <span class="badge-dati">TC</span>
-                                <span class="badge-dati">GS</span>
-                                <span class="badge-dati">TAS</span>
-                            </div>
-                        </div>
-                        <div class="problema-preview-row">
-                            <div class="problema-preview-label">Incognite</div>
-                            <div class="problema-preview-badges">
-                                <span class="badge-incognite">W</span>
-                                <span class="badge-incognite">V</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="problema-preview-card">
-                        <div class="problema-preview-title">Quarto Problema</div>
-                        <div class="problema-preview-row">
-                            <div class="problema-preview-label">Dati</div>
-                            <div class="problema-preview-badges">
-                                <span class="badge-dati">TC</span>
-                                <span class="badge-dati">GS</span>
-                                <span class="badge-dati">W</span>
-                                <span class="badge-dati">V</span>
-                            </div>
-                        </div>
-                        <div class="problema-preview-row">
-                            <div class="problema-preview-label">Incognite</div>
-                            <div class="problema-preview-badges">
-                                <span class="badge-incognite">TH</span>
-                                <span class="badge-incognite">TAS</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
+                `;
+            }
         }
 
-        // ---------- CONTENUTI MODULI ----------
+        // Contenuti dei moduli
         function getModuleHTML(moduleId) {
-            if (moduleId === 'home') return `<div class="reveal active" style="min-height: 0;"></div>`;
+            if (moduleId === 'home') return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-compass"></i> Benvenuto su NavTech</div><div class="divider"></div><div class="info-message"><i class="fas fa-map-marked-alt"></i> Seleziona una funzione dal menu laterale</div></div></div>`;
             if (moduleId === 'vento') {
                 return `
                     <div class="reveal active">
-                        <div class="module-card" id="vento-module-card">
+                        <div class="module-card">
                             <div class="module-title"><i class="fas fa-wind"></i> Problema del Vento</div>
                             <div class="divider"></div>
-                            <div id="problemDetailContainer" class="problem-detail-box"></div>
+                            <div id="ventoDetailContainer" class="info-message">
+                                <i class="fas fa-info-circle"></i> Seleziona un problema dal menu laterale (☰)
+                            </div>
                         </div>
                     </div>
                 `;
-            }
-            if (moduleId === 'lossodromia') {
-                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-route"></i> Lossodromia</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
-            }
-            if (moduleId === 'ortodromia') {
-                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-earth-americas"></i> Ortodromia</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
-            }
-            if (moduleId === 'pnr') {
-                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-map-location-dot"></i> PNR</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
-            }
-            if (moduleId === 'per') {
-                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-clock-rotate-left"></i> PET</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
             }
             if (moduleId === 'intercettamento') {
-                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-crosshairs"></i> Intercettamento</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
+                return `
+                    <div class="reveal active">
+                        <div class="module-card">
+                            <div class="module-title"><i class="fas fa-crosshairs"></i> Intercettamento</div>
+                            <div class="divider"></div>
+                            <div id="intercettamentoDetailContainer" class="info-message">
+                                <i class="fas fa-info-circle"></i> Seleziona una tipologia dal menu laterale (☰)
+                            </div>
+                        </div>
+                    </div>
+                `;
             }
-            return `<div class="reveal active" style="min-height: 0;"></div>`;
-        }
-
-        // ---------- PRIMO PROBLEMA ----------
-        function showPrimoProblema() {
-            const container = document.getElementById('problemDetailContainer');
-            if (!container) return;
-            container.innerHTML = `
-                <div class="calculator-form">
-                    <div class="input-group">
-                        <div class="input-field">
-                            <label>TC (Rotta Vera) <i class="fas fa-arrow-right"></i></label>
-                            <input type="number" id="tc" step="any" placeholder="Inserisci TC in gradi">
-                        </div>
-                        <div class="input-field">
-                            <label>TAS (Velocità propria) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="tas" step="any" placeholder="Inserisci TAS in nodi">
-                        </div>
-                        <div class="input-field">
-                            <label>W (Direzione del vento) <i class="fas fa-wind"></i></label>
-                            <input type="number" id="w" step="any" placeholder="Inserisci W in gradi">
-                        </div>
-                        <div class="input-field">
-                            <label>V (Velocità del vento) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="v" step="any" placeholder="Inserisci V in nodi">
-                        </div>
-                    </div>
-                    <button class="calcola" id="calcolaPrimo">CALCOLA</button>
-                    <div id="risultatiPrimo"></div>
-                </div>
-            `;
-            const calcolaBtn = document.getElementById('calcolaPrimo');
-            calcolaBtn.addEventListener('click', () => {
-                const tc = parseFloat(document.getElementById('tc').value);
-                const tas = parseFloat(document.getElementById('tas').value);
-                const w = parseFloat(document.getElementById('w').value);
-                const v = parseFloat(document.getElementById('v').value);
-                if (isNaN(tc) || isNaN(tas) || isNaN(w) || isNaN(v)) {
-                    document.getElementById('risultatiPrimo').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
-                    return;
-                }
-                const diff_deg = w - tc;
-                const diff_rad = diff_deg * Math.PI / 180;
-                const xc = v * Math.sin(diff_rad);
-                const lc = -v * Math.cos(diff_rad);
-                const rapporto = xc / tas;
-                if (Math.abs(rapporto) > 1) {
-                    document.getElementById('risultatiPrimo').innerHTML = `<div class="error-message">⚠️ VENTO TROPPO FORTE! Il rapporto xc/TAS supera 1.</div>`;
-                    return;
-                }
-                const wca_rad = Math.asin(rapporto);
-                const wca = wca_rad * 180 / Math.PI;
-                const etas = tas * Math.cos(wca_rad);
-                let th = tc + wca;
-                th = ((th % 360) + 360) % 360;
-                const gs = etas + lc;
-                const round3 = (n) => n.toFixed(3);
-                const risultatiHtml = `
-                    <div class="results">
-                        <div class="results-grid">
-                            <div class="result-card">
-                                <div class="result-name">XC</div>
-                                <div class="detail-formula">XC = V · sin(W - TC)</div>
-                                <div class="detail-substitution">XC = ${v} · sin(${w} - ${tc}) = ${v} · sin(${diff_deg}°)</div>
-                                <div class="detail-substitution">sin(${diff_deg}°) = ${Math.sin(diff_rad).toFixed(6)}</div>
-                                <div class="detail-value">${round3(xc)}</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">LC</div>
-                                <div class="detail-formula">LC = -V · cos(W - TC)</div>
-                                <div class="detail-substitution">LC = -${v} · cos(${w} - ${tc}) = -${v} · cos(${diff_deg}°)</div>
-                                <div class="detail-substitution">cos(${diff_deg}°) = ${Math.cos(diff_rad).toFixed(6)}</div>
-                                <div class="detail-value">${round3(lc)}</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">WCA</div>
-                                <div class="detail-formula">WCA = arcsin(XC / TAS)</div>
-                                <div class="detail-substitution">WCA = arcsin(${round3(xc)} / ${tas}) = arcsin(${rapporto.toFixed(6)})</div>
-                                <div class="detail-substitution">arcsin(${rapporto.toFixed(6)}) = ${wca_rad.toFixed(6)} rad</div>
-                                <div class="detail-value">${round3(wca)}°</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">ETAS</div>
-                                <div class="detail-formula">ETAS = TAS · cos(WCA)</div>
-                                <div class="detail-substitution">ETAS = ${tas} · cos(${round3(wca)}°) = ${tas} · ${Math.cos(wca_rad).toFixed(6)}</div>
-                                <div class="detail-value">${round3(etas)}</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">TH</div>
-                                <div class="detail-formula">TH = TC + WCA</div>
-                                <div class="detail-substitution">TH = ${tc} + ${round3(wca)} = ${round3(th)}</div>
-                                <div class="detail-value">${round3(th)}°</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">GS</div>
-                                <div class="detail-formula">GS = ETAS + LC</div>
-                                <div class="detail-substitution">GS = ${round3(etas)} + (${round3(lc)}) = ${round3(gs)}</div>
-                                <div class="detail-value">${round3(gs)}</div>
+            if (moduleId === 'pnr') {
+                return `
+                    <div class="reveal active">
+                        <div class="module-card">
+                            <div class="module-title"><i class="fas fa-map-location-dot"></i> PNR - Punto di Non Ritorno</div>
+                            <div class="divider"></div>
+                            <div id="pnrDetailContainer" class="info-message">
+                                <i class="fas fa-info-circle"></i> Seleziona una configurazione dal menu laterale (☰)
                             </div>
                         </div>
                     </div>
                 `;
-                document.getElementById('risultatiPrimo').innerHTML = risultatiHtml;
-            });
-        }
-
-        // ---------- SECONDO PROBLEMA (iterazioni) ----------
-        function showSecondoProblema() {
-            const container = document.getElementById('problemDetailContainer');
-            if (!container) return;
-            container.innerHTML = `
-                <div class="calculator-form">
-                    <div class="input-group">
-                        <div class="input-field">
-                            <label>TH (Rotta vera) <i class="fas fa-arrow-right"></i></label>
-                            <input type="number" id="th" step="any" placeholder="Inserisci TH in gradi">
-                        </div>
-                        <div class="input-field">
-                            <label>TAS (Velocità propria) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="tas2" step="any" placeholder="Inserisci TAS in nodi">
-                        </div>
-                        <div class="input-field">
-                            <label>W (Direzione del vento) <i class="fas fa-wind"></i></label>
-                            <input type="number" id="w2" step="any" placeholder="Inserisci W in gradi">
-                        </div>
-                        <div class="input-field">
-                            <label>V (Velocità del vento) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="v2" step="any" placeholder="Inserisci V in nodi">
+            }
+            // Altri moduli (lossodromia, ortodromia, per) messaggio generico
+            return `
+                <div class="reveal active">
+                    <div class="module-card">
+                        <div class="module-title"><i class="fas fa-map"></i> ${moduleId.charAt(0).toUpperCase() + moduleId.slice(1)}</div>
+                        <div class="divider"></div>
+                        <div class="info-message">
+                            <i class="fas fa-tools"></i> Modulo in fase di sviluppo
                         </div>
                     </div>
-                    <button class="calcola" id="calcolaSecondo">CALCOLA</button>
-                    <div id="risultatiSecondo"></div>
                 </div>
             `;
-
-            const calcolaBtn = document.getElementById('calcolaSecondo');
-            calcolaBtn.addEventListener('click', () => {
-                const th = parseFloat(document.getElementById('th').value);
-                const tas = parseFloat(document.getElementById('tas2').value);
-                const wd = parseFloat(document.getElementById('w2').value);
-                const wv = parseFloat(document.getElementById('v2').value);
-                if (isNaN(th) || isNaN(tas) || isNaN(wd) || isNaN(wv)) {
-                    document.getElementById('risultatiSecondo').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
-                    return;
-                }
-
-                const round3 = (n) => n.toFixed(3);
-                let tcp_prev = th;
-                let iterationsHtml = '';
-                let converged = false;
-                let finalTcp = tcp_prev;
-                let finalWca = 0;
-
-                for (let i = 1; i <= 5; i++) {
-                    const alfa_deg = wd - tcp_prev;
-                    const alfa_rad = alfa_deg * Math.PI / 180;
-                    const xc = wv * Math.sin(alfa_rad);
-                    let ratio = xc / tas;
-                    if (ratio > 1) ratio = 1;
-                    if (ratio < -1) ratio = -1;
-                    const wca_rad = Math.asin(ratio);
-                    const wca = wca_rad * 180 / Math.PI;
-                    const tcp_curr = th - wca;
-                    const diff = Math.abs(tcp_curr - tcp_prev);
-                    finalTcp = tcp_curr;
-                    finalWca = wca;
-                    iterationsHtml += `
-                        <div class="iteration-card">
-                            <div class="iteration-title">Iterazione ${i}</div>
-                            <div class="iteration-detail">
-                                <div class="detail-item">
-                                    <div class="detail-name">XC</div>
-                                    <div class="detail-formula">XC = V · sin(W - TCp<sub>prev</sub>)</div>
-                                    <div class="detail-substitution">XC = ${wv} · sin(${wd} - ${round3(tcp_prev)}) = ${wv} · sin(${alfa_deg.toFixed(3)}°)</div>
-                                    <div class="detail-substitution">sin(${alfa_deg.toFixed(3)}°) = ${Math.sin(alfa_rad).toFixed(6)}</div>
-                                    <div class="detail-value">${round3(xc)}</div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="detail-name">WCA</div>
-                                    <div class="detail-formula">WCA = arcsin(XC / TAS)</div>
-                                    <div class="detail-substitution">WCA = arcsin(${round3(xc)} / ${tas}) = arcsin(${ratio.toFixed(6)})</div>
-                                    <div class="detail-substitution">arcsin(${ratio.toFixed(6)}) = ${wca_rad.toFixed(6)} rad</div>
-                                    <div class="detail-value">${round3(wca)}°</div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="detail-name">TCp</div>
-                                    <div class="detail-formula">TCp = TH - WCA</div>
-                                    <div class="detail-substitution">TCp = ${th} - ${round3(wca)} = ${round3(tcp_curr)}</div>
-                                    <div class="detail-value">${round3(tcp_curr)}°</div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    if (diff < 0.001) {
-                        converged = true;
-                        break;
-                    }
-                    tcp_prev = tcp_curr;
-                }
-
-                const ang_lc_rad = (wd - finalTcp) * Math.PI / 180;
-                const lc = -wv * Math.cos(ang_lc_rad);
-                const etas = tas * Math.cos(finalWca * Math.PI / 180);
-                const gs = etas + lc;
-
-                const finalHtml = `
-                    <div class="results">
-                        <h3 style="color:var(--accent-cyan); margin-bottom:15px;">Iterazioni</h3>
-                        ${iterationsHtml}
-                        ${converged ? '<div class="error-message" style="background:rgba(0,229,255,0.1); border-left-color:var(--accent-cyan); color:var(--accent-cyan);">✓ Convergenza raggiunta prima delle 5 iterazioni</div>' : ''}
-                        <h3 style="color:var(--accent-cyan); margin:30px 0 15px 0;">Risultati finali</h3>
-                        <div class="final-results">
-                            <div class="final-card">
-                                <div class="result-name">LC</div>
-                                <div class="detail-formula">LC = -V · cos(W - TCp)</div>
-                                <div class="detail-substitution">LC = -${wv} · cos(${wd} - ${round3(finalTcp)}) = -${wv} · cos(${(wd - finalTcp).toFixed(3)}°)</div>
-                                <div class="detail-substitution">cos(${(wd - finalTcp).toFixed(3)}°) = ${Math.cos(ang_lc_rad).toFixed(6)}</div>
-                                <div class="detail-value">${round3(lc)}</div>
-                            </div>
-                            <div class="final-card">
-                                <div class="result-name">ETAS</div>
-                                <div class="detail-formula">ETAS = TAS · cos(WCA)</div>
-                                <div class="detail-substitution">ETAS = ${tas} · cos(${round3(finalWca)}°) = ${tas} · ${Math.cos(finalWca * Math.PI/180).toFixed(6)}</div>
-                                <div class="detail-value">${round3(etas)}</div>
-                            </div>
-                            <div class="final-card">
-                                <div class="result-name">GS</div>
-                                <div class="detail-formula">GS = ETAS + LC</div>
-                                <div class="detail-substitution">GS = ${round3(etas)} + (${round3(lc)}) = ${round3(gs)}</div>
-                                <div class="detail-value">${round3(gs)}</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('risultatiSecondo').innerHTML = finalHtml;
-            });
-        }
-
-        // ---------- TERZO PROBLEMA ----------
-        function showTerzoProblema() {
-            const container = document.getElementById('problemDetailContainer');
-            if (!container) return;
-            container.innerHTML = `
-                <div class="calculator-form">
-                    <div class="input-group">
-                        <div class="input-field">
-                            <label>TH (Rotta vera) <i class="fas fa-arrow-right"></i></label>
-                            <input type="number" id="th3" step="any" placeholder="Inserisci TH in gradi">
-                        </div>
-                        <div class="input-field">
-                            <label>TC (Traccia) <i class="fas fa-map"></i></label>
-                            <input type="number" id="tc3" step="any" placeholder="Inserisci TC in gradi">
-                        </div>
-                        <div class="input-field">
-                            <label>GS (Velocità al suolo) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="gs3" step="any" placeholder="Inserisci GS in nodi">
-                        </div>
-                        <div class="input-field">
-                            <label>TAS (Velocità propria) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="tas3" step="any" placeholder="Inserisci TAS in nodi">
-                        </div>
-                    </div>
-                    <button class="calcola" id="calcolaTerzo">CALCOLA</button>
-                    <div id="risultatiTerzo"></div>
-                </div>
-            `;
-
-            const calcolaBtn = document.getElementById('calcolaTerzo');
-            calcolaBtn.addEventListener('click', () => {
-                const th = parseFloat(document.getElementById('th3').value);
-                const tc = parseFloat(document.getElementById('tc3').value);
-                const gs = parseFloat(document.getElementById('gs3').value);
-                const tas = parseFloat(document.getElementById('tas3').value);
-                if (isNaN(th) || isNaN(tc) || isNaN(gs) || isNaN(tas)) {
-                    document.getElementById('risultatiTerzo').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
-                    return;
-                }
-
-                const wca = th - tc;
-                const wca_rad = wca * Math.PI / 180;
-                const xc = tas * Math.sin(wca_rad);
-                const etas = tas * Math.cos(wca_rad);
-                const lc = gs - etas;
-                const v = Math.sqrt(xc * xc + lc * lc);
-                
-                let w;
-                if (Math.abs(v) < 1e-6) {
-                    w = 0;
-                } else {
-                    const segno = xc > 0 ? -1 : 1;
-                    const asin_val = Math.asin(lc / v) * 180 / Math.PI;
-                    const angolo_interno = 90 - asin_val;
-                    let w_parziale = tc + (segno * angolo_interno);
-                    if (w_parziale < 180) {
-                        w = w_parziale + 180;
-                    } else {
-                        w = w_parziale - 180;
-                    }
-                    w = ((w % 360) + 360) % 360;
-                }
-                
-                const round3 = (n) => n.toFixed(3);
-                
-                const risultatiHtml = `
-                    <div class="results">
-                        <div class="results-grid">
-                            <div class="result-card">
-                                <div class="result-name">WCA</div>
-                                <div class="detail-formula">WCA = TH - TC</div>
-                                <div class="detail-substitution">WCA = ${th} - ${tc} = ${wca}</div>
-                                <div class="detail-value">${round3(wca)}°</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">XC</div>
-                                <div class="detail-formula">XC = TAS · sin(WCA)</div>
-                                <div class="detail-substitution">XC = ${tas} · sin(${round3(wca)}°) = ${tas} · ${Math.sin(wca_rad).toFixed(6)}</div>
-                                <div class="detail-value">${round3(xc)}</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">ETAS</div>
-                                <div class="detail-formula">ETAS = TAS · cos(WCA)</div>
-                                <div class="detail-substitution">ETAS = ${tas} · cos(${round3(wca)}°) = ${tas} · ${Math.cos(wca_rad).toFixed(6)}</div>
-                                <div class="detail-value">${round3(etas)}</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">LC</div>
-                                <div class="detail-formula">LC = GS - ETAS</div>
-                                <div class="detail-substitution">LC = ${gs} - ${round3(etas)} = ${round3(lc)}</div>
-                                <div class="detail-value">${round3(lc)}</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">V (vento)</div>
-                                <div class="detail-formula">V = √(XC² + LC²)</div>
-                                <div class="detail-substitution">V = √(${round3(xc)}² + ${round3(lc)}²) = √(${(xc*xc).toFixed(6)} + ${(lc*lc).toFixed(6)})</div>
-                                <div class="detail-value">${round3(v)}</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">W (direzione vento)</div>
-                                <div class="detail-formula">W = calcolo vettoriale</div>
-                                <div class="detail-substitution">W = ${round3(w)}°</div>
-                                <div class="detail-value">${round3(w)}°</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('risultatiTerzo').innerHTML = risultatiHtml;
-            });
-        }
-
-        // ---------- QUARTO PROBLEMA ----------
-        function showQuartoProblema() {
-            const container = document.getElementById('problemDetailContainer');
-            if (!container) return;
-            container.innerHTML = `
-                <div class="calculator-form">
-                    <div class="input-group">
-                        <div class="input-field">
-                            <label>TC (Traccia) <i class="fas fa-map"></i></label>
-                            <input type="number" id="tc4" step="any" placeholder="Inserisci TC in gradi">
-                        </div>
-                        <div class="input-field">
-                            <label>GS (Velocità al suolo) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="gs4" step="any" placeholder="Inserisci GS in nodi">
-                        </div>
-                        <div class="input-field">
-                            <label>W (Direzione del vento) <i class="fas fa-wind"></i></label>
-                            <input type="number" id="w4" step="any" placeholder="Inserisci W in gradi">
-                        </div>
-                        <div class="input-field">
-                            <label>V (Velocità del vento) <i class="fas fa-gauge-high"></i></label>
-                            <input type="number" id="v4" step="any" placeholder="Inserisci V in nodi">
-                        </div>
-                    </div>
-                    <button class="calcola" id="calcolaQuarto">CALCOLA</button>
-                    <div id="risultatiQuarto"></div>
-                </div>
-            `;
-
-            const calcolaBtn = document.getElementById('calcolaQuarto');
-            calcolaBtn.addEventListener('click', () => {
-                const tc = parseFloat(document.getElementById('tc4').value);
-                const gs = parseFloat(document.getElementById('gs4').value);
-                const w = parseFloat(document.getElementById('w4').value);
-                const v = parseFloat(document.getElementById('v4').value);
-                if (isNaN(tc) || isNaN(gs) || isNaN(w) || isNaN(v)) {
-                    document.getElementById('risultatiQuarto').innerHTML = `<div class="error-message">⚠️ Inserisci tutti i valori numerici.</div>`;
-                    return;
-                }
-
-                const diff_deg = w - tc;
-                const diff_rad = diff_deg * Math.PI / 180;
-                const xc = v * Math.sin(diff_rad);
-                const lc = -v * Math.cos(diff_rad);
-                const etas = gs - lc;
-                
-                if (Math.abs(etas) < 1e-6) {
-                    document.getElementById('risultatiQuarto').innerHTML = `<div class="error-message">⚠️ Errore: ETAS prossimo a zero (divisione per zero).</div>`;
-                    return;
-                }
-                
-                const wca_rad = Math.atan(xc / etas);
-                const wca = wca_rad * 180 / Math.PI;
-                let th = tc + wca;
-                th = ((th % 360) + 360) % 360;
-                const tas = etas / Math.cos(wca_rad);
-                
-                const round3 = (n) => n.toFixed(3);
-                
-                const risultatiHtml = `
-                    <div class="results">
-                        <div class="results-grid">
-                            <div class="result-card">
-                                <div class="result-name">XC</div>
-                                <div class="detail-formula">XC = V · sin(W - TC)</div>
-                                <div class="detail-substitution">XC = ${v} · sin(${w} - ${tc}) = ${v} · sin(${diff_deg}°)</div>
-                                <div class="detail-substitution">sin(${diff_deg}°) = ${Math.sin(diff_rad).toFixed(6)}</div>
-                                <div class="detail-value">${round3(xc)}</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">LC</div>
-                                <div class="detail-formula">LC = -V · cos(W - TC)</div>
-                                <div class="detail-substitution">LC = -${v} · cos(${w} - ${tc}) = -${v} · cos(${diff_deg}°)</div>
-                                <div class="detail-substitution">cos(${diff_deg}°) = ${Math.cos(diff_rad).toFixed(6)}</div>
-                                <div class="detail-value">${round3(lc)}</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">ETAS</div>
-                                <div class="detail-formula">ETAS = GS - LC</div>
-                                <div class="detail-substitution">ETAS = ${gs} - (${round3(lc)}) = ${round3(etas)}</div>
-                                <div class="detail-value">${round3(etas)}</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">WCA</div>
-                                <div class="detail-formula">WCA = arctan(XC / ETAS)</div>
-                                <div class="detail-substitution">WCA = arctan(${round3(xc)} / ${round3(etas)}) = arctan(${(xc/etas).toFixed(6)})</div>
-                                <div class="detail-substitution">arctan = ${wca_rad.toFixed(6)} rad</div>
-                                <div class="detail-value">${round3(wca)}°</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">TH</div>
-                                <div class="detail-formula">TH = TC + WCA</div>
-                                <div class="detail-substitution">TH = ${tc} + ${round3(wca)} = ${round3(th)}</div>
-                                <div class="detail-value">${round3(th)}°</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-name">TAS</div>
-                                <div class="detail-formula">TAS = ETAS / cos(WCA)</div>
-                                <div class="detail-substitution">TAS = ${round3(etas)} / cos(${round3(wca)}°) = ${round3(etas)} / ${Math.cos(wca_rad).toFixed(6)}</div>
-                                <div class="detail-value">${round3(tas)}</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('risultatiQuarto').innerHTML = risultatiHtml;
-            });
-        }
-
-        // ---------- PANNELLO INFORMATIVO (NON CLICCABILE) ----------
-        function showEmptyProblem() {
-            const container = document.getElementById('problemDetailContainer');
-            if (container) container.innerHTML = getProblemiOverviewHTML();
-        }
-
-        // Gestione click sottomenu vento
-        function setupVentoSubmenu() {
-            const submenuLinks = document.querySelectorAll('.mobile-nav-links-vento a');
-            submenuLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const problem = link.getAttribute('data-subproblem');
-                    if (problem === 'primo') {
-                        showPrimoProblema();
-                    } else if (problem === 'secondo') {
-                        showSecondoProblema();
-                    } else if (problem === 'terzo') {
-                        showTerzoProblema();
-                    } else if (problem === 'quarto') {
-                        showQuartoProblema();
-                    } else {
-                        showEmptyProblem();
-                    }
-                    closeVentoMenu();
-                });
-            });
         }
 
         // Navigazione principale
@@ -1317,21 +602,15 @@
             if (!container) return;
             container.innerHTML = getModuleHTML(moduleId);
             
+            // Se siamo in vento, gestisci i sottoproblemi (già presenti nel codice originale, ma li reinseriamo brevemente)
             if (moduleId === 'vento') {
-                closeMainMenu();
-                mobileMenuVento.style.display = 'block';
-                mobileMenu.style.display = 'none';
-                setTimeout(() => {
-                    const detailDiv = document.getElementById('problemDetailContainer');
-                    if (detailDiv) {
-                        detailDiv.innerHTML = getProblemiOverviewHTML();
-                    }
-                    setupVentoSubmenu();
-                }, 20);
-            } else {
-                closeVentoMenu();
-                mobileMenuVento.style.display = 'none';
-                mobileMenu.style.display = 'block';
+                setupVentoSubmenu();
+            }
+            if (moduleId === 'intercettamento') {
+                setupIntercettamentoSubmenu();
+            }
+            if (moduleId === 'pnr') {
+                setupPnrSubmenu();
             }
             
             const reveals = container.querySelectorAll('.reveal');
@@ -1355,29 +634,84 @@
                 window.history.pushState(state, '', url);
             }
         }
-        
-        // Eventi per il menu principale
+
+        // Sottomenu vento (esempio semplificato, senza calcoli dettagliati per brevità ma funzionante)
+        function setupVentoSubmenu() {
+            const links = document.querySelectorAll('.mobile-nav-links-vento a');
+            links.forEach(link => {
+                link.removeEventListener('click', ventoHandler);
+                link.addEventListener('click', ventoHandler);
+            });
+            function ventoHandler(e) {
+                e.preventDefault();
+                const problem = this.getAttribute('data-subproblem');
+                let message = '';
+                if (problem === 'primo') message = 'Primo problema del vento: calcolo TH e GS (dimostrativo)';
+                else if (problem === 'secondo') message = 'Secondo problema del vento: calcolo TC e GS (dimostrativo)';
+                else if (problem === 'terzo') message = 'Terzo problema del vento: determinazione vento (dimostrativo)';
+                else if (problem === 'quarto') message = 'Quarto problema del vento: calcolo TH e TAS (dimostrativo)';
+                setMessage('ventoDetailContainer', 'Problema del Vento', message + ' - (nessuna formula, solo menu)');
+                closeAllMenus();
+            }
+        }
+
+        // Sottomenu Intercettamento
+        function setupIntercettamentoSubmenu() {
+            const links = document.querySelectorAll('.mobile-nav-links-intercettamento a');
+            links.forEach(link => {
+                link.removeEventListener('click', intercHandler);
+                link.addEventListener('click', intercHandler);
+            });
+            function intercHandler(e) {
+                e.preventDefault();
+                const type = this.getAttribute('data-inter');
+                let message = '';
+                if (type === 'aereo-aereo') message = 'Intercettamento Aereo/Aereo - Sezione dedicata (nessuna formula)';
+                else if (type === 'aereo-nave') message = 'Intercettamento Aereo/Nave - Sezione dedicata (nessuna formula)';
+                setMessage('intercettamentoDetailContainer', 'Intercettamento', message);
+                closeAllMenus();
+            }
+        }
+
+        // Sottomenu PNR
+        function setupPnrSubmenu() {
+            const links = document.querySelectorAll('.mobile-nav-links-pnr a');
+            links.forEach(link => {
+                link.removeEventListener('click', pnrHandler);
+                link.addEventListener('click', pnrHandler);
+            });
+            function pnrHandler(e) {
+                e.preventDefault();
+                const type = this.getAttribute('data-pnr');
+                let message = '';
+                if (type === 'stessa-base') message = 'PNR con stessa base di partenza - Sezione dedicata (nessuna formula)';
+                else if (type === 'base-alternata') message = 'PNR con base alternata - Sezione dedicata (nessuna formula)';
+                setMessage('pnrDetailContainer', 'PNR', message);
+                closeAllMenus();
+            }
+        }
+
+        // Eventi menu principale
         document.querySelectorAll('.mobile-nav-links a').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const pageKey = link.getAttribute('data-page');
                 if (pageKey) {
                     navigateTo(pageKey, true);
-                    closeMainMenu();
+                    closeAllMenus();
                 }
             });
         });
-        
-        // Logo -> home
+
+        // Logo home
         const logoHome = document.getElementById('logo-home');
         if (logoHome) {
             logoHome.addEventListener('click', () => {
                 navigateTo('home', true);
-                closeMainMenu();
-                closeVentoMenu();
+                closeAllMenus();
             });
         }
-        
+
         // Popstate
         window.addEventListener('popstate', (event) => {
             let moduleId = 'home';
@@ -1389,8 +723,8 @@
             }
             navigateTo(moduleId, false);
         });
-        
-        // Particelle
+
+        // Particelle sfondo
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -1427,14 +761,13 @@
         initParticles();
         drawParticles();
         
+        // Reveal animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('active'));
         }, { threshold: 0.15 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         
         // Avvio
-        mobileMenuVento.style.display = 'none';
-        mobileMenu.style.display = 'block';
         const initialParam = new URLSearchParams(window.location.search).get('nav');
         if (initialParam && ['vento','lossodromia','ortodromia','pnr','per','intercettamento'].includes(initialParam)) {
             navigateTo(initialParam, false);
