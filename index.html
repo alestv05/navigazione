@@ -129,12 +129,16 @@
             position: absolute;
             top: 25px;
             left: 30px;
+            right: 70px;      /* evita sovrapposizione con il pulsante di chiusura */
             font-family: 'Orbitron', sans-serif;
             font-size: 1.2rem;
             color: var(--accent-cyan);
             letter-spacing: 2px;
             border-bottom: 1px solid var(--accent-cyan);
             padding-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .menu-header i {
@@ -201,14 +205,15 @@
 
         .close-menu {
             position: absolute;
-            top: 25px;
-            right: 25px;
+            top: 20px;
+            right: 20px;
             background: transparent;
             border: none;
             color: var(--accent-cyan);
             font-size: 1.8rem;
             cursor: pointer;
             transition: 0.3s;
+            z-index: 1060;
         }
 
         .close-menu:hover {
@@ -529,6 +534,12 @@
             .input-group { flex-direction: column; gap: 12px; }
             .iteration-detail { flex-direction: column; }
             .problemi-overview { grid-template-columns: 1fr; }
+            .menu-header {
+                font-size: 1rem;
+                right: 60px;
+                white-space: normal;
+                word-break: break-word;
+            }
         }
         .reveal {
             opacity: 0;
@@ -609,7 +620,7 @@
         </ul>
     </div>
 
-    <!-- Menu contestuale vento -->
+    <!-- Menu contestuale vento (corretto: X non si sovrappone più) -->
     <div class="mobile-menu-vento" id="mobile-menu-vento">
         <div class="menu-header"><i class="fas fa-wind"></i> PROBLEMI DEL VENTO</div>
         <button class="close-menu" id="close-menu-vento"><i class="fas fa-times"></i></button>
