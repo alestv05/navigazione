@@ -1074,7 +1074,63 @@
                 `;
             }
             if (moduleId === 'lossodromia') {
-                return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-route"></i> Lossodromia</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
+                return `
+                    <div class="reveal active">
+                        <div class="module-card">
+                            <div class="module-title"><i class="fas fa-route"></i> Lossodromia</div>
+                            <div class="divider"></div>
+                            <div class="info-message">
+                                <i class="fas fa-info-circle"></i> Seleziona un problema dal menu laterale per accedere al calcolatore
+                            </div>
+                            <div class="problemi-overview">
+                                <div class="problema-preview-card">
+                                    <div class="problema-preview-title">Primo Problema</div>
+                                    <div class="problema-preview-row">
+                                        <div class="problema-preview-label">Dati</div>
+                                        <div class="problema-preview-badges">
+                                            <span class="badge-dati">φa</span>
+                                            <span class="badge-dati">λa</span>
+                                            <span class="badge-dati">TC</span>
+                                            <span class="badge-dati">D</span>
+                                        </div>
+                                    </div>
+                                    <div class="problema-preview-row">
+                                        <div class="problema-preview-label">Incognite</div>
+                                        <div class="problema-preview-badges">
+                                            <span class="badge-incognite">Δφ</span>
+                                            <span class="badge-incognite">φb</span>
+                                            <span class="badge-incognite">φm</span>
+                                            <span class="badge-incognite">Δλ</span>
+                                            <span class="badge-incognite">λb</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="problema-preview-card">
+                                    <div class="problema-preview-title">Secondo Problema</div>
+                                    <div class="problema-preview-row">
+                                        <div class="problema-preview-label">Dati</div>
+                                        <div class="problema-preview-badges">
+                                            <span class="badge-dati">φa</span>
+                                            <span class="badge-dati">λa</span>
+                                            <span class="badge-dati">φb</span>
+                                            <span class="badge-dati">λb</span>
+                                        </div>
+                                    </div>
+                                    <div class="problema-preview-row">
+                                        <div class="problema-preview-label">Incognite</div>
+                                        <div class="problema-preview-badges">
+                                            <span class="badge-incognite">Δφ</span>
+                                            <span class="badge-incognite">Δλ</span>
+                                            <span class="badge-incognite">φm</span>
+                                            <span class="badge-incognite">TCq</span>
+                                            <span class="badge-incognite">D</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
             }
             if (moduleId === 'ortodromia') {
                 return `<div class="reveal active"><div class="module-card"><div class="module-title"><i class="fas fa-earth-americas"></i> Ortodromia</div><div class="divider"></div><p style="text-align:center; padding:40px;">Modulo in fase di sviluppo</p></div></div>`;
