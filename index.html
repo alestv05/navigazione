@@ -1802,7 +1802,65 @@
             });
         }
 
-        // ---------- SETUP SOTTOMENU VENTO ----------
+        // ---------- OVERVIEW INTERCETTAMENTO ----------
+        function getIntercettamentoOverviewHTML() {
+            return `
+                <div class="info-message">
+                    <i class="fas fa-info-circle"></i> Seleziona una tipologia dal menu laterale per accedere al calcolatore
+                </div>
+                <div class="problemi-overview">
+                    <div class="problema-preview-card">
+                        <div class="problema-preview-title">Intercettamento Aereo/Aereo</div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Dati</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-dati">TB</span>
+                                <span class="badge-dati">D</span>
+                                <span class="badge-dati">TCi/o</span>
+                                <span class="badge-dati">W</span>
+                                <span class="badge-dati">V</span>
+                                <span class="badge-dati">TASi/e</span>
+                            </div>
+                        </div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Incognite</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-incognite">THi</span>
+                                <span class="badge-incognite">TCi</span>
+                                <span class="badge-incognite">FTi</span>
+                                <span class="badge-incognite">Di</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="problema-preview-card">
+                        <div class="problema-preview-title">Intercettamento Aereo/Nave</div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Dati</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-dati">TB</span>
+                                <span class="badge-dati">D</span>
+                                <span class="badge-dati">Rn(TCi/o)</span>
+                                <span class="badge-dati">Vn(GSi/o)</span>
+                                <span class="badge-dati">W</span>
+                                <span class="badge-dati">V</span>
+                                <span class="badge-dati">TASi/e</span>
+                            </div>
+                        </div>
+                        <div class="problema-preview-row">
+                            <div class="problema-preview-label">Incognite</div>
+                            <div class="problema-preview-badges">
+                                <span class="badge-incognite">THi</span>
+                                <span class="badge-incognite">TCi</span>
+                                <span class="badge-incognite">FTi</span>
+                                <span class="badge-incognite">Di</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+
         function setupVentoSubmenu() {
             document.querySelectorAll('.mobile-nav-links-vento a').forEach(link => {
                 link.addEventListener('click', (e) => {
@@ -1870,7 +1928,11 @@
                 }, 20);
             } else if (moduleId === 'intercettamento') {
                 mobileMenuIntercettamento.style.display = 'block';
-                setTimeout(() => { setupIntercettamentoSubmenu(); }, 20);
+                setTimeout(() => {
+                    const detailDiv = document.getElementById('intercettamentoDetailContainer');
+                    if (detailDiv) detailDiv.innerHTML = getIntercettamentoOverviewHTML();
+                    setupIntercettamentoSubmenu();
+                }, 20);
             } else if (moduleId === 'pnr') {
                 mobileMenuPnr.style.display = 'block';
                 setTimeout(() => {
